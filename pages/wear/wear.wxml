@@ -23,10 +23,10 @@
                   <!-- 正面内容 -->
                   <view class="sideWrap front">
                     <!-- 卡片 -->
-                    <view class='posterGroup' >
+                    <view class='frontGroup' >
                       <view class="label">{{item.label}}</view>
                       <view class="upper-wear">
-                        <image src="{{item.upperCloth}}"></image>
+                        <image src="{{item.upperCloth}}" style="width: 300rpx; height:300rpx;"></image>
                       </view>
                       <view class="down-wear">
                         <image src="{{item.downCloth}}"></image>

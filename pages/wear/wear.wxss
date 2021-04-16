@@ -44,14 +44,14 @@
 .flipGroup.on .flipBox{ transform:rotateY(-180deg); }  
 
 
-/* 海报展示图 */
-.posterGroup{ 
+/* 搭配展示正面卡片 */
+.frontGroup{ 
   width: 100%; 
   text-align:left; 
   border-radius: 8rpx; 
   overflow: hidden; 
-  border: solid red 5rpx; 
 }
+.upper-cloth{ margin: 15%; display: flex; text-align: center;  vertical-align: center; justify-content: center; align-items: center; border: solid black 3rpx;}
 
 /* backGroup */
 .backGroup{ text-align: left; font-size: 28rpx;  background: #ccc; }
