@@ -1,0 +1,12 @@
+<!--pages/add/add.wxml-->
+<view class="container" bindtap="close">
+  <view class="select-wrap">
+    <select id="select" 
+            options="{{clothOptions}}" 
+            key="clothId" 
+            text="clothName" 
+            defaultId="{{clothSelected.clothId}}"
+            defaultName ="{{clothSelected.clothName}}"
+            bind:change="change"></select>
+  </view>
+</view>

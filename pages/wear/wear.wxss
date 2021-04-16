@@ -1,0 +1,58 @@
+/* pages/wear/wear.wxss */
+.info {
+  position: absolute;
+  top: 10rpx;
+  right: 20rpx;
+  width: 45rpx;
+  height: 45rpx;
+  border-radius: 50%;
+  background: pink;
+  z-index:1;
+}
+
+.weather{
+  margin-top: 40rpx;
+  line-height: 55rpx;
+  border: solid black 1rpx;
+}
+
+
+.cloth{
+  margin: 40rpx 50rpx 40rpx 50rpx;
+  padding:  0 10rpx;
+  line-height: 70rpx;
+}
+
+.cloth-card{
+  margin: 0rpx 40rpx;
+  width: 550rpx;
+  white-space: nowrap;
+  background: pink;
+}
+
+
+/* 滑动区域 */
+.swiper-item{ width: 450rpx; text-align: center;  margin:30rpx 0 0 30rpx; padding: 10rpx;}
+.boxItem{ display: flex; text-align: center;  vertical-align: center; justify-content: center; align-items: center; width: 100%;  height: 100%;  padding: 0rpx; overflow-wrap: break-word; word-wrap: break-word; }
+
+/* 翻转区域 */
+.flipGroup{ width: 100%; perspective: 3500rpx;}
+.flipBox{ width: 100%; backface-visibility: visible; transition: all 1s ease; transform-style: preserve-3d; }
+.sideWrap{ width: 100%; height:100%; position: absolute; left: 0; top: 0; border-radius: 10rpx; overflow: hidden; }
+.sideWrap.front{ background:#fff; }
+.sideWrap.back{ backface-visibility: visible; transform:rotateY(180deg); background: #fff; }
+.flipGroup.on .flipBox{ transform:rotateY(-180deg); }  
+
+
+/* 海报展示图 */
+.posterGroup{ 
+  width: 100%; 
+  text-align:left; 
+  border-radius: 8rpx; 
+  overflow: hidden; 
+  border: solid red 5rpx; 
+}
+
+/* backGroup */
+.backGroup{ text-align: left; font-size: 28rpx;  background: #ccc; }
+

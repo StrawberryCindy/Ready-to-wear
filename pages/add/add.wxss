@@ -1,0 +1,18 @@
+/* pages/add/add.wxss */
+page {
+  height: 100%;
+}
+
+.select-wrap {
+  width: 300rpx;
+}
+
+.selected {
+  margin-top: 50%;
+}
+
+/*.cloth {
+  display: inline-block;
+  height: 100rpx;
+  border: solid 1rpx blue;
+}*/

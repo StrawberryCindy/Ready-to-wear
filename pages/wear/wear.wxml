@@ -1,0 +1,57 @@
+<!--pages/wear/wear.wxml-->
+<view class="wear">
+  <view class="info" bindtap="showInfo">
+    <image src='../../icons/info.png' style="width:45rpx; height:45rpx;" bindtap="goInf"></image>
+  </view>
+  <view class="weather" bindtap='gotoWeather'>{{weatherInfoB.date}} {{weatherInfoB.temperature}} {{weatherInfoB.weather}}</view>
+  <view class="cloth" style="height: {{windowHeight-175}}rpx;">
+    <text>推荐穿搭</text>
+    <swiper previous-margin="0rpx" 
+            next-margin="60rpx" 
+            bindchange="bannerSwiper"  
+            class="cloth-card" 
+            style="height: {{windowHeight-250}}rpx;">
+      <swiper-item class="item" wx:for="{{ bannerData }}" wx:key="{{ index }}">
+          <view class="swiper-item" style="height: {{windowHeight-320}}rpx;">
+            <view class='boxItem column'>
+              <!-- 卡牌 -->
+              <view class="flipGroup  {{ item.isOpenFilp ? 'on':''}}" 
+                    style="height: 100%;"
+                    catchtap='switchFlip' 
+                    data-index='{{ index }}'>
+                <view class="flipBox" style="height: 100%;">
+                  <!-- 正面内容 -->
+                  <view class="sideWrap front">
+                    <!-- 卡片 -->
+                    <view class='posterGroup' >
+                      <view class="label">{{item.label}}</view>
+                      <view class="upper-wear">
+                        <image src="{{item.upperCloth}}"></image>
+                      </view>
+                      <view class="down-wear">
+                        <image src="{{item.downCloth}}"></image>
+                      </view>
+                      <view class="shoes">
+                        <image src="{{item.shoes}}"></image>
+                      </view>
+                    </view>
+                    <!-- / 卡片 -->
+                  </view>
+                  <!-- 背面内容 -->
+                  <view class="sideWrap back">
+                    <!-- detail -->
+                    <view class='backGroup'>
+                      <text>TIPS--</text>
+                      <view class="tips">{{item.tips}}</view>
+                    </view>   
+                  </view>
+                </view>
+              </view>
+
+            </view>
+          </view>
+        </swiper-item>
+
+    </swiper>
+  </view>
+</view>

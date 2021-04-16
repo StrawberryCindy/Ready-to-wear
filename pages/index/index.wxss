@@ -1,0 +1,84 @@
+/**index.wxss**/
+.userinfo {
+  padding: 40rpx 100rpx 40rpx;
+  width: 100%;
+  height: 128rpx;
+  border-bottom: solid 4rpx black;
+  position: absolute;
+  z-index: 1;
+  background: white;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  display: inline;
+  position: relative;
+  color: #aaa;
+  margin-left: 50rpx;
+  top: -50rpx;
+  overflow: hidden;
+}
+
+.scroll-y{
+  position: absolute;
+  margin-top: 208rpx;
+}
+
+.cloth{
+  margin: 40rpx 50rpx;
+  width: auto;
+  padding: 50rpx;
+  display: block;
+  overflow: hidden;
+}
+
+.cloth-design{
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.cloth-icon{
+  display: inline-block;
+  width: 150rpx;
+  height: 150rpx;
+  padding: 25rpx;
+  border: solid pink 3rpx;
+}
+
+/*使屏幕变暗 */
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 2;
+  color: #fff;
+  }
+  /*对话框 */
+  .commodity_attr_box {
+  height: 200rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  background: #fff;
+  }
+
+  /*弹窗内部样式*/
+  .modal{
+    text-align: center;
+    line-height: 100rpx;
+    height: 100rpx;
+  }

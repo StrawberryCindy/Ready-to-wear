@@ -1,0 +1,62 @@
+<!--index.wxml-->
+<view>
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" 
+            open-type="getUserInfo" 
+            bindgetuserinfo="getUserInfo"
+            style='margin-left:0rpx; width:400rpx;'> 获取头像昵称 </button>
+    <view wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <view class="userinfo-nickname">
+      <text>{{userInfo.nickName}}
+      </text>
+      </view>
+    </view>
+  </view>
+  <scroll-view class='scroll-y' 
+                scroll-y="true"
+                scroll-into-view="{{toView}}" 
+                scroll-top="{{scrollTop}}"
+                style="height: {{windowHeight-208}}rpx;">
+    <view class="cloth" 
+          style='border-bottom:solid red 3rpx' 
+          wx:for="{{cloth}}" wx:key="id">
+      <text>{{item.kind}}</text>
+      <scroll-view class='cloth-design' 
+                    scroll-x="true"
+                    style="width:100%">
+        <view wx:for="{{item.contents}}" 
+              wx:key="j"
+              class="cloth-icon"
+              wx:for-item="content"
+              bindlongpress="handleLongPress">
+              <image src="{{content.src}}" 
+                      style='width:100rpx; height:100rpx'>
+              </image>
+        </view>
+        <view class='cloth-icon'
+              bindtap="addNew"
+              id="{{item.id}}">
+          <image src='../../icons/add.png' 
+                  style='width:100rpx; height:100rpx'></image>
+        </view>
+      </scroll-view>
+    </view>
+  </scroll-view>
+  <!--屏幕背景变暗的背景 -->
+  <view class="commodity_screen" 
+        bindtap="hideModal" 
+        wx:if="{{showModalStatus}}"></view>
+  <!--弹出框 -->
+  <view animation="{{animationData}}" 
+        class="commodity_attr_box" 
+        wx:if="{{showModalStatus}}">
+        <view bindtap="modalDelete" 
+              class='modal' 
+              style='background:red;'>删除
+        </view>
+        <view bindtap="modalCancel" 
+              class='modal'>取消
+        </view>
+  </view>
+</view>
