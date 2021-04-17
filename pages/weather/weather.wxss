@@ -1,75 +1,204 @@
 /* pages/weather/weather.wxss */
-/**common css**/
-.w{
+.weather {
+  min-height: 96vh;
+  width: 94vw;
+  padding: 2vh 3vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: -webkit-linear-gradient(top, pink, white);
   color: white;
 }
-.b{
-  font-weight: bold;
-}
- 
-.l{
-  border: 1rpx solid #fff;
-}
- 
-.center{
-  text-align: center;
-  margin: auto 0;
-}
- 
-.hor{
+
+/* 头部 */
+.weather .header {
+  height: 4vh;
+  width: 100%;
+  margin-bottom: 2vh;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
- 
-.f50{
-  font-size: 50rpx;
+
+/* 信息 */
+.weather .header .info {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
- 
-/**index css**/
- 
- 
-.bg {
+
+/* 定位图标 */
+.weather .header .info .localImg {
+  height: 40rpx;
+  width: 40rpx;
+}
+
+/* 城市名 */
+.weather .header .info .city {
+  font-size: 35rpx;
+  margin-left: 1vw;
+}
+
+/* 日期 */
+.weather .header .info .date {
+  font-size: 30rpx;
+  margin-left: 1vw;
+}
+
+/* 更新 */
+.weather .header .update {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 9pt;
+  color: #707070;
+}
+
+/* 更新图片 */
+.weather .header .update .refreshImg {
+  height: 22rpx;
+  width: 22rpx;
+  margin-left: 1vw;
+}
+
+/* 今日天气 */
+.weather .today {
+  height: 43vh;
   width: 100%;
-  height: 700rpx;
+  margin-bottom: 2vh;
 }
- 
-.temp{
-  font-size: 170rpx;
-}
- 
-.container {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  height: 700rpx;
-  display: block;
-}
- 
-.nowWeather{
-  padding: 60rpx;
-}
- 
-.weahterDetail{
+
+.weather .today .baseInfo {
+  height: 22vh;
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  position: absolute;
-  bottom: 50rpx;
+  align-items: center;
 }
- 
-.forcast{
-  padding: 30rpx;
-  margin-left: 16rpx;
-  margin-right: 16rpx;
-  border-bottom: 1rpx solid #eee;
-  justify-content: space-around;
+
+/* 温度 */
+.weather .today .baseInfo .temperature {
+  height: 100%;
+  width: 37.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 150rpx;
 }
- 
-.img{
-  width: 60rpx;
-  height: 60rpx;
-  margin-right: 16rpx;
+
+/* ℃ */
+.weather .today .baseInfo .temperature .symbol {
+  font-size: 20pt;
+  align-self: flex-start;
+  padding-top: 5vh;
+}
+
+/* 天气图片 */
+.weather .today .baseInfo .weatherImg {
+  height: 100%;
+  width: 37.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather .today .baseInfo .weatherImg .img {
+  height: 176.25rpx;
+  width: 176.25rpx;
+}
+
+/* 温度详情 */
+.weather .today .baseInfo .detail {
+  height: 100;
+  width: 25%;
+  padding-left: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 20rpx;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.weather .today .baseInfo .detail .type {
+  height: 6vh;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 50rpx;
+}
+
+.weather .today .baseInfo .detail .temperature {
+  height: 6vh;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 10pt;
+}
+
+/* 更多信息 */
+.weather .today .moreInfo {
+  height: 20vh;
+  width: 100%;
+  margin-top: 1vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20rpx;
+  background-color: rgba(0, 0, 0, 0.03);
+  font-size: 10pt;
+}
+
+.weather .today .moreInfo .item {
+  height: 50%;
+  width: 32%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather .today .moreInfo .separator {
+  height: 50rpx;
+  width: 2rpx;
+  border-left: 2rpx solid gray;
+}
+
+/* 出行建议 */
+.weather .suggestion {
+  height: 14vh;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20rpx;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.weather .suggestion .item {
+  height: 14vh;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather .suggestion .icon {
+  height: 80rpx;
+  width: 80rpx;
+}
+
+.weather .suggestion .type {
+  font-size: 8pt;
+  color: gray;
+}
+
+.weather .suggestion .content {
+  font-size: 10pt;
 }

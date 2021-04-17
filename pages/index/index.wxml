@@ -1,15 +1,14 @@
 <!--index.wxml-->
 <view>
   <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" 
-            open-type="getUserInfo" 
-            bindgetuserinfo="getUserInfo"
-            style='margin-left:0rpx; width:400rpx;'> 获取头像昵称 </button>
+    <view wx:if="{{!hasUserInfo}}" >
+      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
+      <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    </view>
     <view wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
       <view class="userinfo-nickname">
-      <text>{{userInfo.nickName}}
-      </text>
+            <text>{{userInfo.nickName}}</text>
       </view>
     </view>
   </view>

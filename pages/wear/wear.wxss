@@ -51,7 +51,7 @@
   border-radius: 8rpx; 
   overflow: hidden; 
 }
-.upper-cloth{ margin: 15%; display: flex; text-align: center;  vertical-align: center; justify-content: center; align-items: center; border: solid black 3rpx;}
+.upper-wear{ margin: 15%; display: flex; text-align: center;  vertical-align: center; justify-content: center; align-items: center; }
 
 /* backGroup */
 .backGroup{ text-align: left; font-size: 28rpx;  background: #ccc; }

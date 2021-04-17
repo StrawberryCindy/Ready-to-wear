@@ -11,7 +11,7 @@
             bindchange="bannerSwiper"  
             class="cloth-card" 
             style="height: {{windowHeight-250}}rpx;">
-      <swiper-item class="item" wx:for="{{ bannerData }}" wx:key="{{ index }}">
+      <swiper-item class="item" wx:for="{{ bannerData }}" wx:key="id">
           <view class="swiper-item" style="height: {{windowHeight-320}}rpx;">
             <view class='boxItem column'>
               <!-- 卡牌 -->
