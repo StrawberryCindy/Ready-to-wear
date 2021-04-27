@@ -14,37 +14,18 @@ Page({
     cloth: [
       {
         id: 1,
-        kind: '上衣',
-        contents: [
-          {
-            src:"../../icons/Tshirt.png"
-          },
-          {
-            src: "../../icons/Tshirt.png"
-          }
-        ]
+        kind: '短袖',
+        contents: [{  src:"../../icons/Tshirt.png" },  {  src: "../../icons/Tshirt.png" }]
       },
       {
-        id: 2,
-        kind: '下衣',
-        contents: [{
-          src: "../../icons/skirt.png"
-        }]
+        id: 4,
+        kind: '短裙',
+        contents: [{  src: "../../icons/skirt.png" }]
       },
       {
-        id: 3,
+        id: 5,
         kind: '连衣裙',
-        contents: [
-          {
-            src: "../../icons/dress.png"
-          },
-          {
-            src: "../../icons/dress.png"
-          },
-          {
-            src: "../../icons/dress.png"
-          }
-        ]
+        contents: [{  src: "../../icons/dress.png" },{  src: "../../icons/dress.png" },{  src: "../../icons/dress.png" }]
       }
       ]
   },
@@ -63,10 +44,10 @@ Page({
     this.hideModal();
   },
   addNew: function(e) {
-    console.log(e.currentTarget.id)
-    let id = e.currentTarget.id
+    // 传递对象参数要转成json格式
+    var clothSelected = JSON.stringify( e.currentTarget.dataset)
     wx.navigateTo({
-      url: "../add/add?id=" +id,
+      url: "../add/add?clothSelected=" + clothSelected,
     })
   },
   //事件处理函数

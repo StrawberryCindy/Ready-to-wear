@@ -18,17 +18,12 @@
 
 
 .cloth{
-  margin: 40rpx 50rpx 40rpx 50rpx;
+  margin: 40rpx 50rpx 20rpx 50rpx;
   padding:  0 10rpx;
   line-height: 70rpx;
 }
 
-.cloth-card{
-  margin: 0rpx 40rpx;
-  width: 550rpx;
-  white-space: nowrap;
-  background: pink;
-}
+.cloth-card{ margin: 0rpx 40rpx; width: 550rpx; white-space: nowrap; }
 
 
 /* 滑动区域 */
@@ -39,20 +34,18 @@
 .flipGroup{ width: 100%; perspective: 3500rpx;}
 .flipBox{ width: 100%; backface-visibility: visible; transition: all 1s ease; transform-style: preserve-3d; }
 .sideWrap{ width: 100%; height:100%; position: absolute; left: 0; top: 0; border-radius: 10rpx; overflow: hidden; }
-.sideWrap.front{ background:#fff; }
-.sideWrap.back{ backface-visibility: visible; transform:rotateY(180deg); background: #fff; }
+.sideWrap.front{ background:#fff; border-radius: 15rpx;}
+.sideWrap.back{ backface-visibility: visible; transform:rotateY(180deg); background: #fff; border-radius: 15rpx;}
 .flipGroup.on .flipBox{ transform:rotateY(-180deg); }  
 
 
 /* 搭配展示正面卡片 */
 .frontGroup{ 
-  width: 100%; 
-  text-align:left; 
-  border-radius: 8rpx; 
-  overflow: hidden; 
+  width: 100%; text-align:left; border-radius: 15rpx; overflow: hidden; background-color: rgb(255, 238, 224); height: 100%; overflow:hidden;
 }
-.upper-wear{ margin: 15%; display: flex; text-align: center;  vertical-align: center; justify-content: center; align-items: center; }
-
+.upper-wear{ margin: 2vh 15% 1vh; display: flex; width: 68%; height: 20vh; border:1px solid #d3d3d3;}
+.down-wear { display: flex; margin: 0 15%; width: 68%; height: 28vh; border:1px solid #d3d3d3;}
+  
 /* backGroup */
-.backGroup{ text-align: left; font-size: 28rpx;  background: #ccc; }
+.backGroup{ text-align: left; font-size: 28rpx;  background: #ccc; height: 100%; }
 

@@ -1,8 +1,7 @@
 /**index.wxss**/
 .userinfo {
-  padding: 40rpx 100rpx 40rpx;
   width: 100%;
-  height: 128rpx;
+  height: 208rpx;
   border-bottom: solid 4rpx black;
   position: absolute;
   z-index: 1;

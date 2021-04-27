@@ -1,11 +1,11 @@
 <!--index.wxml-->
 <view>
   <view class="userinfo">
-    <view wx:if="{{!hasUserInfo}}" >
+    <view wx:if="{{!hasUserInfo}}" style="padding:40rpx 0 40rpx;">
       <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
       <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     </view>
-    <view wx:else>
+    <view wx:else style="padding: 40rpx 100rpx 40rpx;">
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
       <view class="userinfo-nickname">
             <text>{{userInfo.nickName}}</text>
@@ -35,7 +35,8 @@
         </view>
         <view class='cloth-icon'
               bindtap="addNew"
-              id="{{item.id}}">
+              data-id="{{item.id}}"
+              data-name="{{item.kind}}">
           <image src='../../icons/add.png' 
                   style='width:100rpx; height:100rpx'></image>
         </view>

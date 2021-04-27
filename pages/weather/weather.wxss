@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: -webkit-linear-gradient(top, pink, white);
   color: white;
 }
 
@@ -53,7 +52,6 @@
   justify-content: flex-end;
   align-items: center;
   font-size: 9pt;
-  color: #707070;
 }
 
 /* 更新图片 */
@@ -82,10 +80,11 @@
 .weather .today .baseInfo .temperature {
   height: 100%;
   width: 37.5%;
+  margin-left: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 150rpx;
+  font-size: 130rpx;
 }
 
 /* ℃ */
@@ -110,15 +109,14 @@
 }
 
 /* 温度详情 */
-.weather .today .baseInfo .detail {
-  height: 100;
-  width: 25%;
-  padding-left: 2vw;
+.weather .today .detail {
+  width: 100%;
+  margin: 2vw 0 2vh 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 20rpx;
-  background-color: rgba(0, 0, 0, 0.03);
+  align-items: center;
+  line-height: 5vh;
 }
 
 .weather .today .baseInfo .detail .type {
@@ -127,7 +125,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 50rpx;
 }
 
 .weather .today .baseInfo .detail .temperature {
@@ -136,10 +133,11 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 10pt;
 }
 
-/* 更多信息 */
+/* 气象信息 */
+.weather .today .moreInfo-block { width:100%; background-color: rgba(0, 0, 0, 0.05); border-radius: 20rpx; height: 28vh;padding-top: 2vh;}
+.weather .today .moreInfo-title { margin-left: 20rpx; font-size: 35rpx; line-height: 6vh; letter-spacing: 8rpx;}
 .weather .today .moreInfo {
   height: 20vh;
   width: 100%;
@@ -148,8 +146,6 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  border-radius: 20rpx;
-  background-color: rgba(0, 0, 0, 0.03);
   font-size: 10pt;
 }
 
@@ -169,6 +165,9 @@
 }
 
 /* 出行建议 */
+.weather .suggestion-block { width: 100%;  background-color: rgba(0, 0, 0, 0.08) ; margin-top: 2vh; 
+  border-radius: 20rpx; padding-bottom:2vh; padding-top: 1vh;}
+.weather .suggestion-title { margin-left: 20rpx; margin-top: 0vh; font-size: 35rpx; line-height: 6vh; letter-spacing: 8rpx;}
 .weather .suggestion {
   height: 14vh;
   width: 100%;
@@ -176,8 +175,6 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  border-radius: 20rpx;
-  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .weather .suggestion .item {
@@ -196,9 +193,11 @@
 
 .weather .suggestion .type {
   font-size: 8pt;
-  color: gray;
+  line-height: 50rpx;
+  color: rgb(180, 180, 180);
 }
 
 .weather .suggestion .content {
-  font-size: 10pt;
+  font-size: 8pt;
+  color: rgb(143, 143, 143);
 }

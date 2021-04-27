@@ -25,15 +25,9 @@
                     <!-- 卡片 -->
                     <view class='frontGroup' >
                       <view class="label">{{item.label}}</view>
-                      <view class="upper-wear">
-                        <image src="{{item.upperCloth}}" style="width: 300rpx; height:300rpx;"></image>
-                      </view>
-                      <view class="down-wear">
-                        <image src="{{item.downCloth}}"></image>
-                      </view>
-                      <view class="shoes">
-                        <image src="{{item.shoes}}"></image>
-                      </view>
+                      <canvas class="upper-wear" type="2d" id="myCanvas"></canvas>
+                      <canvas class="down-wear" type="2d"></canvas>
+                      <canvas class="shoes" type="2d"></canvas>
                     </view>
                     <!-- / 卡片 -->
                   </view>

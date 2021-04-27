@@ -1,12 +1,33 @@
 <!--pages/add/add.wxml-->
-<view class="container" bindtap="close">
+<view bindtap="close">
   <view class="select-wrap">
-    <select id="select" 
-            options="{{clothOptions}}" 
-            key="clothId" 
-            text="clothName" 
-            defaultId="{{clothSelected.clothId}}"
-            defaultName ="{{clothSelected.clothName}}"
-            bind:change="change"></select>
+    <view class="select-box">种类：
+      <select id="selectCloth" 
+              content="{{clothContent}}" 
+              selected="{{clothContent.selected}}"
+              bind:change="changeCloth"></select>
+    </view>
+    <view class="select-box">长度：
+      <select id="selectLength"
+              content="{{lengthContent}}"
+              selected="{{lengthContent.selected}}"
+              bind:change="change"></select>
+    </view>
+    <view class="select-box">款式：
+      <select id="selectStyle"
+              content="{{tightContent}}"
+              selected="{{tightContent.selected}}"
+              bind:change="change"></select>
+    </view>
+    <view class="select-box">厚度：
+      <select id="selectStyle"
+              content="{{thiContent}}"
+              selected="{{thiContent.selected}}"
+              bind:change="change"></select>
+    </view>
+    <view class="color-box">色彩：
+      <view style="background:{{rgb}};width:100px;height:24px;" bindtap="toPick"></view>
+<color-picker bindchangeColor="pickColor" initColor="{{rgb}}" show="{{pick}}" />
+    </view>
   </view>
 </view>

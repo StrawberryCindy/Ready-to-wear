@@ -1,45 +1,37 @@
 Component({
   properties: {
-    options: {
-      type: Array,
-      value: []
+    content: {
+      type: Object,
+      value: {}
     },
-    defaultId: {
-      type: Number,
-      value: 0
-    },
-    defaultName: {
-      type: String,
-      value: 'prop'
-    },
-    key: {
-      type: String,
-      value: 'id'
-    },
-    text: {
-      type: String,
-      value: 'name'
+    selected:{
+      type: Object,
+      value: {}
     }
+    // 传入的数据结构为
+    // contents :{
+    //  options: { id: int, name: text },
+    //  selected: {},
+    // }
   },
   data: {
-    result: [],
     isShow: false,
-    current: {},
     defaultOption: {
-      id: 99,
-      name: 'data'
+      id: 0,
+      name: '请选择'
     }
   },
   methods: {
     optionTap(e) {
       let dataset = e.target.dataset
       this.setData({
-        current: dataset,
-        isShow: false
-      });
+        selected: dataset
+      })
 
       // 调用父组件方法，并传参
       this.triggerEvent("change", { ...dataset })
+      console.log(this.data.selected)
+      this.close()
     },
     openClose() {
       this.setData({
@@ -55,25 +47,11 @@ Component({
     }
   },
   lifetimes: {
-    attached() {
-      console.log(this.properties.defaultId)
-      this.data.defaultOption.id = this.properties.defaultId
-      this.data.defaultOption.name = this.properties.defaultName  
-      console.log(this.data.defaultOption)
-      // 属性名称转换, 如果不是 { id: '', name:'' } 格式，则转为 { id: '', name:'' } 格式
-      let result = []
-      if (this.data.key !== 'id' || this.data.text !== 'name') {
-        for (let item of this.data.options) {
-          let { [this.data.key]: id, [this.data.text]: name } = item
-          result.push({ id, name })
-        }
-      }
-      this.setData({
-        current: Object.assign({}, this.data.defaultOption),
-        result: result
-      })
-    },
-    ready() {
+    // 组件生命周期声明对象，将组件的生命周期收归到该字段进行声明，原有声明方式仍旧有效，如同时存在两种声明方式，则lifetimes字段内声明方式优先级最高
+    attached: function () {
     }
+  },
+  observers: {
+   
   }
 })

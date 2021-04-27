@@ -5,38 +5,89 @@ Page({
    * 页面的初始数据
    */
   data: {
-    clothOptions:[
-      {
-        clothId: 1,
-        clothName: '上衣',
-      },
-      {
-        clothId: 2,
-        clothName: '下衣',
-      }, 
-      {
-        clothId: 3,
-        clothName: '连衣裙',
-      }
-    ],
-    clothSelected: {}
+    clothContent:{
+      options: [
+        {  id: 1,  name: '短袖'  },
+        {  id: 2,  name: '长袖'  }, 
+        {  id: 3,  name: '裤子'  }, 
+        {  id: 4,  name: '半身裙'  }, 
+        {  id: 5,  name: '连衣裙'  },
+        {  id: 6,  name: '毛衣'  }, 
+        {  id: 7,  name: '夹克'  }, 
+        {  id: 8,  name: '西装外套'  }, 
+        {  id: 9,  name: '羽绒服'  }, 
+      ],
+      selected: {id: 0, name: ''}
+    },
+    lengthContent: {
+      options: [
+        { id: 1, name: '短款'},
+        { id: 2, name: '适中'},
+        { id: 3, name: '长款'}
+      ],
+      selected: {id: 0, name: ''}
+    },
+    tightContent: {
+      options: [
+        { id: 1, name: '修身'},
+        { id: 2, name: '宽松'}
+      ],
+      selected: {id: 0, name: ''}
+    },
+    thiContent: {
+      options: [
+        { id: 1, name: '薄'},
+        { id: 2, name: '适中'},
+        { id: 3, name: '厚'}
+      ],
+      selected: {id: 0, name: ''}
+    },
+    rgb: 'rgb(0,154,97)',//初始值
+    pick: false
   },
-  change(e) {
+  // 显示取色器
+  toPick: function () {
     this.setData({
-      clothSelected: { ...e.detail }
+      pick: true
     })
+  },
+  //取色结果回调
+  toPick: function () {
+    this.setData({
+      pick: true
+    })
+  },
+  pickColor(e) {
+    this.setData({
+      rgb: e.detail.color
+    })
+  },
+  changeStyle (e) {
+    console.log(e)
+    this.data.styleContent.selected = e.detail
   },
   close() {
     // 关闭select
-    this.selectComponent('#select').close()
+    this.selectComponent('#selectCloth').close()
+  },
+
+  //选择改色时触发（在左侧色盘触摸或者切换右侧色相条）
+  onChangeColor(e) {
+    //返回的信息在e.detail.colorData中
+    this.setData({
+      colorData: e.detail.colorData
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    that.data.clothSelected = that.data.clothOptions[this.options.id - 1];
-    console.log(that.data.clothSelected)
+    // 对 从个人页面传参 route进来的 对象进行 解json操作
+    var clothSelected =  JSON.parse(options.clothSelected);
+    console.log(clothSelected)
+    this.setData({
+      'clothContent.selected' : clothSelected
+    })
   },
 
   /**

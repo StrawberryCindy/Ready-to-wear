@@ -1,5 +1,5 @@
 <!--pages/weather/weather.wxml-->
-<view class="weather">
+<view class="weather" style="background: -webkit-linear-gradient(top, {{weatherTheme}}, white);">
 	<!-- 地址、时间、更新时间 -->
 	<view class="header">
 		<!-- 地址、时间 -->
@@ -10,7 +10,7 @@
 		</view>
 		<!-- 更新时间、刷新按钮 -->
 		<view class="update" bindtap="onRefreshBtnClick">{{weatherInfo.now.temperature_time}} 更新
-			<image class="refreshImg" src="../../images/refresh.png"></image>
+			<image class="refreshImg" src="../../icons/weather/refresh.png"></image>
 		</view>
 	</view>
 
@@ -25,17 +25,18 @@
 			<view class="weatherImg">
 				<image class="img" src="{{weatherInfo.now.weather_pic}}"></image>
 			</view>
-			<!-- 全天 -->
-			<view class="detail">
-				<view class="type">{{weatherInfo.now.weather}}</view>
-				<view class="temperature">白天：{{weatherInfo.today.day_air_temperature}} ℃</view>
-				<view class="temperature">夜晚：{{weatherInfo.today.night_air_temperature}} ℃</view>
-			</view>
 		</view>
-		<!-- 其他信息 -->
+
+		<!-- 全天 -->
+		<view class="detail">
+			<view class="type">{{weatherInfo.now.weather}}</view>
+			<view class="temperature">白天：{{weatherInfo.today.day_air_temperature}} ℃  夜晚：{{weatherInfo.today.night_air_temperature}} ℃</view>
+		</view>
+
+		<!-- 气象信息 -->
 		<view class="moreInfo-block">
       <!-- 1 -->
-      <view>气象信息</view>
+      <view class="moreInfo-title">气象信息</view>
       <view class="moreInfo">
         <view class="item">空气：{{weatherInfo.now.aqiDetail.quality}}</view>
         <view class="separator"></view>
@@ -47,38 +48,41 @@
         <view class="separator"></view>
         <view class="item">风向：{{weatherInfo.now.wind_direction}}</view>
         <view class="separator"></view>
-        <view class="item">{{weatherInfo.today.day_wind_power}}</view>
+        <view class="item">风力：{{weatherInfo.today.day_wind_power}}</view>
       </view>
 		</view>
-	</view>
 
-	<!-- 出行建议 -->
-	<view class="suggestion">
-		<view class="item">
-			<image class="icon" src="../../images/suggestion/uv.png"></image>
-			<view class="type">紫外线指数</view>
-			<view class="content">{{ weatherInfo.today.index.uv.title}}</view>
+		<!-- 出行建议 -->
+		<view class="suggestion-block">
+			<view class="suggestion-title">出行建议</view>
+			<view class="suggestion"> 
+				<view class="item">
+					<image class="icon" src="../../icons/weather/uv.png"></image>
+					<view class="type">紫外线</view>
+					<view class="content">{{ weatherInfo.today.index.uv.title}}</view>
+				</view>
+				<view class="item">
+					<image class="icon" src="../../icons/weather/dressing.png"></image>
+					<view class="type">穿衣</view>
+					<view class="content">{{ weatherInfo.today.index.clothes.title}}</view>
+				</view>
+				<view class="item">
+					<image class="icon" src="../../icons/weather/sport.png"></image>
+					<view class="type">运动</view>
+					<view class="content">{{ weatherInfo.today.index.sports.title}}</view>
+				</view>
+				<view class="item">
+					<image class="icon" src="../../icons/weather/car_washing.png"></image>
+					<view class="type">洗车</view>
+					<view class="content">{{ weatherInfo.today.index.wash_car.title}}</view>
+				</view>
+				<view class="item">
+					<image class="icon" src="../../icons/weather/flu.png"></image>
+					<view class="type">感冒</view>
+					<view class="content">{{ weatherInfo.today.index.cold.title}}</view>
+				</view>
+			</view>
 		</view>
-		<view class="item">
-			<image class="icon" src="../../images/suggestion/dressing.png"></image>
-			<view class="type">穿衣指数</view>
-			<view class="content">{{ weatherInfo.today.index.clothes.title}}</view>
-		</view>
-		<view class="item">
-			<image class="icon" src="../../images/suggestion/sport.png"></image>
-			<view class="type">运动指数</view>
-			<view class="content">{{ weatherInfo.today.index.sports.title}}</view>
-		</view>
-		<view class="item">
-			<image class="icon" src="../../images/suggestion/car_washing.png"></image>
-			<view class="type">洗车指数</view>
-			<view class="content">{{ weatherInfo.today.index.wash_car.title}}</view>
-		</view>
-		<view class="item">
-			<image class="icon" src="../../images/suggestion/flu.png"></image>
-			<view class="type">感冒指数</view>
-			<view class="content">{{ weatherInfo.today.index.cold.title}}</view>
-		</view>
-	</view>
 
+	</view>
 </view>

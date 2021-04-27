@@ -19,7 +19,10 @@ Page({
       {
         'id': 1,
         'isOpenFilp': false, 
-        'upperCloth': "../../images/test.png"
+        'label': "通勤风",
+        'upperCloth': "/images/test.png",
+        'downCloth': "",
+        'shoes': ""
       },
       {
         'id': 2,
@@ -88,6 +91,30 @@ Page({
         })
       }
     });
+
+    const query = wx.createSelectorQuery()
+    query.select('#myCanvas')
+      .fields({ node: true, size: true })
+      .exec((res) => {
+        const canvas = res[0].node
+        const ctx = canvas.getContext('2d')
+
+        const dpr = wx.getSystemInfoSync().pixelRatio
+        canvas.width = res[0].width * dpr
+        canvas.height = res[0].height * dpr
+        ctx.scale(dpr, dpr)
+
+        //ctx.fillRect(0, 0, 100, 100)
+
+        const img  = canvas.createImage();
+        img.onLoad = () => {
+          console.log("1")
+          ctx.drawImage(img, 10, 10, 100, 100);
+        }
+        
+        img.src = this.data.bannerData[0].upperCloth;
+ 
+      })
   },
 
   /**

@@ -5,8 +5,53 @@ import config from '../../config/config.js';
 Page({
   data: {
     date: '',         // 日期
-    weatherInfo: {},  // 天气数据
+    weatherInfo: {
+      "city": {
+        id: 1,
+        name_en: '广州',
+        name: '天河'
+      },
+      today: {
+        day_wind_power: '3级',
+        air_press: '10Pa',
+        day_air_temperature: 23,
+        night_air_temperature: 18,
+        index: {
+          uv: {title:'较强'},
+          clothes: {title: '较热'},
+          sports: {title: '不适宜'},
+          wash_car: {title: '适宜'},
+          cold: {title:'不易发'}
+        }
+      },
+      "now": {
+        "aqiDetail": {
+          "co": 0.38,
+          "so2": 8,
+          "area": "丽江",
+          "o3": 42,
+          "no2": 9,
+          "area_code": "lijiang",
+          "quality": "优",
+          "aqi": 19,
+          "pm10": 18,
+          "pm2_5": 12,
+          "o3_8h": 37,
+          "primary_pollutant": ""
+        },
+        "weather_code": "03",
+        "wind_direction": "西北风",
+        "temperature_time": "16:01",
+        "wind_power": "1级",
+        "aqi": 19,
+        "sd": "70%",
+        "weather_pic": "http://appimg.showapi.com/images/weather/icon/day/03.png",
+        "weather": "阵雨",
+        "temperature": "21"
+      },
+    },  // 天气数据
     inputContent: '', // 输入框内容
+    weatherTheme: 'pink' // 根据天气修改的背景色
   },
 
   localCity: null,    // 本地城市
@@ -16,10 +61,11 @@ Page({
     this.checkVersion();  // 版本检查
     this.updateTime();    // 设置时间
     // 获取天气
+    // 获取天气
     if (options.city) {
-      this.searchByCity(options.city);
+      //this.searchByCity(options.city);
     } else {
-      this.getLocalCityWeacher();
+      //this.getLocalCityWeacher();
     }
   },
 
@@ -89,7 +135,11 @@ Page({
       header: config.request.header,
       success: (res) => {
         // 保存天气数据
-        this.setData({ weatherInfo: this.processData(res.data.showapi_res_body) });
+        var weatherArray = this.processData(res.data.showapi_res_body);
+        this.setData({ 
+          weatherInfo: weatherArray[0],
+          weatherTheme: weatherArray[1]
+        });
         this.localCity = res.data.showapi_res_body.cityInfo.c3;
         this.currentCity = res.data.showapi_res_body.cityInfo.c3;
         wx.hideToast();
@@ -101,10 +151,10 @@ Page({
     });
   },
 
-  /**
-   * 通过城市名查询天气
-   * @param {string} city 
-   */
+/**
+ * 通过城市名查询天气
+ * @param {string} city 
+ */
   searchByCity(city) {
     // 更新时间
     this.updateTime();
@@ -119,7 +169,11 @@ Page({
         if (res.data.showapi_res_body.ret_code == 0) {
           // 设置全局变量
           this.currentCity = res.data.showapi_res_body.cityInfo.c3
-          this.setData({ weatherInfo: this.processData(res.data.showapi_res_body) });
+          var weatherArray = this.processData(res.data.showapi_res_body);
+          this.setData({ 
+            weatherInfo: weatherArray[0],
+            weatherTheme: weatherArray[1]
+          });
         } else {
           wx.showModal({ title: '查询失败', content: '输入的城市名称有误，请重新输入！', showCancel: false });
         }
@@ -135,7 +189,7 @@ Page({
    * 刷新
    */
   refresh() {
-    this.searchByCity(this.currentCity);
+    //this.searchByCity(this.currentCity);
   },
 
   /**
@@ -151,17 +205,21 @@ Page({
     weatherInfo.city.name = data.cityInfo.c3;
     // 天气信息
     weatherInfo.now = data.now;
+    var weatherTheme = ''
+    switch (weatherInfo.now.weather_code) {
+      case '00' : weatherTheme = '#FFCC00';
+      break;
+      case '01': weatherTheme = '#CC9999';
+      break;
+      case '20', '29', '30', '31':  weatherTheme = '#CC9966';
+      break;
+      default:  weatherTheme = '#006699'
+    };
     weatherInfo.today = data.f1;
-    weatherInfo.forecast1 = [data.f2, data.f3, data.f4];
-    weatherInfo.forecast2 = [data.f5, data.f6, data.f7];
-    // 处理星期数
-    weatherInfo.forecast1[0].weekday = '明天';
-    weatherInfo.forecast1[1].weekday = '后天';
-    weatherInfo.forecast1[2].weekday = this.formatWeekday(weatherInfo.forecast1[2].weekday);
-    for (let i = 0; i < weatherInfo.forecast2.length; i++) {
-      weatherInfo.forecast2[i].weekday = this.formatWeekday(weatherInfo.forecast2[i].weekday);
-    }
-    return weatherInfo;
+    var weatherArray = new Array();
+    weatherArray.push(weatherInfo)
+    weatherArray.push(weatherTheme)
+    return weatherArray;
   },
 
   /**
