@@ -2,17 +2,26 @@
 page {
   height: 100%;
 }
-
+.block {
+  margin: 30rpx 100rpx;
+  height: 100rpx;
+}
 .select-wrap {
+  width: 300rpx;
+  margin: 20rpx 50rpx;
+  display: inline-block;
+}
+.select-name {
+  height: 100%;
+  font-size: 35rpx;
+  text-align: center;
+  line-height: 100rpx;
+  float: left;
+}
+.selected {
+  margin-top: 50%;
   width: 300rpx;
 }
 
-.selected {
-  margin-top: 50%;
-}
-
-/*.cloth {
-  display: inline-block;
-  height: 100rpx;
-  border: solid 1rpx blue;
-}*/
+/*预览框*/
+.show-block { margin: 30rpx 100rpx;  height: auto; }

@@ -58,6 +58,7 @@ Page({
     })
   },
   pickColor(e) {
+    console.log(e.detail.color)
     this.setData({
       rgb: e.detail.color
     })
@@ -68,7 +69,10 @@ Page({
   },
   close() {
     // 关闭select
-    this.selectComponent('#selectCloth').close()
+    this.selectComponent('#selectCloth').close();
+    this.selectComponent('#selectLength').close();
+    this.selectComponent('#selectStyle').close();
+    this.selectComponent('#selectThi').close();
   },
 
   //选择改色时触发（在左侧色盘触摸或者切换右侧色相条）
@@ -78,6 +82,14 @@ Page({
       colorData: e.detail.colorData
     })
   },
+  
+  // 确认添加衣服
+  confirm() {
+    wx.navigateBack({
+      delta: 0,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

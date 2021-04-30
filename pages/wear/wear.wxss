@@ -1,10 +1,6 @@
 /* pages/wear/wear.wxss */
 .info {
-  position: absolute;
-  top: 10rpx;
-  right: 20rpx;
-  width: 45rpx;
-  height: 45rpx;
+  position: absolute; top: 10rpx; right: 20rpx; width: 45rpx; height: 45rpx;
   border-radius: 50%;
   background: pink;
   z-index:1;
@@ -23,11 +19,11 @@
   line-height: 70rpx;
 }
 
-.cloth-card{ margin: 0rpx 40rpx; width: 550rpx; white-space: nowrap; }
+.cloth-card{ margin: 0rpx -50rpx; width: 700rpx; white-space: nowrap;}
 
 
 /* 滑动区域 */
-.swiper-item{ width: 450rpx; text-align: center;  margin:30rpx 0 0 30rpx; padding: 10rpx;}
+.swiper-item{ width: 550rpx; text-align: center;  margin:30rpx 75rpx; padding: 5rpx;}
 .boxItem{ display: flex; text-align: center;  vertical-align: center; justify-content: center; align-items: center; width: 100%;  height: 100%;  padding: 0rpx; overflow-wrap: break-word; word-wrap: break-word; }
 
 /* 翻转区域 */
@@ -41,10 +37,23 @@
 
 /* 搭配展示正面卡片 */
 .frontGroup{ 
-  width: 100%; text-align:left; border-radius: 15rpx; overflow: hidden; background-color: rgb(255, 238, 224); height: 100%; overflow:hidden;
+  width: 100%; text-align:left; border-radius: 15rpx; overflow: hidden; background-color: lightgray; height: 100%; overflow:hidden;
 }
-.upper-wear{ margin: 2vh 15% 1vh; display: flex; width: 68%; height: 20vh; border:1px solid #d3d3d3;}
-.down-wear { display: flex; margin: 0 15%; width: 68%; height: 28vh; border:1px solid #d3d3d3;}
+.label {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  background-color: cornsilk;
+  border-radius: 43%;
+  padding: 15rpx 0;
+  font-size: 30rpx;
+  color: grey;
+  letter-spacing: 5rpx;
+  writing-mode: vertical-rl;
+}
+.upper-wear2 { margin: 3vh 5rpx 1vh; display: flex; width: 305rpx; height: 280rpx; }
+.down-wear { display: flex; margin: -12vh -305rpx 1vh; width: 310rpx; height: 390rpx; }
+.outer-wear { width:305rpx; margin: 0vh 70rpx 0vh; display: flex; width: 305rpx; height: 280rpx; }
   
 /* backGroup */
 .backGroup{ text-align: left; font-size: 28rpx;  background: #ccc; height: 100%; }

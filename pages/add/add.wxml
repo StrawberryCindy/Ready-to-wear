@@ -1,33 +1,57 @@
 <!--pages/add/add.wxml-->
 <view bindtap="close">
-  <view class="select-wrap">
-    <view class="select-box">种类：
+  <view class="block">
+    <view class="select-name">种类：</view>
+    <view class="select-wrap">
       <select id="selectCloth" 
               content="{{clothContent}}" 
               selected="{{clothContent.selected}}"
               bind:change="changeCloth"></select>
     </view>
-    <view class="select-box">长度：
+  </view>
+  
+  <view class="block">
+    <view class="select-name">长度：</view>
+    <view class="select-wrap">
       <select id="selectLength"
               content="{{lengthContent}}"
               selected="{{lengthContent.selected}}"
               bind:change="change"></select>
     </view>
-    <view class="select-box">款式：
+  </view>
+
+  <view class="block">
+    <view class="select-name">款式：</view>
+    <view class="select-wrap">
       <select id="selectStyle"
               content="{{tightContent}}"
               selected="{{tightContent.selected}}"
               bind:change="change"></select>
     </view>
-    <view class="select-box">厚度：
-      <select id="selectStyle"
+  </view>
+
+  <view class="block">
+    <view class="select-name">厚度：</view>
+    <view class="select-wrap">
+      <select id="selectThi"
               content="{{thiContent}}"
               selected="{{thiContent.selected}}"
               bind:change="change"></select>
     </view>
-    <view class="color-box">色彩：
-      <view style="background:{{rgb}};width:100px;height:24px;" bindtap="toPick"></view>
-<color-picker bindchangeColor="pickColor" initColor="{{rgb}}" show="{{pick}}" />
-    </view>
+  </view>
+
+  <view class="block">
+    <view class="select-name">色彩：</view>
+    <view style="background:{{rgb}};width:24px;height:24px; border-radius:50%;" class="select-wrap" bindtap="toPick"></view>
+    <color-picker bindchangeColor="pickColor" initColor="{{rgb}}" show="{{pick}}" />
+  </view>
+
+  <view class="show-block">
+    <view class="select-name">预览样式：</view>
+    <image src="{{showModal}}" class=""></image>
+  </view>
+
+  <view class="block">
+    <button bindtap="confirm">确定</button>
   </view>
 </view>

@@ -19,14 +19,33 @@ Page({
       {
         'id': 1,
         'isOpenFilp': false, 
-        'label': "通勤风",
-        'upperCloth': "/images/test.png",
-        'downCloth': "",
-        'shoes': ""
+        'label': "可爱风",
+        'type': 1,  // 1上下衣  2裙子  3外套+上下衣
+        'upperCloth': {
+          'src': "/images/test.png", 
+          'ilColor': {'R': 174, 'G': 192, 'B': 232},  // initial 图像原始的颜色
+          'tgColor': {'R': 174, 'G': 192, 'B': 232}   // target 目标颜色
+        },
+        'outerCloth': {
+          'src': "/images/coat.png", 
+          'ilColor': {'R': 174, 'G': 192, 'B': 232}, 
+          'tgColor': {'R': 174, 'G': 192, 'B': 232}
+        },
+        'downCloth': {
+          'src': "/images/pants.png", 
+          'ilColor': {'R': 174, 'G': 192, 'B': 232},  // initial 图像原始的颜色
+          'tgColor': {'R': 174, 'G': 192, 'B': 232}   // target 目标颜色
+        },
+        'tip': ""
       },
       {
         'id': 2,
         'isOpenFilp': false, 
+        'label': "约会装",
+        'upperCloth': "/images/test.png",
+        'upperColor': "lightpink",
+        'downCloth': "/images/downdress.png",
+        'downColor': "white"
       },
       { 'id': 3, 
         'isOpenFilp': false, 
@@ -90,38 +109,14 @@ Page({
           windowHeight: calc,
         })
       }
-    });
-
-    const query = wx.createSelectorQuery()
-    query.select('#myCanvas')
-      .fields({ node: true, size: true })
-      .exec((res) => {
-        const canvas = res[0].node
-        const ctx = canvas.getContext('2d')
-
-        const dpr = wx.getSystemInfoSync().pixelRatio
-        canvas.width = res[0].width * dpr
-        canvas.height = res[0].height * dpr
-        ctx.scale(dpr, dpr)
-
-        //ctx.fillRect(0, 0, 100, 100)
-
-        const img  = canvas.createImage();
-        img.onLoad = () => {
-          console.log("1")
-          ctx.drawImage(img, 10, 10, 100, 100);
-        }
-        
-        img.src = this.data.bannerData[0].upperCloth;
- 
-      })
+    });  
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
