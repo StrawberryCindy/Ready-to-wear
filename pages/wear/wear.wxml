@@ -27,7 +27,7 @@
                       <view class="label">{{item.label}}</view>
                       <!--<image src="{{item.upperCloth}}" class="upper-wear" style=" width:305rpx;"></image>-->
                       <view wx:if="{{item.type}} == 1">
-                        <image src="{{item.upperCloth.src}}" class="({{item.type}}==1 )? upper-wear1 : upper-wear2" wx:if="{{item.upperCloth}}"></image>
+                        <image src="{{item.upperCloth.src}}" class="({{item.type}}==1 )? upper-wear1 : upper-wear2" wx:if="{{item.upperCloth}}" style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg)  saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});"></image>
                         
                         <image src="{{item.outerCloth.src}}" class="outer-wear"></image>
                         <!--<image src="{{item.downCloth}}" class="down-wear" style="filter:drop-shadow( 380rpx 0 0px {{item.downColor}});"></image>-->

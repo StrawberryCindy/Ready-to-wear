@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/wear/wear",
     "pages/index/index",
     "pages/weather/weather",
-    "pages/wear/wear",
     "pages/add/add",
     "components/select/select",
     "pages/info/info"

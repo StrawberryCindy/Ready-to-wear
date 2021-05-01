@@ -22,19 +22,22 @@ Page({
         'label': "可爱风",
         'type': 1,  // 1上下衣  2裙子  3外套+上下衣
         'upperCloth': {
-          'src': "/images/test.png", 
+          'src': "/images/coat.png", 
           'ilColor': {'R': 174, 'G': 192, 'B': 232},  // initial 图像原始的颜色
-          'tgColor': {'R': 174, 'G': 192, 'B': 232}   // target 目标颜色
+          'HSB':  { 'H': 0,  'S': 0,  'B': 0 },  // 转换时的 HSB 值
+          'tgColor': {'R': 255, 'G': 0, 'B': 0}   // target 目标颜色
         },
         'outerCloth': {
-          'src': "/images/coat.png", 
+          'src': "/images/test.png", 
           'ilColor': {'R': 174, 'G': 192, 'B': 232}, 
+          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
           'tgColor': {'R': 174, 'G': 192, 'B': 232}
         },
         'downCloth': {
           'src': "/images/pants.png", 
-          'ilColor': {'R': 174, 'G': 192, 'B': 232},  // initial 图像原始的颜色
-          'tgColor': {'R': 174, 'G': 192, 'B': 232}   // target 目标颜色
+          'ilColor': {'R': 174, 'G': 192, 'B': 232}, 
+          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
+          'tgColor': {'R': 255, 'G': 10, 'B': 147}
         },
         'tip': ""
       },
@@ -92,6 +95,69 @@ Page({
       toView: `card_${this.currentView}`
     });
   },
+  changeRGBtoHSB (R, G, B) {
+    console.log('RGB=',R,',', G,',', B);
+    // 由小到大排序RGB, RGB[0]为min， RGB[2]为max
+    var RGB = [R, G, B];
+    RGB.sort(function(a, b){return a - b});
+    console.log('min-max-----RGB = ', RGB)
+    let min = RGB[0], max = RGB[2];
+
+    var hsbB = max/255, hsbS = 0, hsbH = 0;
+    if ( max == 0 ) {
+      hsbS = 0;
+    }else{
+      hsbS = (max-min)/max;
+    }
+    if ( max == 0 || min == 255 ) {
+      hsbH = 0;
+    } else if (max == R && G >= B) {
+      hsbH = 60*(G-B) / (max-min);
+    } else if (max == R && B > G) {
+      hsbH = 60*(G-B) / (max-min) + 360;
+    } else if (max == G) {
+      hsbH = 60*(B-R) / (max-min) + 120;
+    } else if (max == B) {
+      hsbH = 60*(R-G) / (max-min) + 240;
+    }
+    var HSB = [hsbH, hsbS, hsbB];
+    return HSB;
+  },
+  dealColor (i) {
+    var R1 = this.data.bannerData[i].upperCloth.ilColor.R;
+    var G1 = this.data.bannerData[i].upperCloth.ilColor.G;
+    var B1 = this.data.bannerData[i].upperCloth.ilColor.B;
+    
+    var R2 = this.data.bannerData[i].upperCloth.tgColor.R;
+    var G2 = this.data.bannerData[i].upperCloth.tgColor.G;
+    var B2 = this.data.bannerData[i].upperCloth.tgColor.B;
+    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
+    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
+    console.log('Initial HSB:',HSB1)
+    console.log('Target HSB', HSB2)
+    var S = 0, B = 0;
+    if ( HSB2[1] < HSB1[1] ) {
+      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
+    } else {
+      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
+    }
+    if ( HSB2[2] < HSB1[2] ) {
+      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
+    } else {
+      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
+    }
+    var hsbdelta = {
+      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
+      S: S,
+      B: B
+    };
+    console.log('hsbDelta = ', hsbdelta)
+    var data_str =  'bannerData['+i+'].upperCloth.HSB'
+    this.setData({
+      [data_str] : hsbdelta
+    })
+
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -110,6 +176,7 @@ Page({
         })
       }
     });  
+    this.dealColor(0);
   },
 
   /**
