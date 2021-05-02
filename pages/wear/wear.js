@@ -22,39 +22,68 @@ Page({
         'label': "可爱风",
         'type': 1,  // 1上下衣  2裙子  3外套+上下衣
         'upperCloth': {
-          'src': "/images/coat.png", 
-          'ilColor': {'R': 174, 'G': 192, 'B': 232},  // initial 图像原始的颜色
-          'HSB':  { 'H': 0,  'S': 0,  'B': 0 },  // 转换时的 HSB 值
-          'tgColor': {'R': 255, 'G': 0, 'B': 0}   // target 目标颜色
-        },
-        'outerCloth': {
           'src': "/images/test.png", 
-          'ilColor': {'R': 174, 'G': 192, 'B': 232}, 
-          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
-          'tgColor': {'R': 174, 'G': 192, 'B': 232}
+          'ilColor': {'R': 223, 'G': 67, 'B': 72},  // initial 图像原始的颜色
+          'HSB':  { 'H': 0,  'S': 0,  'B': 0 },  // 转换时的 HSB 值
+          'tgColor': {'R': 255, 'G': 182, 'B': 193}   // target 目标颜色
         },
         'downCloth': {
-          'src': "/images/pants.png", 
-          'ilColor': {'R': 174, 'G': 192, 'B': 232}, 
+          'src': "/images/test2.png", 
+          'ilColor': {'R': 223, 'G': 67, 'B': 72}, 
           'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
           'tgColor': {'R': 255, 'G': 10, 'B': 147}
         },
+        'outerCloth': null,
+        'dress': null,
         'tip': ""
       },
       {
         'id': 2,
         'isOpenFilp': false, 
         'label': "约会装",
-        'upperCloth': "/images/test.png",
-        'upperColor': "lightpink",
-        'downCloth': "/images/downdress.png",
-        'downColor': "white"
+        'type': 2,
+        'upperCloth': null,
+        'downCloth': null,
+        'outerCloth': null,
+        'dress': {
+          'src': '/images/dress.png',
+          'ilColor': {'R': 223, 'G': 67, 'B': 72}, 
+          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
+          'tgColor': {'R': 255, 'G': 10, 'B': 147}
+        },
+        'tip': ''
       },
       { 'id': 3, 
         'isOpenFilp': false, 
+        'label': "运动系",
+        'type': 3,
+        'upperCloth': {
+          'src': "/images/test.png", 
+          'ilColor': {'R': 223, 'G': 67, 'B': 72},
+          'HSB':  { 'H': 0,  'S': 0,  'B': 0 },
+          'tgColor': {'R': 255, 'G': 182, 'B': 193}
+        },
+        'downCloth': {
+          'src': "/images/downpants.png", 
+          'ilColor': {'R': 223, 'G': 67, 'B': 72}, 
+          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
+          'tgColor': {'R': 255, 'G': 10, 'B': 147}
+        },
+        'outerCloth': {
+          'src': "/images/coat.png", 
+          'ilColor': {'R': 174, 'G': 192, 'B': 232}, 
+          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
+          'tgColor': {'R': 238, 'G': 130, 'B': 248}
+        },
+        'dress': null,
+        'tip': ''
       },
       { 'id': 4, 
-        'isOpenFilp': false, 
+        'isOpenFilp': false,  
+        'upperCloth': null,
+        'downCloth': null,
+        'outerCloth': null,
+        'dress': null
       }
     ],
   },
@@ -96,11 +125,9 @@ Page({
     });
   },
   changeRGBtoHSB (R, G, B) {
-    console.log('RGB=',R,',', G,',', B);
     // 由小到大排序RGB, RGB[0]为min， RGB[2]为max
     var RGB = [R, G, B];
     RGB.sort(function(a, b){return a - b});
-    console.log('min-max-----RGB = ', RGB)
     let min = RGB[0], max = RGB[2];
 
     var hsbB = max/255, hsbS = 0, hsbH = 0;
@@ -123,18 +150,21 @@ Page({
     var HSB = [hsbH, hsbS, hsbB];
     return HSB;
   },
-  dealColor (i) {
-    var R1 = this.data.bannerData[i].upperCloth.ilColor.R;
-    var G1 = this.data.bannerData[i].upperCloth.ilColor.G;
-    var B1 = this.data.bannerData[i].upperCloth.ilColor.B;
+  
+  // 处理各种衣服的颜色，将原RGB和目标RGB都转化为HSB后求差值
+  dealUpperColor (i) {
+    var cloth = new Object;
+    cloth = this.data.bannerData[i].upperCloth;
+    var R1 = cloth.ilColor.R;
+    var G1 = cloth.ilColor.G;
+    var B1 = cloth.ilColor.B;
     
-    var R2 = this.data.bannerData[i].upperCloth.tgColor.R;
-    var G2 = this.data.bannerData[i].upperCloth.tgColor.G;
-    var B2 = this.data.bannerData[i].upperCloth.tgColor.B;
+    var R2 = cloth.tgColor.R;
+    var G2 = cloth.tgColor.G;
+    var B2 = cloth.tgColor.B;
+
     let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
     let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
-    console.log('Initial HSB:',HSB1)
-    console.log('Target HSB', HSB2)
     var S = 0, B = 0;
     if ( HSB2[1] < HSB1[1] ) {
       S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
@@ -151,14 +181,119 @@ Page({
       S: S,
       B: B
     };
-    console.log('hsbDelta = ', hsbdelta)
+    console.log('upper-HSB-delta = ', hsbdelta)
     var data_str =  'bannerData['+i+'].upperCloth.HSB'
     this.setData({
       [data_str] : hsbdelta
     })
-
   },
+  dealDownColor (i) {
+    var cloth = this.data.bannerData[i].downCloth;
 
+    var R1 = cloth.ilColor.R;
+    var G1 = cloth.ilColor.G;
+    var B1 = cloth.ilColor.B;
+    
+    var R2 = cloth.tgColor.R;
+    var G2 = cloth.tgColor.G;
+    var B2 = cloth.tgColor.B;
+
+    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
+    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
+    var S = 0, B = 0;
+    if ( HSB2[1] < HSB1[1] ) {
+      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
+    } else {
+      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
+    }
+    if ( HSB2[2] < HSB1[2] ) {
+      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
+    } else {
+      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
+    }
+    var hsbdelta = {
+      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
+      S: S,
+      B: B
+    };
+    console.log('down-HSB-delta = ', hsbdelta)
+    var data_str =  'bannerData['+i+'].downCloth.HSB'
+    this.setData({
+      [data_str] : hsbdelta
+    })
+  },
+  
+  dealOuterColor (i) {
+    var cloth = this.data.bannerData[i].outerCloth;
+
+    var R1 = cloth.ilColor.R;
+    var G1 = cloth.ilColor.G;
+    var B1 = cloth.ilColor.B;
+    
+    var R2 = cloth.tgColor.R;
+    var G2 = cloth.tgColor.G;
+    var B2 = cloth.tgColor.B;
+
+    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
+    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
+    var S = 0, B = 0;
+    if ( HSB2[1] < HSB1[1] ) {
+      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
+    } else {
+      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
+    }
+    if ( HSB2[2] < HSB1[2] ) {
+      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
+    } else {
+      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
+    }
+    var hsbdelta = {
+      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
+      S: S,
+      B: B
+    };
+    console.log('outer-HSB-delta = ', hsbdelta)
+    var data_str =  'bannerData['+i+'].outerCloth.HSB'
+    this.setData({
+      [data_str] : hsbdelta
+    })
+  },
+  
+  dealDressColor (i) {
+    var cloth = this.data.bannerData[i].dress;
+
+    var R1 = cloth.ilColor.R;
+    var G1 = cloth.ilColor.G;
+    var B1 = cloth.ilColor.B;
+    
+    var R2 = cloth.tgColor.R;
+    var G2 = cloth.tgColor.G;
+    var B2 = cloth.tgColor.B;
+
+    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
+    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
+    var S = 0, B = 0;
+    if ( HSB2[1] < HSB1[1] ) {
+      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
+    } else {
+      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
+    }
+    if ( HSB2[2] < HSB1[2] ) {
+      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
+    } else {
+      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
+    }
+    var hsbdelta = {
+      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
+      S: S,
+      B: B
+    };
+    console.log('dress-HSB-delta = ', hsbdelta)
+    var data_str =  'bannerData['+i+'].dress.HSB'
+    this.setData({
+      [data_str] : hsbdelta
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -176,7 +311,24 @@ Page({
         })
       }
     });  
-    this.dealColor(0);
+   
+    for ( var index = 0; index < 4; index++ ) {
+      console.log('hi')
+      var card = new Object;
+      card = this.data.bannerData[index];
+      if (card.upperCloth) {
+        this.dealUpperColor(index);
+      }
+      if (card.downCloth) {
+        this.dealDownColor(index)
+      }
+      if (card.dress) {
+        this.dealDressColor(index);
+      }
+      if (card.outerCloth) {
+        this.dealOuterColor(index);
+      }
+    }
   },
 
   /**

@@ -51,9 +51,19 @@
   letter-spacing: 5rpx;
   writing-mode: vertical-rl;
 }
-.upper-wear2 { margin: 3vh 5rpx 1vh; display: flex; width: 305rpx; height: 280rpx; }
-.down-wear { display: flex; margin: -12vh -305rpx 1vh; width: 310rpx; height: 390rpx; }
-.outer-wear { width:305rpx; margin: 0vh 70rpx 0vh; display: flex; width: 305rpx; height: 280rpx; }
+
+/*上下衣*/
+.upper-wear1 { position: absolute; margin: 10vh 5rpx 1vh; display: flex; width: 305rpx; height: 280rpx;}
+.down-wear1 { position:absolute; display: flex; right:0rpx; top: 30vh; margin: 0 20rpx 1vh; width: 310rpx; height: 320rpx; }
+
+/*裙子*/
+.dress {
+  position:absolute; display: flex; margin: 0 20rpx 1vh; width: 310rpx; height: 780rpx; }
+
+/*外套+上下衣*/
+.outer-wear { position: absolute; top: 40vh; width:305rpx; margin: 0vh 0rpx 0vh; display: flex; width: 305rpx; height: 280rpx; }
+.upper-wear2 { position: absolute; margin: 3vh 5rpx 1vh; display: flex; width: 305rpx; height: 280rpx; }
+.down-wear2 { position:absolute; top: 20vh; right: 0; display: flex;width: 310rpx; height: 280rpx; }
   
 /* backGroup */
 .backGroup{ text-align: left; font-size: 28rpx;  background: #ccc; height: 100%; }

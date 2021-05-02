@@ -95,11 +95,12 @@ Page({
    */
   onLoad: function (options) {
     // 对 从个人页面传参 route进来的 对象进行 解json操作
-    var clothSelected =  JSON.parse(options.clothSelected);
-    console.log(clothSelected)
-    this.setData({
-      'clothContent.selected' : clothSelected
-    })
+    if (JSON.stringify(options) !== '{}') {
+      var clothSelected =  JSON.parse(options.clothSelected);
+      this.setData({
+        'clothContent.selected' : clothSelected
+      })
+    }
   },
 
   /**

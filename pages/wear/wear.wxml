@@ -25,17 +25,46 @@
                     <!-- 卡片 -->
                     <view class='frontGroup' >
                       <view class="label">{{item.label}}</view>
-                      <!--<image src="{{item.upperCloth}}" class="upper-wear" style=" width:305rpx;"></image>-->
-                      <view wx:if="{{item.type}} == 1">
-                        <image src="{{item.upperCloth.src}}" class="({{item.type}}==1 )? upper-wear1 : upper-wear2" wx:if="{{item.upperCloth}}" style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg)  saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});"></image>
-                        
-                        <image src="{{item.outerCloth.src}}" class="outer-wear"></image>
-                        <!--<image src="{{item.downCloth}}" class="down-wear" style="filter:drop-shadow( 380rpx 0 0px {{item.downColor}});"></image>-->
-                        <image src="{{item.downCloth.src}}" class="down-wear" wx:if="{{item.downCloth}}"></image>
+                      
+                      <!--type 1上下衣  2裙子  3外套+上下衣-->
+                      <view wx:if="{{item.type == 1}}">
+                        <image src="{{item.upperCloth.src}}" 
+                                class="upper-wear1" 
+                                wx:if="{{item.upperCloth}}" 
+                                style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg) saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});">
+                        </image>
+                        <image src="{{item.downCloth.src}}" 
+                                class="down-wear1" 
+                                wx:if="{{item.downCloth}}" 
+                                style="filter:hue-rotate({{item.downCloth.HSB.H-10}}deg) saturate({{item.downCloth.HSB.S}}) brightness({{item.downCloth.HSB.B}});">
+                        </image>
                       </view>
-                      <!-- <canvas class="upper-wear" type="2d" id="myCanvas"></canvas>
-                      <canvas class="down-wear" type="2d"></canvas>
-                       -->
+
+                      <view wx:elif="{{item.type == 2}}">
+                        <image src="{{item.dress.src}}" 
+                                class="dress" 
+                                wx:if="{{item.dress}}" 
+                                style="filter:hue-rotate({{item.dress.HSB.H-10}}deg) saturate({{item.dress.HSB.S}}) brightness({{item.dress.HSB.B}});">
+                        </image>
+                      </view>
+                      
+                      <view wx:elif="{{item.type == 3}}">
+                        <image src="{{item.upperCloth.src}}" 
+                                class="upper-wear2" 
+                                wx:if="{{item.upperCloth}}" 
+                                style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg) saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});">
+                        </image>
+                        <image src="{{item.downCloth.src}}" 
+                                class="down-wear2" 
+                                wx:if="{{item.downCloth}}" 
+                                style="filter:hue-rotate({{item.downCloth.HSB.H-10}}deg) saturate({{item.downCloth.HSB.S}}) brightness({{item.downCloth.HSB.B}});">
+                        </image>
+                        <image src="{{item.outerCloth.src}}"
+                                class="outer-wear"
+                                wx:if="{{item.outerCloth}}" 
+                                style="filter:hue-rotate({{item.outerCloth.HSB.H-10}}deg) saturate({{item.outerCloth.HSB.S}}) brightness({{item.outerCloth.HSB.B}});">
+                        </image>
+                      </view>
                     </view>
                     <!-- / 卡片 -->
                   </view>

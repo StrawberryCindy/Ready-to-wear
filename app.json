@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/add/add",
     "pages/wear/wear",
     "pages/index/index",
     "pages/weather/weather",
-    "pages/add/add",
     "components/select/select",
     "pages/info/info"
   ],

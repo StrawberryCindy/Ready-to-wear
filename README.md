@@ -39,3 +39,10 @@
         [data_str] : id
       })
     ```
+
+4. 判断某对象为空的方法：
+    将其转成json字符串，再进行判断
+    ```javascript
+      var object = {};
+      console.log(JSON.stringify(object) == '{}'); //输出true
+    ```
