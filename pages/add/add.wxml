@@ -42,13 +42,17 @@
 
   <view class="block">
     <view class="select-name">色彩：</view>
-    <view style="background:{{rgb}};width:24px;height:24px; border-radius:50%;" class="select-wrap" bindtap="toPick"></view>
-    <color-picker bindchangeColor="pickColor" initColor="{{rgb}}" show="{{pick}}" />
+    <scroll-view class="color-picker" scroll-x="true" >
+      <view bindtap="pickColor" class="{{item.isPick ? 'color-pick' : 'color-other'}}" wx:for="{{colors}}"  wx:key="id" data-id="{{item.id}}" data-color="{{item.rgb}}" >
+        <view style="background:rgb({{item.rgb.R}}, {{item.rgb.G}}, {{item.rgb.B}});" class="color-point">
+        </view>
+      </view>
+    </scroll-view>
   </view>
 
   <view class="show-block">
-    <view class="select-name">预览样式：</view>
-    <image src="{{showModal}}" class=""></image>
+    <view class="select-name">预览：</view>
+    <image src="{{showImage}}" class="show-image"></image>
   </view>
 
   <view class="block">

@@ -42,9 +42,196 @@ Page({
       ],
       selected: {id: 0, name: ''}
     },
-    rgb: 'rgb(0,154,97)',//初始值
-    pick: false
+    colors: [
+      {
+        'id': 1,
+        'type': 1, //颜色属性 1none 2warm 3cold   
+        'rgb': {'R':248, 'G':248, 'B':255 },
+        'isPick': true
+      }, 
+      {
+        'id': 2,
+        'type': 1,
+        'rgb': {'R':0, 'G':0, 'B':0 },
+        'isPick': false
+      },
+      {
+        'id': 3,
+        'type': 1,
+        'rgb': {'R':137, 'G':137, 'B':137 },
+        'isPick': false
+      },
+      {
+        'id': 4,
+        'type': 1,
+        'rgb': {'R':194, 'G':194, 'B':194 },
+        'isPick': false
+      },
+      {
+        'id': 5,
+        'type': 2,
+        'rgb': {'R':255, 'G':182, 'B':193 },
+        'isPick': false
+      },
+      {
+        'id': 6,
+        'type': 2,
+        'rgb': {'R':255, 'G':192, 'B':203 },
+        'isPick': false
+      },
+      {
+        'id': 7,
+        'type': 2,
+        'rgb': {'R':255, 'G':105, 'B':180 },
+        'isPick': false
+      },
+      {
+        'id': 8,
+        'type': 2,
+        'rgb': {'R':205, 'G':92, 'B':92 },
+        'isPick': false
+      },
+      {
+        'id': 9,
+        'type': 2,
+        'rgb': {'R':255, 'G':0, 'B':0 },
+        'isPick': false
+      },
+      {
+        'id': 10,
+        'type': 2,
+        'rgb': {'R':220, 'G':20, 'B':60 },
+        'isPick': false
+      },
+      {
+        'id': 11,
+        'type': 2,
+        'rgb': {'R':255, 'G':165, 'B':0 },
+        'isPick': false
+      },
+      {
+        'id': 12,
+        'type': 2,
+        'rgb': {'R':255, 'G':222, 'B':173 },
+        'isPick': false
+      },
+      {
+        'id': 13,
+        'type': 2,
+        'rgb': {'R':255, 'G':250, 'B':205 },
+        'isPick': false
+      },
+      {
+        'id': 14,
+        'type': 2,
+        'rgb': {'R':240, 'G':230, 'B':140 },
+        'isPick': false
+      },
+      {
+        'id': 15,
+        'type': 2,
+        'rgb': {'R':255, 'G':215, 'B':0 },
+        'isPick': false
+      },
+      {
+        'id': 16,
+        'type': 3,
+        'rgb': {'R':34, 'G':139, 'B':34 },
+        'isPick': false
+      },
+      {
+        'id': 17,
+        'type': 3,
+        'rgb': {'R':154, 'G':205, 'B':50 },
+        'isPick': false
+      },
+      {
+        'id': 18,
+        'type': 3,
+        'rgb': {'R':144, 'G':238, 'B':144 },
+        'isPick': false
+      },
+      {
+        'id': 19,
+        'type': 3,
+        'rgb': {'R':157, 'G':190, 'B':243 },
+        'isPick': false
+      },
+      {
+        'id': 20,
+        'type': 3,
+        'rgb': {'R':176, 'G':224, 'B':230 },
+        'isPick': false
+      },{
+        'id': 21,
+        'type': 3, 
+        'rgb': {'R':135, 'G':206, 'B':250 },
+        'isPick': false
+      }, 
+      {
+        'id': 22,
+        'type': 3,
+        'rgb': {'R':210, 'G':192, 'B':230 },
+        'isPick': false
+      },
+      {
+        'id': 23,
+        'type': 3,
+        'rgb': {'R':123, 'G':104, 'B':238 },
+        'isPick': false
+      },
+      {
+        'id': 24,
+        'type': 3,
+        'rgb': {'R':148, 'G':0, 'B':211 },
+        'isPick': false
+      },
+      {
+        'id': 25,
+        'type': 3,
+        'rgb': {'R':238, 'G':130, 'B':238 },
+        'isPick': false
+      },
+      {
+        'id': 26,
+        'type': 3,
+        'rgb': {'R':221, 'G':160, 'B':221 },
+        'isPick': false
+      },
+    ],
+    colorPicked: {}, //targetRGB
+    showImage: '/images/test1.png'
   },
+  pickColor(e) {
+    var rgb = new Object;
+    var id = e.currentTarget.dataset.id;
+    rgb = e.currentTarget.dataset.color;
+    this.setData({
+      'colorPicked': rgb
+    })
+    console.log('Pick',this.data.colorPicked)
+    this.initColor(id);
+  },
+  initColor (i) {
+    if (i) { i = i; } else { i = 0; }
+    var str = '';
+    var str_pick = '';
+    var that = this;
+    for (var index = 0; index < this.data.colors.length; index++) {
+      str = 'colors['+index+'].isPick';
+      that.setData({
+        colors: that.data.colors.map(item=>{
+          item.isPick = false
+          return item
+        })
+      })
+    }
+    str_pick =  'colors['+(i-1)+'].isPick';
+    that.setData({
+      [str_pick]: true
+    })
+  },
+  // 以下代码用于取色器，暂不删除了
   // 显示取色器
   toPick: function () {
     this.setData({
@@ -57,12 +244,7 @@ Page({
       pick: true
     })
   },
-  pickColor(e) {
-    console.log(e.detail.color)
-    this.setData({
-      rgb: e.detail.color
-    })
-  },
+  
   changeStyle (e) {
     console.log(e)
     this.data.styleContent.selected = e.detail
