@@ -22,16 +22,16 @@ Page({
         'label': "可爱风",
         'type': 1,  // 1上下衣  2裙子  3外套+上下衣
         'upperCloth': {
-          'src': "/images/test.png", 
+          'src': "/images/coat.png", 
           'ilColor': {'R': 223, 'G': 67, 'B': 72},  // initial 图像原始的颜色
           'HSB':  { 'H': 0,  'S': 0,  'B': 0 },  // 转换时的 HSB 值
-          'tgColor': {'R': 255, 'G': 182, 'B': 193}   // target 目标颜色
+          'tgColor': {'R': 240, 'G': 182, 'B': 123}   // target 目标颜色
         },
         'downCloth': {
           'src': "/images/test2.png", 
           'ilColor': {'R': 223, 'G': 67, 'B': 72}, 
           'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
-          'tgColor': {'R': 255, 'G': 10, 'B': 147}
+          'tgColor': {'R': 240, 'G': 90, 'B': 147}
         },
         'outerCloth': null,
         'dress': null,

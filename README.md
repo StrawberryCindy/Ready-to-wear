@@ -1,4 +1,4 @@
-## Ready-to-wear 
+# Ready-to-wear 
     
 ### A mini-program processed on the platform of WeChat.
 
@@ -12,7 +12,21 @@
 
 ----
 
-### 微信小程序开发中的一些踩坑
+
+## 前端接口信息
+1. 
+
+
+
+
+
+
+
+
+------
+
+
+## 微信小程序开发中的一些踩坑
 1. 关于页面数据更新不渲染的问题：
   - 用 ```this.setData({})``` 而非单纯的 ```this.data = ``` 赋值
 

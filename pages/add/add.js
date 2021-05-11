@@ -9,13 +9,13 @@ Page({
       options: [
         {  id: 1,  name: '短袖'  },
         {  id: 2,  name: '长袖'  }, 
-        {  id: 3,  name: '裤子'  }, 
-        {  id: 4,  name: '半身裙'  }, 
-        {  id: 5,  name: '连衣裙'  },
-        {  id: 6,  name: '毛衣'  }, 
-        {  id: 7,  name: '夹克'  }, 
-        {  id: 8,  name: '西装外套'  }, 
-        {  id: 9,  name: '羽绒服'  }, 
+        {  id: 3,  name: '毛衣'  }, 
+        {  id: 4,  name: '羽绒服'  }, 
+        {  id: 5,  name: '夹克'  },
+        {  id: 6,  name: '西装外套'  }, 
+        {  id: 7,  name: '连衣裙'  }, 
+        {  id: 8,  name: '半身裙'  }, 
+        {  id: 9,  name: '裤子'  }, 
       ],
       selected: {id: 0, name: ''}
     },
@@ -45,156 +45,156 @@ Page({
     colors: [
       {
         'id': 1,
-        'type': 1, //颜色属性 1none 2warm 3cold   
+        'colortype': 1, //颜色属性 1none 2warm 3cold   
         'rgb': {'R':248, 'G':248, 'B':255 },
         'isPick': true
       }, 
       {
         'id': 2,
-        'type': 1,
+        'colortype': 1,
         'rgb': {'R':0, 'G':0, 'B':0 },
         'isPick': false
       },
       {
         'id': 3,
-        'type': 1,
+        'colortype': 1,
         'rgb': {'R':137, 'G':137, 'B':137 },
         'isPick': false
       },
       {
         'id': 4,
-        'type': 1,
+        'colortype': 1,
         'rgb': {'R':194, 'G':194, 'B':194 },
         'isPick': false
       },
       {
         'id': 5,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':255, 'G':182, 'B':193 },
         'isPick': false
       },
       {
         'id': 6,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':255, 'G':192, 'B':203 },
         'isPick': false
       },
       {
         'id': 7,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':255, 'G':105, 'B':180 },
         'isPick': false
       },
       {
         'id': 8,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':205, 'G':92, 'B':92 },
         'isPick': false
       },
       {
         'id': 9,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':255, 'G':0, 'B':0 },
         'isPick': false
       },
       {
         'id': 10,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':220, 'G':20, 'B':60 },
         'isPick': false
       },
       {
         'id': 11,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':255, 'G':165, 'B':0 },
         'isPick': false
       },
       {
         'id': 12,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':255, 'G':222, 'B':173 },
         'isPick': false
       },
       {
         'id': 13,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':255, 'G':250, 'B':205 },
         'isPick': false
       },
       {
         'id': 14,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':240, 'G':230, 'B':140 },
         'isPick': false
       },
       {
         'id': 15,
-        'type': 2,
+        'colortype': 2,
         'rgb': {'R':255, 'G':215, 'B':0 },
         'isPick': false
       },
       {
         'id': 16,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':34, 'G':139, 'B':34 },
         'isPick': false
       },
       {
         'id': 17,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':154, 'G':205, 'B':50 },
         'isPick': false
       },
       {
         'id': 18,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':144, 'G':238, 'B':144 },
         'isPick': false
       },
       {
         'id': 19,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':157, 'G':190, 'B':243 },
         'isPick': false
       },
       {
         'id': 20,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':176, 'G':224, 'B':230 },
         'isPick': false
       },{
         'id': 21,
-        'type': 3, 
+        'colortype': 3, 
         'rgb': {'R':135, 'G':206, 'B':250 },
         'isPick': false
       }, 
       {
         'id': 22,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':210, 'G':192, 'B':230 },
         'isPick': false
       },
       {
         'id': 23,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':123, 'G':104, 'B':238 },
         'isPick': false
       },
       {
         'id': 24,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':148, 'G':0, 'B':211 },
         'isPick': false
       },
       {
         'id': 25,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':238, 'G':130, 'B':238 },
         'isPick': false
       },
       {
         'id': 26,
-        'type': 3,
+        'colortype': 3,
         'rgb': {'R':221, 'G':160, 'B':221 },
         'isPick': false
       },
@@ -279,6 +279,7 @@ Page({
     // 对 从个人页面传参 route进来的 对象进行 解json操作
     if (JSON.stringify(options) !== '{}') {
       var clothSelected =  JSON.parse(options.clothSelected);
+      console.log(options)
       this.setData({
         'clothContent.selected' : clothSelected
       })

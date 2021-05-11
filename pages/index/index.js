@@ -130,6 +130,7 @@ Page({
         })
       }
     })
+    this.initData();
   },
   getUserInfo(e) {
     // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
@@ -137,6 +138,36 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  initData () {
+    wx.request({
+      url: '/closet', 
+      data: {
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log(res.data)
+        // cloth[[],[],[]...] 二维数组，每个内部元素对应 cloth.contents
+        var cloth = new Array(8);
+        for( var i =0; i < cloth.length; i++) {
+          cloth[i] = new Array;
+        }
+        let data = res.data;
+        data.forEach(function(item, index) {
+          console.log(item)
+          cloth[type - 1].push(item);
+        })
+        var clothConStr = new Array(8);
+        for( var i =0; i < cloth.length; i++) {
+          clothConStr[i] = 'cloth.['+i+'].contents'
+          this.setData({
+            [clothConStr[i]]: cloth[i]
+          })
+        }
+      }
     })
   }
 })

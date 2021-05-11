@@ -51,7 +51,7 @@ Page({
       },
     },  // 天气数据
     inputContent: '', // 输入框内容
-    weatherTheme: 'pink' // 根据天气修改的背景色
+    weatherTheme: '#9999CC' // 根据天气修改的背景色
   },
 
   localCity: null,    // 本地城市
@@ -207,7 +207,7 @@ Page({
     weatherInfo.now = data.now;
     var weatherTheme = ''
     switch (weatherInfo.now.weather_code) {
-      case '00' : weatherTheme = '#FFCC00';
+      case '00' : weatherTheme = '#FFCC66';
       break;
       case '01': weatherTheme = '#CC9999';
       break;

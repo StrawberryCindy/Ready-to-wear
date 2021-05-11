@@ -7,9 +7,10 @@
 }
 
 .weather{
-  margin-top: 40rpx;
+  margin: 40rpx;
   line-height: 55rpx;
-  border: solid black 1rpx;
+  font-size: 34rpx;
+  color: #000;
 }
 
 
@@ -17,6 +18,7 @@
   margin: 40rpx 50rpx 20rpx 50rpx;
   padding:  0 10rpx;
   line-height: 70rpx;
+  font-size: 34rpx;
 }
 
 .cloth-card{ margin: 0rpx -50rpx; width: 700rpx; white-space: nowrap;}
@@ -37,7 +39,10 @@
 
 /* 搭配展示正面卡片 */
 .frontGroup{ 
-  width: 100%; text-align:left; border-radius: 15rpx; overflow: hidden; background-color: lightgray; height: 100%; overflow:hidden;
+  width: 98%; height: 98%; text-align:left; border-radius: 15rpx; overflow:hidden; 
+  border:1px solid #BFBFBF;
+  background-color:white;
+  box-shadow:2px 2px 3px #aaaaaa;
 }
 .label {
   position: absolute;
@@ -66,5 +71,8 @@
 .down-wear2 { position:absolute; top: 20vh; right: 0; display: flex;width: 310rpx; height: 280rpx; }
   
 /* backGroup */
-.backGroup{ text-align: left; font-size: 28rpx;  background: #ccc; height: 100%; }
+.backGroup{ width: 98%; height: 98%; text-align:left; border-radius: 15rpx; overflow:hidden; 
+  border:1px solid #BFBFBF;
+  background-color:white;
+  box-shadow:2px 2px 3px #aaaaaa;text-align: left; font-size: 28rpx; }
 
