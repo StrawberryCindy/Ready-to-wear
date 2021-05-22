@@ -65,6 +65,26 @@ Page({
       scrollTop: 0
     })
   },
+  // 进入衣物详情页（修改相关）
+  toDetail (e) {
+    console.log(e)
+
+  },
+  // 添加衣物
+  addNew: function(e) {
+    // 传递对象参数要转成json格式
+    var clothSelected = JSON.stringify( e.currentTarget.dataset)
+    wx.navigateTo({
+      url: "../add/add?clothSelected=" + clothSelected,
+    })
+  },
+  //事件处理函数
+  bindViewTap: function() {
+    wx.navigateTo({
+      url: '../logs/logs'
+    })
+  }, 
+  // 长按-->模态框
   handleLongPress: function (e) {
     var cloid = e.currentTarget.dataset.content.cloid;
     this.setData({
@@ -72,6 +92,7 @@ Page({
     })
     this.showModal();
   },
+  // 删除功能
   modalDelete: function (e) {
     var that = this;
     this.hideModal();
@@ -90,24 +111,10 @@ Page({
         console.log(res)
       }
     })
-
   },
   modalCancel: function (e) {
     this.hideModal();
   },
-  addNew: function(e) {
-    // 传递对象参数要转成json格式
-    var clothSelected = JSON.stringify( e.currentTarget.dataset)
-    wx.navigateTo({
-      url: "../add/add?clothSelected=" + clothSelected,
-    })
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  }, 
   //显示对话框
   showModal: function () {
     // 显示遮罩层
@@ -251,7 +258,7 @@ Page({
         }
         let data = res.data;
         data.forEach(function(item, index) {
-          console.log(item)
+          item.HSB = that.dealColor(item);
           cloth[item.type - 1].push(item); // 根据item.type值存入相应的数组
         });
         var clothConStr = new Array(8);
