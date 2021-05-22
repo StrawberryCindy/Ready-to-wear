@@ -1,0 +1,37 @@
+<!--pages/register/register.wxml-->
+<view>
+  <view class="title">
+    <text>欢迎你进入了本穿搭推荐小程序~ \n请先录入你的衣橱吧❤</text>
+  </view>
+  <scroll-view class='scroll-y' 
+                scroll-y="true"
+                scroll-into-view="{{toView}}" 
+                scroll-top="{{scrollTop}}"
+                style="height: 100%;">
+    <view class="cloth" 
+          style='border-bottom:solid red 3rpx' 
+          wx:for="{{cloth}}" wx:key="id">
+      <text>{{item.kind}}</text>
+      <scroll-view class='cloth-design' 
+                    scroll-x="true"
+                    style="width:100%">
+        <view wx:for="{{item.contents}}" 
+              wx:key="j"
+              class="cloth-icon"
+              wx:for-item="content"
+              bindlongpress="handleLongPress">
+              <image src="{{content.src}}" 
+                      style='width:100rpx; height:100rpx'>
+              </image>
+        </view>
+        <view class='cloth-icon'
+              bindtap="addNew"
+              data-id="{{item.id}}"
+              data-name="{{item.kind}}">
+          <image src='../../icons/add.png' 
+                  style='width:100rpx; height:100rpx'></image>
+        </view>
+      </scroll-view>
+    </view>
+  </scroll-view>
+</view>

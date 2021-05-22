@@ -29,11 +29,12 @@
 }
 
 .cloth{
-  margin: 40rpx 50rpx;
+  margin: 30rpx 50rpx;
+  padding: 10rpx;
   width: auto;
-  padding: 50rpx;
   display: block;
   overflow: hidden;
+  font-size: 32rpx;
 }
 
 .cloth-design{
@@ -46,8 +47,6 @@
   display: inline-block;
   width: 150rpx;
   height: 150rpx;
-  padding: 25rpx;
-  border: solid pink 3rpx;
 }
 
 /*使屏幕变暗 */
@@ -61,23 +60,25 @@
   opacity: 0.2;
   overflow: hidden;
   z-index: 2;
-  color: #fff;
   }
   /*对话框 */
-  .commodity_attr_box {
+.commodity_attr_box {
   height: 200rpx;
-  width: 100%;
+  width: 98%;
+  margin-left: 1%;
   overflow: hidden;
   position: fixed;
-  bottom: 0;
+  bottom: 3rpx;
   left: 0;
   z-index: 3;
-  background: #fff;
-  }
+}
 
   /*弹窗内部样式*/
   .modal{
     text-align: center;
     line-height: 100rpx;
     height: 100rpx;
+    background: #fff;
+    border-radius: 20rpx;
+    margin-bottom: 5rpx;
   }

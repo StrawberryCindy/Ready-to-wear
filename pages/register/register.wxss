@@ -1,0 +1,35 @@
+/* pages/register/register.wxss */
+.title{
+  font-size: 32rpx;
+  line-height: 50rpx;
+  letter-spacing: 2rpx;
+  text-align: center;
+  color: rgb(65, 65, 65);
+}
+.scroll-y{
+  position: absolute;
+  margin-top: 0;
+}
+
+.cloth{
+  margin: 1rpx 20rpx;
+  width: auto;
+  padding: 50rpx;
+  display: block;
+  overflow: hidden;
+  font-size: 32rpx;
+}
+
+.cloth-design{
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.cloth-icon{
+  display: inline-block;
+  width: 150rpx;
+  height: 150rpx;
+  padding: 25rpx;
+  border: solid pink 3rpx;
+}

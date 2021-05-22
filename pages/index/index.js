@@ -15,19 +15,50 @@ Page({
       {
         id: 1,
         kind: '短袖',
-        contents: [{  src:"../../icons/Tshirt.png" },  {  src: "../../icons/Tshirt.png" }]
+        contents: []
+      },
+      {
+        id: 2,
+        kind: '长袖',
+        contents: []
+      },
+      {
+        id: 3,
+        kind: '毛衣',
+        contents: []
       },
       {
         id: 4,
-        kind: '短裙',
-        contents: [{  src: "../../icons/skirt.png" }]
+        kind: '棉服',
+        contents: []
       },
       {
         id: 5,
+        kind: '夹克',
+        contents: []
+      },
+      {
+        id: 6,
+        kind: '西装外套',
+        contents: []
+      },
+      {
+        id: 7,
         kind: '连衣裙',
-        contents: [{  src: "../../icons/dress.png" },{  src: "../../icons/dress.png" },{  src: "../../icons/dress.png" }]
+        contents: []
+      },
+      {
+        id: 8,
+        kind: '半身裙',
+        contents: []
+      },
+      {
+        id: 9,
+        kind: '裤子',
+        contents: []
       }
-      ]
+    ],
+    toDelete: 0
   },
   scrollToTop() {
     this.setAction({
@@ -35,10 +66,31 @@ Page({
     })
   },
   handleLongPress: function (e) {
+    var cloid = e.currentTarget.dataset.content.cloid;
+    this.setData({
+      toDelete: cloid
+    })
     this.showModal();
   },
   modalDelete: function (e) {
+    var that = this;
     this.hideModal();
+    // 请求删除接口
+    console.log(that.data.toDelete)
+    wx.request({
+      url: 'http://127.0.0.1/8081',
+      method: 'POST',
+      data: {
+        cloid: that.data.toDelete
+      },
+      header: {
+        'content-type':'application/x-www-form-urlencoded'
+      },
+      success (res) {
+        console.log(res)
+      }
+    })
+
   },
   modalCancel: function (e) {
     this.hideModal();
@@ -99,52 +151,94 @@ Page({
     }.bind(this), 200)
   },
 
-  onLoad: function () { 
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true
-      })
-  }
-    // 取出页面高度 windowHeight
-    wx.getSystemInfo({
-      success: res=> {
-        let clientHeight = res.windowHeight,
-            clientWidth = res.windowWidth,
-            rpxR = 750 / clientWidth;
-        var calc = clientHeight * rpxR;
-        this.setData({
-          windowHeight: calc
-        })
-      }
+  initDataTest () {
+    var that = this;
+    console.log('虚拟初始化数据')
+    let data = [{
+      "cloid": 1,	// 衣物id
+      "tgR": 123,		// 目标RGB值
+      "tgG": 213,
+      "tgB": 89,
+      "code": 1,	//色彩码，1-26
+      "inR": 123,		//原始RGB值
+      "inG": 41,
+      "inB": 22,
+      "type": 1,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
+      "clothlength": 3,		//衣物属性：长度 1短 2中 3长
+      "tightness": 2,		//衣物属性：松紧 1紧 2宽
+      "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
+      "picurl": "../../images/coat.png"		//图片地址
+    },
+    {  
+      "cloid": 1,	// 衣物id
+      "tgR": 12,		// 目标RGB值
+      "tgG": 213,
+      "tgB": 89,
+      "code": 1,	//色彩码，1-26
+      "inR": 123,		//原始RGB值
+      "inG": 41,
+      "inB": 22,
+      "type": 1,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
+      "clothlength": 3,		//衣物属性：长度 1短 2中 3长
+      "tightness": 2,		//衣物属性：松紧 1紧 2宽
+      "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
+      "picurl": "../../images/coat.png"		//图片地址
+    },
+  
+    {  
+      "cloid": 1,	// 衣物id
+      "tgR": 12,		// 目标RGB值
+      "tgG": 213,
+      "tgB": 89,
+      "code": 1,	//色彩码，1-26
+      "inR": 123,		//原始RGB值
+      "inG": 41,
+      "inB": 22,
+      "type": 2,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
+      "clothlength": 3,		//衣物属性：长度 1短 2中 3长
+      "tightness": 2,		//衣物属性：松紧 1紧 2宽
+      "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
+      "picurl": "../../images/coat.png"		//图片地址
+    },
+    {  
+      "cloid": 1,	// 衣物id
+      "tgR": 12,		// 目标RGB值
+      "tgG": 213,
+      "tgB": 89,
+      "code": 1,	//色彩码，1-26
+      "inR": 123,		//原始RGB值
+      "inG": 41,
+      "inB": 22,
+      "type": 3,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
+      "clothlength": 3,		//衣物属性：长度 1短 2中 3长
+      "tightness": 2,		//衣物属性：松紧 1紧 2宽
+      "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
+      "picurl": "../../images/coat.png"		//图片地址
+    }];
+    var cloth = new Array(8);
+    for( var i =0; i < cloth.length; i++) {
+      cloth[i] = new Array;
+    }
+    data.forEach(function(item, index) {
+      item.HSB = that.dealColor(item);
+      cloth[item.type - 1].push(item); // 根据item.type值存入相应的数组
     });
-  },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    })
-    this.initData();
-  },
-  getUserInfo(e) {
-    // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
-    console.log(e)
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    var clothConStr = new Array(8);
+    for( var i =0; i < cloth.length; i++) {
+      clothConStr[i] = 'cloth.['+i+'].contents'
+      this.setData({
+        [clothConStr[i]]: cloth[i]
+      })
+    }
+    console.log(that.data.cloth)
   },
   initData () {
+    console.log('初始化数据')
     wx.request({
-      url: '/closet', 
+      url: 'http://192.168.137.125:8081/', 
       data: {
       },
+      method: 'GET',
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -158,8 +252,8 @@ Page({
         let data = res.data;
         data.forEach(function(item, index) {
           console.log(item)
-          cloth[type - 1].push(item);
-        })
+          cloth[item.type - 1].push(item); // 根据item.type值存入相应的数组
+        });
         var clothConStr = new Array(8);
         for( var i =0; i < cloth.length; i++) {
           clothConStr[i] = 'cloth.['+i+'].contents'
@@ -168,6 +262,109 @@ Page({
           })
         }
       }
+    })
+  },
+  // 衣物颜色处理，将RGB转化为HSB差值
+  dealColor (cloth) {
+    var R1 = cloth.inR;
+    var G1 = cloth.inG;
+    var B1 = cloth.inB;
+    
+    var R2 = cloth.tgR;
+    var G2 = cloth.tgG;
+    var B2 = cloth.tgB;
+
+    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
+    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
+    var S = 0, B = 0;
+    if ( HSB2[1] < HSB1[1] ) {
+      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
+    } else {
+      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
+    }
+    if ( HSB2[2] < HSB1[2] ) {
+      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
+    } else {
+      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
+    }
+    var hsbdelta = {
+      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
+      S: S,
+      B: B
+    };
+    return hsbdelta;
+  },
+  
+  changeRGBtoHSB (R, G, B) {
+    // 由小到大排序RGB, RGB[0]为min， RGB[2]为max
+    var RGB = [R, G, B];
+    RGB.sort(function(a, b){return a - b});
+    let min = RGB[0], max = RGB[2];
+
+    var hsbB = max/255, hsbS = 0, hsbH = 0;
+    if ( max == 0 ) {
+      hsbS = 0;
+    }else{
+      hsbS = (max-min)/max;
+    }
+    if ( max == 0 || min == 255 ) {
+      hsbH = 0;
+    } else if (max == R && G >= B) {
+      hsbH = 60*(G-B) / (max-min);
+    } else if (max == R && B > G) {
+      hsbH = 60*(G-B) / (max-min) + 360;
+    } else if (max == G) {
+      hsbH = 60*(B-R) / (max-min) + 120;
+    } else if (max == B) {
+      hsbH = 60*(R-G) / (max-min) + 240;
+    }
+    var HSB = [hsbH, hsbS, hsbB];
+    return HSB;
+  },
+  
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function () { 
+    if ( wx.getUserProfile ) {
+      this.setData({
+        canIUseGetUserProfile: true
+      })
+    }
+    // 取出页面高度 windowHeight
+    wx.getSystemInfo({
+      success: res=> {
+        let clientHeight = res.windowHeight,
+            clientWidth = res.windowWidth,
+            rpxR = 750 / clientWidth;
+        var calc = clientHeight * rpxR;
+        this.setData({
+          windowHeight: calc
+        })
+      }
+    });
+    this.initDataTest();
+  },
+  getUserProfile(e) {
+    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
+    
+    wx.getUserProfile({
+      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+      success: (res) => {
+        console.log(res)
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    })
+  },
+  getUserInfo(e) {
+    // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
+    console.log(e)
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
     })
   }
 })

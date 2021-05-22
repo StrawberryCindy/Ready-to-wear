@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/wear/wear",
     "pages/add/add",
-    "pages/index/index",
     "pages/weather/weather",
     "components/select/select",
+    "pages/register/register",
     "pages/info/info"
   ],
   "window": {

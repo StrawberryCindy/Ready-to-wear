@@ -77,13 +77,6 @@ Page({
         },
         'dress': null,
         'tip': ''
-      },
-      { 'id': 4, 
-        'isOpenFilp': false,  
-        'upperCloth': null,
-        'downCloth': null,
-        'outerCloth': null,
-        'dress': null
       }
     ],
   },
@@ -153,35 +146,9 @@ Page({
   
   // 处理各种衣服的颜色，将原RGB和目标RGB都转化为HSB后求差值
   dealUpperColor (i) {
-    var cloth = new Object;
+    var cloth, hsbdelta = new Object;
     cloth = this.data.bannerData[i].upperCloth;
-    var R1 = cloth.ilColor.R;
-    var G1 = cloth.ilColor.G;
-    var B1 = cloth.ilColor.B;
-    
-    var R2 = cloth.tgColor.R;
-    var G2 = cloth.tgColor.G;
-    var B2 = cloth.tgColor.B;
-
-    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
-    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
-    var S = 0, B = 0;
-    if ( HSB2[1] < HSB1[1] ) {
-      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
-    } else {
-      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
-    }
-    if ( HSB2[2] < HSB1[2] ) {
-      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
-    } else {
-      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
-    }
-    var hsbdelta = {
-      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
-      S: S,
-      B: B
-    };
-    console.log('upper-HSB-delta = ', hsbdelta)
+    hsbdelta = this.dealColor(cloth);
     var data_str =  'bannerData['+i+'].upperCloth.HSB'
     this.setData({
       [data_str] : hsbdelta
@@ -189,111 +156,59 @@ Page({
   },
   dealDownColor (i) {
     var cloth = this.data.bannerData[i].downCloth;
-
-    var R1 = cloth.ilColor.R;
-    var G1 = cloth.ilColor.G;
-    var B1 = cloth.ilColor.B;
-    
-    var R2 = cloth.tgColor.R;
-    var G2 = cloth.tgColor.G;
-    var B2 = cloth.tgColor.B;
-
-    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
-    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
-    var S = 0, B = 0;
-    if ( HSB2[1] < HSB1[1] ) {
-      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
-    } else {
-      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
-    }
-    if ( HSB2[2] < HSB1[2] ) {
-      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
-    } else {
-      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
-    }
-    var hsbdelta = {
-      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
-      S: S,
-      B: B
-    };
-    console.log('down-HSB-delta = ', hsbdelta)
+    let hsbdelta = this.dealColor(cloth);
     var data_str =  'bannerData['+i+'].downCloth.HSB'
     this.setData({
       [data_str] : hsbdelta
     })
   },
-  
   dealOuterColor (i) {
     var cloth = this.data.bannerData[i].outerCloth;
-
-    var R1 = cloth.ilColor.R;
-    var G1 = cloth.ilColor.G;
-    var B1 = cloth.ilColor.B;
-    
-    var R2 = cloth.tgColor.R;
-    var G2 = cloth.tgColor.G;
-    var B2 = cloth.tgColor.B;
-
-    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
-    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
-    var S = 0, B = 0;
-    if ( HSB2[1] < HSB1[1] ) {
-      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
-    } else {
-      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
-    }
-    if ( HSB2[2] < HSB1[2] ) {
-      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
-    } else {
-      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
-    }
-    var hsbdelta = {
-      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
-      S: S,
-      B: B
-    };
-    console.log('outer-HSB-delta = ', hsbdelta)
+    let hsbdelta = this.dealColor(cloth);
     var data_str =  'bannerData['+i+'].outerCloth.HSB'
     this.setData({
       [data_str] : hsbdelta
     })
-  },
-  
+  }, 
   dealDressColor (i) {
     var cloth = this.data.bannerData[i].dress;
-
-    var R1 = cloth.ilColor.R;
-    var G1 = cloth.ilColor.G;
-    var B1 = cloth.ilColor.B;
-    
-    var R2 = cloth.tgColor.R;
-    var G2 = cloth.tgColor.G;
-    var B2 = cloth.tgColor.B;
-
-    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
-    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
-    var S = 0, B = 0;
-    if ( HSB2[1] < HSB1[1] ) {
-      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
-    } else {
-      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
-    }
-    if ( HSB2[2] < HSB1[2] ) {
-      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
-    } else {
-      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
-    }
-    var hsbdelta = {
-      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
-      S: S,
-      B: B
-    };
-    console.log('dress-HSB-delta = ', hsbdelta)
+    let hsbdelta = this.dealColor(cloth);
     var data_str =  'bannerData['+i+'].dress.HSB'
     this.setData({
       [data_str] : hsbdelta
     })
   },
+  
+  dealColor (cloth) {
+    var R1 = cloth.ilColor.R;
+    var G1 = cloth.ilColor.G;
+    var B1 = cloth.ilColor.B;
+    
+    var R2 = cloth.tgColor.R;
+    var G2 = cloth.tgColor.G;
+    var B2 = cloth.tgColor.B;
+
+    let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
+    let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
+    var S = 0, B = 0;
+    if ( HSB2[1] < HSB1[1] ) {
+      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
+    } else {
+      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
+    }
+    if ( HSB2[2] < HSB1[2] ) {
+      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
+    } else {
+      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
+    }
+    var hsbdelta = {
+      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
+      S: S,
+      B: B
+    };
+    return hsbdelta;
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -312,8 +227,7 @@ Page({
       }
     });  
    
-    for ( var index = 0; index < 4; index++ ) {
-      console.log('hi')
+    for ( var index = 0; index < 3; index++ ) {
       var card = new Object;
       card = this.data.bannerData[index];
       if (card.upperCloth) {
