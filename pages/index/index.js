@@ -65,10 +65,19 @@ Page({
       scrollTop: 0
     })
   },
-  // 进入衣物详情页（修改相关）
+  // 进入衣物详情页（修改衣物信息）
   toDetail (e) {
-    console.log(e)
-
+    console.log(e.currentTarget.dataset.content)
+    var content = e.currentTarget.dataset.content;
+    var allSelected = new Array;
+    allSelected[0] = content.type;
+    allSelected[1] = content.clothlength;
+    allSelected[2] = content.tightness;
+    allSelected[3] = content.thi;
+    allSelected = JSON.stringify(allSelected)
+    wx.navigateTo({
+      url: "../add/add?allSelected=" + allSelected
+    })
   },
   // 添加衣物
   addNew: function(e) {

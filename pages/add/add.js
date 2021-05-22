@@ -231,24 +231,7 @@ Page({
       [str_pick]: true
     })
   },
-  // 以下代码用于取色器，暂不删除了
-  // 显示取色器
-  toPick: function () {
-    this.setData({
-      pick: true
-    })
-  },
-  //取色结果回调
-  toPick: function () {
-    this.setData({
-      pick: true
-    })
-  },
-  
-  changeStyle (e) {
-    console.log(e)
-    this.data.styleContent.selected = e.detail
-  },
+
   close() {
     // 关闭select
     this.selectComponent('#selectCloth').close();
@@ -272,18 +255,50 @@ Page({
     })
   },
 
+  // 解析数据
+  selectedInit (str, id) {
+    // string 要对应解析的字段名，如'clothContent' 
+    console.log(str, id)
+    var stringToObj = {
+      'clothContent': this.data.clothContent.options,
+      'lengthContent': this.data.lengthContent.options,
+      'tightContent': this.data.tightContent.options,
+      'thiContent': this.data.thiContent.options
+    }
+    var options = stringToObj[str];
+    var selected = options[id - 1];
+    return selected;
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     // 对 从个人页面传参 route进来的 对象进行 解json操作
     if (JSON.stringify(options) !== '{}') {
-      var clothSelected =  JSON.parse(options.clothSelected);
-      console.log(options)
-      this.setData({
-        'clothContent.selected' : clothSelected
-      })
-    }
+      if (options.allSelected) {
+        var allSelectedId = JSON.parse(options.allSelected);
+        console.log(allSelectedId)
+        var allSeleted = new Array;
+        allSeleted[0] = this.selectedInit('clothContent', allSelectedId[0]);
+        allSeleted[1] = this.selectedInit('lengthContent', allSelectedId[1]);
+        allSeleted[2] = this.selectedInit('tightContent', allSelectedId[2]);
+        allSeleted[3] = this.selectedInit('thiContent', allSelectedId[3]);
+        this.setData({
+          'clothContent.selected': allSeleted[0],
+          'lengthContent.selected': allSeleted[1],
+          'tightContent.selected': allSeleted[2],
+          'thiContent.selected': allSeleted[3],
+        })
+        console.log('修改', allSeleted)
+      } else {
+        var clothSelected = JSON.parse(options.clothSelected);
+        clothSelected = this.selectedInit('clothContent', clothSelected.id);
+        console.log('添加', clothSelected)
+        this.setData({
+          'clothContent.selected' : clothSelected
+        })
+      }
+    } 
   },
 
   /**
