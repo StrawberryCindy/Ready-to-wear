@@ -23,9 +23,9 @@ Page({
         'type': 1,  // 1上下衣  2裙子  3外套+上下衣
         'upperCloth': {
           'src': "/images/coat.png", 
-          'ilColor': {'R': 223, 'G': 67, 'B': 72},  // initial 图像原始的颜色
+          'ilColor': {'R': 174, 'G': 192, 'B': 232},  // initial 图像原始的颜色
           'HSB':  { 'H': 0,  'S': 0,  'B': 0 },  // 转换时的 HSB 值
-          'tgColor': {'R': 240, 'G': 182, 'B': 123}   // target 目标颜色
+          'tgColor': {'R': 238, 'G': 130, 'B': 238}   // target 目标颜色
         },
         'downCloth': {
           'src': "/images/test2.png", 

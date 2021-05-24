@@ -72,8 +72,9 @@
                   <view class="sideWrap back">
                     <!-- detail -->
                     <view class='backGroup'>
-                      <text>TIPS--</text>
-                      <view class="tips">{{item.tips}}</view>
+                      <view class="tips">{{item.tips}}
+                        <text>\nTIPS \n  天气有点凉，推荐穿暖色\n调的衣服哦，办公场合推荐采用\n不太会出错的相近色搭配\n原则呢！\n ❤</text>
+                      </view>
                     </view>   
                   </view>
                 </view>

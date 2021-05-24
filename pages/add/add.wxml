@@ -3,17 +3,17 @@
   <view class="block">
     <view class="select-name">种类：</view>
     <view class="select-wrap">
-      <select id="selectCloth" 
+      <select id="clothContent" 
               content="{{clothContent}}" 
               selected="{{clothContent.selected}}"
-              bind:change="changeCloth"></select>
+              bind:change="change"></select>
     </view>
   </view>
   
   <view class="block">
     <view class="select-name">长度：</view>
     <view class="select-wrap">
-      <select id="selectLength"
+      <select id="lengthContent"
               content="{{lengthContent}}"
               selected="{{lengthContent.selected}}"
               bind:change="change"></select>
@@ -23,7 +23,7 @@
   <view class="block">
     <view class="select-name">款式：</view>
     <view class="select-wrap">
-      <select id="selectStyle"
+      <select id="tightContent"
               content="{{tightContent}}"
               selected="{{tightContent.selected}}"
               bind:change="change"></select>
@@ -33,7 +33,7 @@
   <view class="block">
     <view class="select-name">厚度：</view>
     <view class="select-wrap">
-      <select id="selectThi"
+      <select id="thiContent"
               content="{{thiContent}}"
               selected="{{thiContent.selected}}"
               bind:change="change"></select>
@@ -52,7 +52,15 @@
 
   <view class="show-block">
     <view class="select-name">预览：</view>
-    <image src="{{showImage}}" class="show-image"></image>
+    <view wx:if="{{canPreview}}">
+      <image src="{{picurl}}" 
+           class="show-image"
+            style="filter:hue-rotate({{HSB.H-10}}deg) saturate({{HSB.S}}) brightness({{HSB.B}});"></image>
+    </view>
+    <view wx:elif="{{!canPreview}}" class="image-default">
+      
+      <text>自动生成 \n 预览图片</text>
+    </view>
   </view>
 
   <view class="block">

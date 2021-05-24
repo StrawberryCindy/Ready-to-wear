@@ -41,7 +41,7 @@
 .frontGroup{ 
   width: 98%; height: 98%; text-align:left; border-radius: 15rpx; overflow:hidden; 
   border:1px solid #BFBFBF;
-  background-color:white;
+  background-color:rgb(255, 217, 224);
   box-shadow:2px 2px 3px #aaaaaa;
 }
 .label {
@@ -73,6 +73,13 @@
 /* backGroup */
 .backGroup{ width: 98%; height: 98%; text-align:left; border-radius: 15rpx; overflow:hidden; 
   border:1px solid #BFBFBF;
-  background-color:white;
+  background-color:rgb(255, 217, 224);
   box-shadow:2px 2px 3px #aaaaaa;text-align: left; font-size: 28rpx; }
+
+  .tips {
+    margin: 30rpx;
+    text-align: center;
+    text-overflow: ellipsis;
+    word-wrap: break-all;
+  }
 

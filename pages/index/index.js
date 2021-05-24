@@ -173,14 +173,14 @@ Page({
     console.log('虚拟初始化数据')
     let data = [{
       "cloid": 1,	// 衣物id
-      "tgR": 123,		// 目标RGB值
-      "tgG": 213,
-      "tgB": 89,
+      "tgR": 131,		// 目标RGB值
+      "tgG": 8,
+      "tgB": 131,
       "code": 5,	//色彩码，1-26
       "inR": 123,		//原始RGB值
       "inG": 41,
       "inB": 22,
-      "type": 1,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
+      "type": 2,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
       "clothlength": 3,		//衣物属性：长度 1短 2中 3长
       "tightness": 2,		//衣物属性：松紧 1紧 2宽
       "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
@@ -188,14 +188,14 @@ Page({
     },
     {  
       "cloid": 1,	// 衣物id
-      "tgR": 12,		// 目标RGB值
-      "tgG": 213,
-      "tgB": 89,
+      "tgR": 199,		// 目标RGB值
+      "tgG": 30,
+      "tgB": 199,
       "code": 8,	//色彩码，1-26
       "inR": 123,		//原始RGB值
-      "inG": 41,
-      "inB": 22,
-      "type": 1,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
+      "inG": 51,
+      "inB": 199,
+      "type": 2,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
       "clothlength": 3,		//衣物属性：长度 1短 2中 3长
       "tightness": 2,		//衣物属性：松紧 1紧 2宽
       "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
@@ -211,11 +211,11 @@ Page({
       "inR": 123,		//原始RGB值
       "inG": 41,
       "inB": 22,
-      "type": 2,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
+      "type": 1,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
       "clothlength": 3,		//衣物属性：长度 1短 2中 3长
       "tightness": 2,		//衣物属性：松紧 1紧 2宽
       "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
-      "picurl": "../../images/coat.png"		//图片地址
+      "picurl": "../../images/test1.png"		//图片地址
     },
     {  
       "cloid": 1,	// 衣物id
@@ -230,7 +230,7 @@ Page({
       "clothlength": 3,		//衣物属性：长度 1短 2中 3长
       "tightness": 2,		//衣物属性：松紧 1紧 2宽
       "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
-      "picurl": "../../images/coat.png"		//图片地址
+      "picurl": "../../images/test.png"		//图片地址
     }];
     var cloth = new Array(8);
     for( var i =0; i < cloth.length; i++) {
@@ -252,15 +252,16 @@ Page({
   initData () {
     console.log('初始化数据')
     wx.request({
-      url: 'http://192.168.137.125:8081/', 
+      url: 'http://192.168.137.1:8080/closet', 
       data: {
       },
       method: 'GET',
       header: {
-        'content-type': 'application/json' // 默认值
+        'content-type': 'application/x-www-form-urlencoded'
       },
       success (res) {
         console.log(res.data)
+        var that = this;
         // cloth[[],[],[]...] 二维数组，每个内部元素对应 cloth.contents
         var cloth = new Array(8);
         for( var i =0; i < cloth.length; i++) {
@@ -274,10 +275,13 @@ Page({
         var clothConStr = new Array(8);
         for( var i =0; i < cloth.length; i++) {
           clothConStr[i] = 'cloth.['+i+'].contents'
-          this.setData({
+          that.setData({
             [clothConStr[i]]: cloth[i]
           })
         }
+      },
+      fail (e) {
+        console.log(e)
       }
     })
   },
@@ -364,7 +368,6 @@ Page({
   },
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    
     wx.getUserProfile({
       desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {

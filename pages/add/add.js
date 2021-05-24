@@ -199,8 +199,11 @@ Page({
         'isPick': false
       },
     ],
-    colorPicked: {}, //targetRGB
-    showImage: '/images/test1.png'
+    colorPicked: { 'id': 1, 'rgb': {'R':248, 'G':248, 'B':255 }}, // targetRGB
+    inRGB: {}, // 图片原始颜色
+    canPreview: 0,  // 0-default 1-ok 2-loading
+    HSB: { H:0, S:0, B:0 },
+    picurl: ''
   },
 
   // 用户选择颜色时的交互
@@ -209,46 +212,218 @@ Page({
     var id = e.currentTarget.dataset.id;
     rgb = e.currentTarget.dataset.color; // rgb用于后续预览图片的变色处理
     let colorPicked = {id, rgb}
+    var inRGB = this.data.inRGB;
     this.setData({
       'colorPicked': colorPicked
     })
-    console.log('Pick', this.data.colorPicked)
+    if (inRGB.R) { // 当原始衣物颜色存在时,即已请求过参数数据 & 修改颜色时
+      var HSB = this.dealColor (this.data.inRGB)
+      this.setData({
+        HSB: HSB
+      })
+    }
     this.showColor(id);
   },
   // 颜色选中时的前端页面变化
   showColor (i) {
     // i表示当前选中颜色的id
     if (i) { i = i; } else { i = 0; }
-    var str = '';
     var str_pick = '';
     var that = this;
-    for (var index = 0; index < this.data.colors.length; index++) {
-      str = 'colors['+index+'].isPick';
-      that.setData({
-        colors: that.data.colors.map(item=>{
-          item.isPick = false
-          return item
-        })
+    that.setData({
+      colors: that.data.colors.map(item=>{
+        item.isPick = false
+        return item
       })
-    }
+    })
     str_pick =  'colors['+(i-1)+'].isPick';
     that.setData({
       [str_pick]: true
     })
   },
+  // 衣物变色处理, 返回hsb对象
+  dealColor (inRGB) {
+    var that = this;  // 存在异步问题
+    var R1 = inRGB.R;
+    var G1 = inRGB.G;
+    var B1 = inRGB.B;
+    var R2 = that.data.colorPicked.rgb.R;
+    var G2 = that.data.colorPicked.rgb.G;
+    var B2 = that.data.colorPicked.rgb.B;
 
+    let HSB1 = that.changeRGBtoHSB(R1, G1, B1)
+    let HSB2 = that.changeRGBtoHSB(R2, G2, B2)
+    var S = 0, B = 0;
+    if ( HSB2[1] < HSB1[1] ) {
+      S = parseFloat(((HSB2[1]) / HSB1[1]).toFixed(4));
+    } else {
+      S = 1 + parseFloat((HSB2[1] - HSB1[1]).toFixed(4));
+    }
+    if ( HSB2[2] < HSB1[2] ) {
+      B = parseFloat(((HSB2[2]) / HSB1[2]).toFixed(4));
+    } else {
+      B = 1 + parseFloat((HSB2[2] - HSB1[2]).toFixed(4));
+    }
+    var hsbdelta = {
+      H: parseFloat((HSB2[0] - HSB1[0]).toFixed(0)),
+      S: S,
+      B: B
+    };
+    return hsbdelta;
+  },
+  changeRGBtoHSB (R, G, B) {
+    // 由小到大排序RGB, RGB[0]为min， RGB[2]为max
+    var RGB = [R, G, B];
+    RGB.sort(function(a, b){return a - b});
+    let min = RGB[0], max = RGB[2];
+
+    var hsbB = max/255, hsbS = 0, hsbH = 0;
+    if ( max == 0 ) {
+      hsbS = 0;
+    }else{
+      hsbS = (max-min)/max;
+    }
+    if ( max == 0 || min == 255 ) {
+      hsbH = 0;
+    } else if (max == R && G >= B) {
+      hsbH = 60*(G-B) / (max-min);
+    } else if (max == R && B > G) {
+      hsbH = 60*(G-B) / (max-min) + 360;
+    } else if (max == G) {
+      hsbH = 60*(B-R) / (max-min) + 120;
+    } else if (max == B) {
+      hsbH = 60*(R-G) / (max-min) + 240;
+    }
+    var HSB = [hsbH, hsbS, hsbB];
+    return HSB;
+  },
+  // 页面衣物属性变化时
+  change (e) {
+    console.log(e)
+    var str = e.currentTarget.id + '.selected';
+    this.setData({
+      [str]: e.detail
+    })
+    this.checkAll()
+  },
   close() {
     // 关闭select
-    this.selectComponent('#selectCloth').close();
-    this.selectComponent('#selectLength').close();
-    this.selectComponent('#selectStyle').close();
-    this.selectComponent('#selectThi').close();
+    this.selectComponent('#clothContent').close();
+    this.selectComponent('#lengthContent').close();
+    this.selectComponent('#tightContent').close();
+    this.selectComponent('#thiContent').close();
+    this.checkAll()
   },
-  
+  // 检查所有属性---→ 判断是否可以预览衣物
+  checkAll () {
+    let select = new Array;
+    select[0] = this.data.clothContent.selected.id;
+    select[1] = this.data.lengthContent.selected.id;
+    select[2] = this.data.tightContent.selected.id;
+    select[3] = this.data.thiContent.selected.id;
+    for (var index =0; index<4; index++){
+      if ( !select[index] ) {
+        return;
+      }
+    }
+    // 选择项全不为初始值0, 开始预览
+    console.log(select)
+    var exist = this.data.inRGB;
+    if (!exist.R) {
+      this.previewImgTest()
+    }
+  },
+
+  previewImgTest () {
+    var that = this;
+    var res = {
+      picurl: '/images/coat.png',
+      inR: 172,
+      inG: 194,
+      inB: 232
+    }
+    let inRGB = {R:res.inR, G:res.inG, B:res.inB};
+    let HSB = that.dealColor(inRGB);
+    that.setData({
+      picurl: res.picurl,
+      canPreview: 1,
+      inRGB: inRGB,
+      HSB: HSB
+    })
+  },
+
+  // 预览衣物接口
+  previewImg () {
+    var that = this;
+    wx.request({
+      url: 'http://192.168.137.1:8080/preview',
+      data: {
+        type: that.data.clothContent.selected.id,
+        clothlength: that.data.lengthContent.selected.id,
+        tightness: that.data.tightContent.selected.id,
+        thi: that.data.thiContent.selected.id
+      },
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success (res) {
+        console.log(res)
+        let inRGB = {R:res.inR, G:res.inG, B:res.inB};
+        let HSB = that.dealColor(inRGB);
+        that.setData({
+          canPreview: 1,
+          inRGB: inRGB,
+          HSB: HSB
+        })
+      },
+      fail (e) {
+        console.log(e)
+      }
+    })
+  },
   // 确认添加衣服
   confirm() {
-    wx.navigateBack({
-      delta: 0,
+    var that = this;
+    var id = that.data.colorPicked.id;
+    var colortype = 0;
+    let colors = that.data.colors;
+    for (var i = 0 ; i<colors.length; i++) {
+      if (colors[i].id == id) {
+        colortype = colors[i].colortype;
+        break;
+      }
+    }
+    console.log(colortype)
+    wx.request({
+      url: 'http://192.168.137.1:8080/add',
+      data: {
+        tgR: that.data.colorPicked.rgb.R,
+        tgG: that.data.colorPicked.rgb.G,
+        tgB: that.data.colorPicked.rgb.B,
+        colortype: colortype,
+        code: id
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success (res) {
+        console.log(res)
+        let inRGB = {R:res.inR, G:res.inG, B:res.inB};
+        let HSB = that.dealColor(inRGB);
+        that.setData({
+          canPreview: 1,
+          inRGB: inRGB,
+          HSB: HSB
+        })
+        wx.navigateBack({
+          delta: 0,
+        })
+      },
+      fail (e) {
+        console.log(e)
+      }
     })
   },
 

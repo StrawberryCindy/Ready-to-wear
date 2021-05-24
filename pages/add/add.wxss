@@ -50,5 +50,13 @@ page {
   box-shadow: 0 0 8rpx #aaa;
 }
 /*预览框*/
-.show-block { margin: 30rpx 100rpx;  height: 350rpx; }
-.show-image { width: 305rpx; height: 100%; }
+.show-block { margin: 30rpx 100rpx;  height: 350rpx;}
+.show-image { width: 305rpx; height: 305rpx;}
+.image-default {
+  text-align: center;
+  border: solid grey 1rpx;
+  padding: 125rpx 0;
+  margin: 30rpx 120rpx ;
+  font-size: 30rpx;
+  color: grey;
+}

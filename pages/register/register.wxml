@@ -7,7 +7,7 @@
                 scroll-y="true"
                 scroll-into-view="{{toView}}" 
                 scroll-top="{{scrollTop}}"
-                style="height: 100%;">
+                style="height:100%;">
     <view class="cloth" 
           style='border-bottom:solid red 3rpx' 
           wx:for="{{cloth}}" wx:key="id">
@@ -19,17 +19,18 @@
               wx:key="j"
               class="cloth-icon"
               wx:for-item="content"
-              bindlongpress="handleLongPress">
-              <image src="{{content.src}}" 
-                      style='width:100rpx; height:100rpx'>
+              bindlongpress="handleLongPress"
+              bindtap="toDetail"
+              style="filter:hue-rotate({{content.HSB.H-10}}deg) saturate({{content.HSB.S}}) brightness({{content.HSB.B}});"
+              data-content="{{content}}">
+              <image src="{{content.picurl}}" style='width:120rpx; height:120rpx; margin:15rpx;'>
               </image>
         </view>
         <view class='cloth-icon'
               bindtap="addNew"
               data-id="{{item.id}}"
               data-name="{{item.kind}}">
-          <image src='../../icons/add.png' 
-                  style='width:100rpx; height:100rpx'></image>
+            <image src='../../icons/add.png' style="height:80rpx; width:80rpx; margin:35rpx;"></image>
         </view>
       </scroll-view>
     </view>
