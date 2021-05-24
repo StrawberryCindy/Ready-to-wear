@@ -74,6 +74,7 @@ Page({
     allSelected[1] = content.clothlength;
     allSelected[2] = content.tightness;
     allSelected[3] = content.thi;
+    allSelected[4] = content.code; // color ID
     allSelected = JSON.stringify(allSelected)
     wx.navigateTo({
       url: "../add/add?allSelected=" + allSelected
@@ -175,7 +176,7 @@ Page({
       "tgR": 123,		// 目标RGB值
       "tgG": 213,
       "tgB": 89,
-      "code": 1,	//色彩码，1-26
+      "code": 5,	//色彩码，1-26
       "inR": 123,		//原始RGB值
       "inG": 41,
       "inB": 22,
@@ -190,7 +191,7 @@ Page({
       "tgR": 12,		// 目标RGB值
       "tgG": 213,
       "tgB": 89,
-      "code": 1,	//色彩码，1-26
+      "code": 8,	//色彩码，1-26
       "inR": 123,		//原始RGB值
       "inG": 41,
       "inB": 22,
@@ -206,7 +207,7 @@ Page({
       "tgR": 12,		// 目标RGB值
       "tgG": 213,
       "tgB": 89,
-      "code": 1,	//色彩码，1-26
+      "code": 13,	//色彩码，1-26
       "inR": 123,		//原始RGB值
       "inG": 41,
       "inB": 22,

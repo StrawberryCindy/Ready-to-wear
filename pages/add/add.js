@@ -202,17 +202,22 @@ Page({
     colorPicked: {}, //targetRGB
     showImage: '/images/test1.png'
   },
+
+  // 用户选择颜色时的交互
   pickColor(e) {
     var rgb = new Object;
     var id = e.currentTarget.dataset.id;
-    rgb = e.currentTarget.dataset.color;
+    rgb = e.currentTarget.dataset.color; // rgb用于后续预览图片的变色处理
+    let colorPicked = {id, rgb}
     this.setData({
-      'colorPicked': rgb
+      'colorPicked': colorPicked
     })
-    console.log('Pick',this.data.colorPicked)
-    this.initColor(id);
+    console.log('Pick', this.data.colorPicked)
+    this.showColor(id);
   },
-  initColor (i) {
+  // 颜色选中时的前端页面变化
+  showColor (i) {
+    // i表示当前选中颜色的id
     if (i) { i = i; } else { i = 0; }
     var str = '';
     var str_pick = '';
@@ -239,14 +244,6 @@ Page({
     this.selectComponent('#selectStyle').close();
     this.selectComponent('#selectThi').close();
   },
-
-  //选择改色时触发（在左侧色盘触摸或者切换右侧色相条）
-  onChangeColor(e) {
-    //返回的信息在e.detail.colorData中
-    this.setData({
-      colorData: e.detail.colorData
-    })
-  },
   
   // 确认添加衣服
   confirm() {
@@ -255,10 +252,9 @@ Page({
     })
   },
 
-  // 解析数据
+  // 解析除颜色外的所有数据
   selectedInit (str, id) {
     // string 要对应解析的字段名，如'clothContent' 
-    console.log(str, id)
     var stringToObj = {
       'clothContent': this.data.clothContent.options,
       'lengthContent': this.data.lengthContent.options,
@@ -268,6 +264,18 @@ Page({
     var options = stringToObj[str];
     var selected = options[id - 1];
     return selected;
+  },
+
+  //解析颜色
+  colorInit (id) {
+    var colorPicked = new Object;
+    colorPicked.id = id;
+    colorPicked.rgb = this.data.colors[ id - 1 ].rgb;
+    this.setData({
+      'colorPicked': colorPicked
+    })
+    console.log('Pick', this.data.colorPicked)
+    this.showColor(id);
   },
   /**
    * 生命周期函数--监听页面加载
@@ -283,13 +291,14 @@ Page({
         allSeleted[1] = this.selectedInit('lengthContent', allSelectedId[1]);
         allSeleted[2] = this.selectedInit('tightContent', allSelectedId[2]);
         allSeleted[3] = this.selectedInit('thiContent', allSelectedId[3]);
+        this.colorInit(allSelectedId[4]);
         this.setData({
           'clothContent.selected': allSeleted[0],
           'lengthContent.selected': allSeleted[1],
           'tightContent.selected': allSeleted[2],
           'thiContent.selected': allSeleted[3],
         })
-        console.log('修改', allSeleted)
+        console.log('修改传入数据', allSeleted)
       } else {
         var clothSelected = JSON.parse(options.clothSelected);
         clothSelected = this.selectedInit('clothContent', clothSelected.id);
