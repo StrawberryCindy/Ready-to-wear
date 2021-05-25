@@ -1,8 +1,13 @@
 /* pages/wear/wear.wxss */
+.wear {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #f0daf1;
+}
 .info {
   position: absolute; top: 10rpx; right: 20rpx; width: 45rpx; height: 45rpx;
   border-radius: 50%;
-  background: pink;
   z-index:1;
 }
 
@@ -32,8 +37,8 @@
 .flipGroup{ width: 100%; perspective: 3500rpx;}
 .flipBox{ width: 100%; backface-visibility: visible; transition: all 1s ease; transform-style: preserve-3d; }
 .sideWrap{ width: 100%; height:100%; position: absolute; left: 0; top: 0; border-radius: 10rpx; overflow: hidden; }
-.sideWrap.front{ background:#fff; border-radius: 15rpx;}
-.sideWrap.back{ backface-visibility: visible; transform:rotateY(180deg); background: #fff; border-radius: 15rpx;}
+.sideWrap.front{ background:#f0daf1; border-radius: 15rpx;}
+.sideWrap.back{ backface-visibility: visible; transform:rotateY(180deg); background: #f0daf1; border-radius: 15rpx;}
 .flipGroup.on .flipBox{ transform:rotateY(-180deg); }  
 
 
@@ -41,7 +46,6 @@
 .frontGroup{ 
   width: 98%; height: 98%; text-align:left; border-radius: 15rpx; overflow:hidden; 
   border:1px solid #BFBFBF;
-  background-color:rgb(255, 217, 224);
   box-shadow:2px 2px 3px #aaaaaa;
 }
 .label {

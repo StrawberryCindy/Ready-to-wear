@@ -23,7 +23,7 @@
                   <!-- 正面内容 -->
                   <view class="sideWrap front">
                     <!-- 卡片 -->
-                    <view class='frontGroup' >
+                    <view class='frontGroup' style="background-image: url('/icons/wear-bg.png');">
                       <view class="label">{{item.label}}</view>
                       
                       <!--type 1上下衣  2裙子  3外套+上下衣-->
@@ -71,7 +71,7 @@
                   <!-- 背面内容 -->
                   <view class="sideWrap back">
                     <!-- detail -->
-                    <view class='backGroup'>
+                    <view class='backGroup' style="background-image: url('/icons/wear-bg.png');">
                       <view class="tips">{{item.tips}}
                         <text>\nTIPS \n  天气有点凉，推荐穿暖色\n调的衣服哦，办公场合推荐采用\n不太会出错的相近色搭配\n原则呢！\n ❤</text>
                       </view>

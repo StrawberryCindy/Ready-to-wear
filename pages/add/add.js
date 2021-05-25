@@ -330,7 +330,7 @@ Page({
     console.log(select)
     var exist = this.data.inRGB;
     if (!exist.R) {
-      this.previewImgTest()
+      this.previewImg()
     }
   },
 
@@ -355,6 +355,9 @@ Page({
   // 预览衣物接口
   previewImg () {
     var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
     wx.request({
       url: 'http://192.168.137.1:8080/preview',
       data: {
@@ -369,9 +372,12 @@ Page({
       },
       success (res) {
         console.log(res)
-        let inRGB = {R:res.inR, G:res.inG, B:res.inB};
+        wx.hideLoading()
+        let data = res.data[0];
+        let inRGB = {R:data.inR, G:data.inG, B:data.inB};
         let HSB = that.dealColor(inRGB);
         that.setData({
+          picurl: data.picurl,
           canPreview: 1,
           inRGB: inRGB,
           HSB: HSB
@@ -395,6 +401,9 @@ Page({
       }
     }
     console.log(colortype)
+    wx.showLoading({
+      title: '加载中...',
+    })
     wx.request({
       url: 'http://192.168.137.1:8080/add',
       data: {
@@ -417,12 +426,21 @@ Page({
           inRGB: inRGB,
           HSB: HSB
         })
+        wx.showToast({
+          title: '添加成功！', // 标题
+          icon: 'success',    // 图标类型，默认success
+          duration: 1500      // 提示窗停留时间，默认1500ms
+        })
         wx.navigateBack({
           delta: 0,
         })
       },
       fail (e) {
         console.log(e)
+      },
+      complete(e) {
+        console.log(e)
+        wx.hideLoading()
       }
     })
   },

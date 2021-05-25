@@ -52,13 +52,12 @@
 
   <view class="show-block">
     <view class="select-name">预览：</view>
-    <view wx:if="{{canPreview}}">
+    <view wx:if="{{canPreview}}" >
       <image src="{{picurl}}" 
            class="show-image"
             style="filter:hue-rotate({{HSB.H-10}}deg) saturate({{HSB.S}}) brightness({{HSB.B}});"></image>
     </view>
-    <view wx:elif="{{!canPreview}}" class="image-default">
-      
+    <view wx:elif="{{!canPreview}}" class="image-default" style="background-image:url('/icons/wear-bg.png')">
       <text>自动生成 \n 预览图片</text>
     </view>
   </view>

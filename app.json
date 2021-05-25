@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/add/add",
     "pages/index/index",
     "pages/wear/wear",
+    "pages/add/add",
     "pages/weather/weather",
     "pages/register/register",
     "components/select/select",
@@ -36,7 +36,7 @@
       }
     ],
     "position": "bottom",
-    "selectedColor": "#EFA6B7"
+    "selectedColor": "#be9bf8"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",

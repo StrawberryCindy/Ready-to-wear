@@ -18,7 +18,6 @@
                 scroll-top="{{scrollTop}}"
                 style="height: {{windowHeight-208}}rpx;">
     <view class="cloth" 
-          style='border-bottom:solid red 3rpx' 
           wx:for="{{cloth}}" wx:key="id">
       <text>{{item.kind}}</text>
       <scroll-view class='cloth-design' 
@@ -42,6 +41,7 @@
             <image src='../../icons/add.png' style="height:80rpx; width:80rpx; margin:35rpx;"></image>
         </view>
       </scroll-view>
+      <view><image style="height:15rpx; width:100%;" src="/icons/line.png"></image></view>
     </view>
   </scroll-view>
   <!--屏幕背景变暗的背景 -->

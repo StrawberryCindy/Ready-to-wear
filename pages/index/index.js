@@ -251,6 +251,7 @@ Page({
   },
   initData () {
     console.log('初始化数据')
+    var that = this;
     wx.request({
       url: 'http://192.168.137.1:8080/closet', 
       data: {
@@ -261,7 +262,6 @@ Page({
       },
       success (res) {
         console.log(res.data)
-        var that = this;
         // cloth[[],[],[]...] 二维数组，每个内部元素对应 cloth.contents
         var cloth = new Array(8);
         for( var i =0; i < cloth.length; i++) {

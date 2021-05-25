@@ -1,6 +1,7 @@
 /* pages/add/add.wxss */
 page {
   height: 100%;
+  background: #f0daf1;
 }
 .block {
   margin: 30rpx 100rpx;
