@@ -398,9 +398,9 @@ Page({
         console.log(e)
         wx.hideLoading()
         wx.showToast({
-          title: '网络连接失败', // 标题
-          icon: 'error',    // 图标类型，默认success
-          duration: 1500      // 提示窗停留时间，默认1500ms
+          title: '网络连接失败',
+          icon: 'error',
+          duration: 1500
         })
       },
       complete (e) {

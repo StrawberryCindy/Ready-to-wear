@@ -106,10 +106,13 @@ Page({
   modalDelete: function (e) {
     var that = this;
     this.hideModal();
-    // 请求删除接口
+    // 请求删除接口 
+    wx.showLoading({
+      title: '请求删除中...',
+    })
     console.log(that.data.toDelete)
     wx.request({
-      url: 'http://127.0.0.1/8081',
+      url: 'http://127.0.0.1:8081/delete',
       method: 'POST',
       data: {
         cloid: that.data.toDelete
@@ -117,8 +120,23 @@ Page({
       header: {
         'content-type':'application/x-www-form-urlencoded'
       },
-      success (res) {
-        console.log(res)
+      success () {
+        that.initData();
+        wx.showToast({
+          title: '删除成功！',
+          icon: 'success',
+          duration: 1500
+        })
+      },
+      fail () {
+        wx.showToast({
+          title: '删除失败！',
+          icon: 'error',
+          duration: 1500
+        })
+      },
+      complete() {
+        wx.hideLoading()
       }
     })
   },
@@ -201,7 +219,6 @@ Page({
       "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
       "picurl": "../../images/coat.png"		//图片地址
     },
-  
     {  
       "cloid": 1,	// 衣物id
       "tgR": 12,		// 目标RGB值
