@@ -80,6 +80,24 @@ Page({
       }
     ],
   },
+  // 初始化数据
+  getData() {
+    wx.request({
+      url: 'http://127.0.0.1/fashion',
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success (res) {
+        console.log(res.data)
+        let data = res.data;
+        var bannerData = new Array;
+        data.forEach(function(item, index) {
+          bannerData
+        });
+      }
+    })
+  },
   // bannerSwiper
   bannerSwiper(e) {
     const that = this, bannerCurrent = e.detail.current;
@@ -226,7 +244,7 @@ Page({
         })
       }
     });  
-   
+    this.getData();
     for ( var index = 0; index < 3; index++ ) {
       var card = new Object;
       card = this.data.bannerData[index];

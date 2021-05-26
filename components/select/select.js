@@ -30,7 +30,6 @@ Component({
 
       // 调用父组件方法，并传参
       this.triggerEvent("change", { ...dataset })
-      console.log(this.data.selected)
       this.close()
     },
     openClose() {

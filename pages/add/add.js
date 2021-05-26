@@ -201,9 +201,10 @@ Page({
     ],
     colorPicked: { 'id': 1, 'rgb': {'R':248, 'G':248, 'B':255 }}, // targetRGB
     inRGB: {}, // 图片原始颜色
-    canPreview: 0,  // 0-default 1-ok 2-loading
+    picurl: '',
+    canPreview: 0,  // 0-default 1-ok
     HSB: { H:0, S:0, B:0 },
-    picurl: ''
+    lastSelect: []
   },
 
   // 用户选择颜色时的交互
@@ -299,7 +300,6 @@ Page({
   },
   // 页面衣物属性变化时
   change (e) {
-    console.log(e)
     var str = e.currentTarget.id + '.selected';
     this.setData({
       [str]: e.detail
@@ -316,6 +316,7 @@ Page({
   },
   // 检查所有属性---→ 判断是否可以预览衣物
   checkAll () {
+    var that = this;
     let select = new Array;
     select[0] = this.data.clothContent.selected.id;
     select[1] = this.data.lengthContent.selected.id;
@@ -327,11 +328,15 @@ Page({
       }
     }
     // 选择项全不为初始值0, 开始预览
-    console.log(select)
-    var exist = this.data.inRGB;
-    if (!exist.R) {
-      this.previewImg()
-    }
+    select.forEach(function(item, index) {
+      if (item !== that.data.lastSelect[index]) {
+        that.setData({
+          lastSelect: select
+        })
+        that.previewImg()
+        return;
+      }
+    })
   },
 
   previewImgTest () {
@@ -354,7 +359,13 @@ Page({
 
   // 预览衣物接口
   previewImg () {
+    console.log(this.data.lastSelect, '发送预览图片请求')
     var that = this;
+    // 发送请求之前先清空掉原有的（用于网络不好的情况）
+    that.setData({
+      picurl: '',
+      inRGB: {}
+    })
     wx.showLoading({
       title: '加载中...',
     })
@@ -371,7 +382,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success (res) {
-        console.log(res)
+        console.log(res.data[0])
         wx.hideLoading()
         let data = res.data[0];
         let inRGB = {R:data.inR, G:data.inG, B:data.inB};
@@ -385,6 +396,15 @@ Page({
       },
       fail (e) {
         console.log(e)
+        wx.hideLoading()
+        wx.showToast({
+          title: '网络连接失败', // 标题
+          icon: 'error',    // 图标类型，默认success
+          duration: 1500      // 提示窗停留时间，默认1500ms
+        })
+      },
+      complete (e) {
+        wx.hideLoading()
       }
     })
   },
@@ -437,6 +457,7 @@ Page({
       },
       fail (e) {
         console.log(e)
+        wx.hideLoading()
       },
       complete(e) {
         console.log(e)
