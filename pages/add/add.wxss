@@ -55,9 +55,10 @@ page {
 .show-image { width: 305rpx; height: 305rpx;}
 .image-default {
   text-align: center;
-  border: solid grey 1rpx;
+  border: solid grey 1rpx; box-shadow:1px 1px 3px #aaaaaa;
   padding: 125rpx 0;
   margin: 30rpx 120rpx ;
-  font-size: 30rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
   color: grey;
 }

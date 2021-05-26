@@ -26,40 +26,40 @@
                     <view class='frontGroup' style="background-image: url('/icons/wear-bg.png');">
                       <view class="label">{{item.label}}</view>
                       
-                      <!--type 1上下衣  2裙子  3外套+上下衣-->
-                      <view wx:if="{{item.type == 1}}">
-                        <image src="{{item.upperCloth.src}}" 
+                      <!--wholeType 1上下衣  2裙子  3外套+上下衣-->
+                      <view wx:if="{{item.wholeType == 1}}">
+                        <image src="{{item.upperCloth.picurl}}" 
                                 class="upper-wear1" 
                                 wx:if="{{item.upperCloth}}" 
                                 style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg) saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});">
                         </image>
-                        <image src="{{item.downCloth.src}}" 
+                        <image src="{{item.downCloth.picurl}}" 
                                 class="down-wear1" 
                                 wx:if="{{item.downCloth}}" 
                                 style="filter:hue-rotate({{item.downCloth.HSB.H-10}}deg) saturate({{item.downCloth.HSB.S}}) brightness({{item.downCloth.HSB.B}});">
                         </image>
                       </view>
 
-                      <view wx:elif="{{item.type == 2}}">
-                        <image src="{{item.dress.src}}" 
+                      <view wx:elif="{{item.wholeType == 2}}">
+                        <image src="{{item.dress.picurl}}" 
                                 class="dress" 
                                 wx:if="{{item.dress}}" 
                                 style="filter:hue-rotate({{item.dress.HSB.H-10}}deg) saturate({{item.dress.HSB.S}}) brightness({{item.dress.HSB.B}});">
                         </image>
                       </view>
                       
-                      <view wx:elif="{{item.type == 3}}">
-                        <image src="{{item.upperCloth.src}}" 
+                      <view wx:elif="{{item.wholeType == 3}}">
+                        <image src="{{item.upperCloth.picurl}}" 
                                 class="upper-wear2" 
                                 wx:if="{{item.upperCloth}}" 
                                 style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg) saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});">
                         </image>
-                        <image src="{{item.downCloth.src}}" 
+                        <image src="{{item.downCloth.picurl}}" 
                                 class="down-wear2" 
                                 wx:if="{{item.downCloth}}" 
                                 style="filter:hue-rotate({{item.downCloth.HSB.H-10}}deg) saturate({{item.downCloth.HSB.S}}) brightness({{item.downCloth.HSB.B}});">
                         </image>
-                        <image src="{{item.outerCloth.src}}"
+                        <image src="{{item.outerCloth.picurl}}"
                                 class="outer-wear"
                                 wx:if="{{item.outerCloth}}" 
                                 style="filter:hue-rotate({{item.outerCloth.HSB.H-10}}deg) saturate({{item.outerCloth.HSB.S}}) brightness({{item.outerCloth.HSB.B}});">
@@ -72,8 +72,8 @@
                   <view class="sideWrap back">
                     <!-- detail -->
                     <view class='backGroup' style="background-image: url('/icons/wear-bg.png');">
-                      <view class="tips">{{item.tips}}
-                        <text>\nTIPS \n  天气有点凉，推荐穿暖色\n调的衣服哦，办公场合推荐采用\n不太会出错的相近色搭配\n原则呢！\n ❤</text>
+                      <view class="tips">
+                        <text>\nTIPS \n  {{item.tips}}</text>
                       </view>
                     </view>   
                   </view>

@@ -80,8 +80,71 @@ Page({
       }
     ],
   },
+  getDataTest() {
+    var that = this
+    let data = [{
+    "wholeType": 1,	//1:上下衣 2:裙子 3:外套+上下衣
+    "label": '可爱风',
+    "tips": '天气有点凉，推荐穿暖色\n调的衣服哦，办公场合推荐采用\n不太会出错的相近色搭配\n原则呢！\n ❤',	
+    "upperCloth": { 
+      "inR": 174,					//原始RGB值
+      "inG": 192,
+      "inB": 232,
+      "tgR": 238,					//目标RGB值
+      "tgG": 130,
+      "tgB": 238,
+      "picurl": "/images/coat.png"			//图片地址
+    },
+    "downCloth": {  
+      "inR": 223,					//原始RGB值
+      "inG": 67,
+      "inB": 72,
+      "tgR": 240,					//目标RGB值
+      "tgG": 90,
+      "tgB": 147,
+      "picurl": "/images/test2.png"
+    }, 
+    "outerCloth": null,
+    "dress": null, 
+  },{
+    "wholeType": 1,	//1:上下衣 2:裙子 3:外套+上下衣
+    "label": '通勤风',
+    "tips": '今天紫外线很强，推荐擦防晒\n并且搭配外套防晒衣。 \n ❤',	
+    "upperCloth": { 
+      "inR": 174,					//原始RGB值
+      "inG": 192,
+      "inB": 232,
+      "tgR": 238,					//目标RGB值
+      "tgG": 130,
+      "tgB": 238,
+      "picurl": "/images/coat.png"			//图片地址
+    },
+    "downCloth": {  
+      "inR": 223,					//原始RGB值
+      "inG": 67,
+      "inB": 72,
+      "tgR": 240,					//目标RGB值
+      "tgG": 90,
+      "tgB": 147,
+      "picurl": "/images/test2.png"
+    }, 
+    "outerCloth": null,
+    "dress": null, 
+  }];
+    var bannerData = new Array;
+    data.forEach(function(item, index) {
+      bannerData[index] = new Object;
+      bannerData[index] = item;
+      bannerData[index].id = index + 1;
+      bannerData[index].isOpenFilp = false;
+    });
+    that.setData({
+      bannerData: bannerData
+    })
+  },
   // 初始化数据
   getData() {
+    var that = this;
     wx.request({
       url: 'http://127.0.0.1/fashion',
       method: 'GET',
@@ -93,8 +156,15 @@ Page({
         let data = res.data;
         var bannerData = new Array;
         data.forEach(function(item, index) {
-          bannerData
+          bannerData[index] = new Object;
+          bannerData[index] = item;
+          bannerData[index].id = index + 1;
+          bannerData[index].isOpenFilp = false;
         });
+        console.log(bannerData)
+        that.setData({
+          bannerData: bannerData
+        })
       }
     })
   },
@@ -198,13 +268,13 @@ Page({
   },
   
   dealColor (cloth) {
-    var R1 = cloth.ilColor.R;
-    var G1 = cloth.ilColor.G;
-    var B1 = cloth.ilColor.B;
+    var R1 = cloth.inR;
+    var G1 = cloth.inG;
+    var B1 = cloth.inB;
     
-    var R2 = cloth.tgColor.R;
-    var G2 = cloth.tgColor.G;
-    var B2 = cloth.tgColor.B;
+    var R2 = cloth.tgR;
+    var G2 = cloth.tgG;
+    var B2 = cloth.tgB;
 
     let HSB1 = this.changeRGBtoHSB(R1, G1, B1)
     let HSB2 = this.changeRGBtoHSB(R2, G2, B2)
@@ -244,9 +314,9 @@ Page({
         })
       }
     });  
-    this.getData();
-    for ( var index = 0; index < 3; index++ ) {
-      var card = new Object;
+    this.getDataTest();
+    for ( var index = 0; index < this.data.bannerData.length; index++ ) {
+      var card = new Object();
       card = this.data.bannerData[index];
       if (card.upperCloth) {
         this.dealUpperColor(index);
@@ -261,6 +331,7 @@ Page({
         this.dealOuterColor(index);
       }
     }
+    console.log(this.data.bannerData)
   },
 
   /**
