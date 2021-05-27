@@ -112,7 +112,7 @@ Page({
     })
     console.log(that.data.toDelete)
     wx.request({
-      url: 'http://127.0.0.1:8081/delete',
+      url: 'http://192.168.137.1:8081/delete',
       method: 'POST',
       data: {
         cloid: that.data.toDelete
@@ -269,8 +269,11 @@ Page({
   initData () {
     console.log('初始化数据')
     var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
     wx.request({
-      url: 'http://192.168.137.1:8080/closet', 
+      url: 'http://192.168.137.1:8081/closet', 
       data: {
       },
       method: 'GET',
@@ -299,6 +302,9 @@ Page({
       },
       fail (e) {
         console.log(e)
+      },
+      complete() {
+        wx.hideLoading()
       }
     })
   },
@@ -381,7 +387,10 @@ Page({
         })
       }
     });
-    this.initDataTest();
+    this.initData();
+  },
+  onShow () {
+    this.initData();
   },
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
