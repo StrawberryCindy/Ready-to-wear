@@ -15,70 +15,7 @@ Page({
       weather: '多云'
     },
     bannerCurrent: 0, // 当前显示的banner
-    bannerData: [
-      {
-        'id': 1,
-        'isOpenFilp': false, 
-        'label': "可爱风",
-        'type': 1,  // 1上下衣  2裙子  3外套+上下衣
-        'upperCloth': {
-          'src': "/images/coat.png", 
-          'ilColor': {'R': 174, 'G': 192, 'B': 232},  // initial 图像原始的颜色
-          'HSB':  { 'H': 0,  'S': 0,  'B': 0 },  // 转换时的 HSB 值
-          'tgColor': {'R': 238, 'G': 130, 'B': 238}   // target 目标颜色
-        },
-        'downCloth': {
-          'src': "/images/test2.png", 
-          'ilColor': {'R': 223, 'G': 67, 'B': 72}, 
-          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
-          'tgColor': {'R': 240, 'G': 90, 'B': 147}
-        },
-        'outerCloth': null,
-        'dress': null,
-        'tip': ""
-      },
-      {
-        'id': 2,
-        'isOpenFilp': false, 
-        'label': "约会装",
-        'type': 2,
-        'upperCloth': null,
-        'downCloth': null,
-        'outerCloth': null,
-        'dress': {
-          'src': '/images/dress.png',
-          'ilColor': {'R': 223, 'G': 67, 'B': 72}, 
-          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
-          'tgColor': {'R': 255, 'G': 10, 'B': 147}
-        },
-        'tip': ''
-      },
-      { 'id': 3, 
-        'isOpenFilp': false, 
-        'label': "运动系",
-        'type': 3,
-        'upperCloth': {
-          'src': "/images/test.png", 
-          'ilColor': {'R': 223, 'G': 67, 'B': 72},
-          'HSB':  { 'H': 0,  'S': 0,  'B': 0 },
-          'tgColor': {'R': 255, 'G': 182, 'B': 193}
-        },
-        'downCloth': {
-          'src': "/images/downpants.png", 
-          'ilColor': {'R': 223, 'G': 67, 'B': 72}, 
-          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
-          'tgColor': {'R': 255, 'G': 10, 'B': 147}
-        },
-        'outerCloth': {
-          'src': "/images/coat.png", 
-          'ilColor': {'R': 174, 'G': 192, 'B': 232}, 
-          'HSB':  { 'H': 0,  'S': 0,  'B': 0 }, 
-          'tgColor': {'R': 238, 'G': 130, 'B': 248}
-        },
-        'dress': null,
-        'tip': ''
-      }
-    ],
+    bannerData: [],
   },
   getDataTest() {
     var that = this
@@ -107,7 +44,7 @@ Page({
     "outerCloth": null,
     "dress": null, 
   },{
-    "wholeType": 1,	//1:上下衣 2:裙子 3:外套+上下衣
+    "wholeType": 0,	//1:上下衣 2:裙子 3:外套+上下衣
     "label": '通勤风',
     "tips": '今天紫外线很强，推荐擦防晒\n并且搭配外套防晒衣。 \n ❤',	
     "upperCloth": { 
@@ -154,6 +91,7 @@ Page({
       success (res) {
         console.log(res.data)
         let data = res.data;
+        if (data.upperCloth == null)
         var bannerData = new Array;
         data.forEach(function(item, index) {
           bannerData[index] = new Object;

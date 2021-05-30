@@ -1,1 +1,162 @@
 /* pages/bodyShape/bodyShape.wxss */
+.title{
+  margin: 60rpx 10% 20rpx;
+  padding: 20rpx 0 40rpx;
+  width: 80%;
+  text-align: center;
+  line-height: 50rpx;
+  font-size: 35rpx;
+  border: mediumorchid solid 6rpx;
+  border-radius: 60rpx;
+}
+
+.detail-btn {
+  margin-right: 5%;
+  width: 20%;
+  padding: 10rpx 20rpx;
+  float: right;
+  background: #f5eaf8;
+  font-size: 30rpx;
+  border-radius: 30rpx;
+  text-align: right;
+}
+.detail-btn-active{
+  width: 85%;
+  margin-right: 5%;
+  padding: 10rpx 20rpx;
+  float: right;
+  background: #f5eaf8;
+  font-size: 30rpx;
+  border-radius: 30rpx;
+  text-align: right;
+}
+.mes-mtd {
+  color: #766e86;
+  margin-right: 5%;
+  margin-top: -20rpx;
+  padding: 0rpx 20rpx 10rpx;
+  background: #f5eaf8;
+  font-size: 25rpx;
+  text-align: left;
+}
+.table{
+  line-height: 90rpx;
+  font-size: 35rpx;
+}
+
+.tr {
+  display: flex;
+  margin-left:7.5%;
+  width: 85%;
+  height: 2.7rem;
+  align-items: center;
+}
+
+.tdLeft {
+  width:30%;
+  padding-left: 4%;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.tdCenter {
+  width:55%;
+  justify-content: center;
+  text-align: right;
+}
+.tdCenter2 {
+  width:10%;
+  justify-content: center;
+  text-align: right;
+}
+
+.tdRight {
+  justify-content: flex-end;
+  text-align: right;
+}
+.bg-g{
+  background: #f5eaf8;
+}
+.th {
+  width: 40%;
+  justify-content: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.bottom{
+  margin-top: 40rpx;
+  font-size: 40rpx;
+}
+
+
+/*使屏幕变暗 */
+.commodity_screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 2;
+  }
+  /*对话框 */
+.commodity_attr_box {
+  height: 80%;
+  width: 98%;
+  margin-left: 1%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 3rpx;
+  left: 0;
+  z-index: 3;
+}
+
+  /*弹窗内部样式*/
+  .modal{
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    overflow-y: scroll;   
+    background: #fff;
+    border-radius: 20rpx;
+    margin-bottom: 5rpx;
+  }
+  .report-pic{
+    margin-top: 100rpx;
+    margin-left: 10%;
+    width: 20%;
+  }
+  .report-content{
+    margin-top: 100rpx;
+    margin-left: 8%;
+    width: 52%;
+  }
+  .report-title {
+    border-left: #d4237a 4px solid;
+    font-size: 35rpx;
+    margin-bottom: 20rpx;
+    padding-left: 20rpx;
+  }
+  .report-dsc{
+    font-size: 30rpx;
+    margin-bottom: 20rpx;
+    line-height: 50rpx;
+    padding-bottom: 20rpx;
+    border-bottom: #d4237a 2px solid;
+  }
+  .report-tip{
+    font-size: 27rpx;
+    color: #766e86;
+    line-height: 47rpx;
+  }
+  .close{
+    position: absolute;
+    font-size: x-large;
+    top: 0;
+    right: 20rpx;
+  }

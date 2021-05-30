@@ -1,2 +1,58 @@
 <!--pages/bodyShape/bodyShape.wxml-->
+<view>
+  <view class="title">
+    <text style="line-height:80rpx;">花几分钟时间测量您的身材参数\n</text>
+    <text>我们将根据您的身形给出属于\n您独一无二的\n穿搭建议~٩(๑❛ᴗ❛๑)۶</text>
+  </view>
+  <view class="{{showMesMtd ? 'detail-btn-active' : 'detail-btn' }}" bindtap="showMesMtd">测量方法 {{showMesMtd ? '▲': '▼'}}
+    <view wx:if="{{showMesMtd}}" class="mes-mtd">
+      <text>
+        1.肩围---绕肩膀最宽的地方一周，一定要紧贴前后背 \n 2.胸围---最胸部最丰满的地方环绕一周  \n 3.腰围---在腰最细的地方环绕一周 \n 4.臀围---在臀部最丰满的地方环绕一周
+      </text>
+    </view>
+  </view>
+  <view class="table">
+    <block wx:for="{{listData}}" wx:key="index">
+      <view class="tr" wx:if="{{index % 2 == 0}}">
+        <view class="tdLeft">{{item.project}}</view>
+        <view class="tdCenter"><input placeholder='请输入 ' data-name="{{item.id}}" bindinput="getInput" placeholder-style="font-size:smaller" value="{{bodyData[index]}}"></input></view>
+        <view class="tdRight">{{item.unit}}</view>
+      </view>
+      <view class="tr bg-g" wx:else>
+        <view class="tdLeft">{{item.project}}</view>
+        <view class="tdCenter"><input placeholder='请输入 ' data-name="{{item.id}}" bindinput='getInput' placeholder-style="font-size:smaller" value="{{bodyData[index]}}"></input></view>
+        <view class="tdRight">{{item.unit}}</view>
+      </view>
+    </block>
+  </view>
+  <view class="bottom">
+      <button class="confrim-button" bindtap="checkReport">生成我的身材报告</button>
+  </view>
 
+  <!--屏幕背景变暗的背景 -->
+  <view class="commodity_screen" 
+      bindtap="hideModal" 
+      wx:if="{{showModalStatus}}"></view>
+   <!--弹出框 -->
+   <view animation="{{animationData}}" 
+        class="commodity_attr_box" 
+        wx:if="{{showModalStatus}}">
+    <view class='modal'>
+      <view class="close" bindtap="hideModal">×</view>
+      <view class="report-pic">
+        <image src="{{styleShow.url}}" mode="widthFix" style="width:100%;"></image>
+      </view>
+      <view class="report-content">
+        <view class="report-title">
+          <text>{{styleShow.title}}</text>
+        </view>
+        <view class="report-dsc">
+          <text>{{styleShow.dsc}}</text>
+        </view>
+        <view class="report-tip">
+          <text>Tips: \n {{styleShow.tip}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

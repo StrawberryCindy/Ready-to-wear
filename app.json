@@ -5,8 +5,9 @@
     "pages/rack/rack",
     "pages/weather/weather",
     "components/select/select",
+    "pages/bodyShape/bodyShape",
     "pages/info/info",
-    "pages/bodyShape/bodyShape"
+    "pages/bodyColor/bodyColor"
   ],
   "window": {
     "backgroundTextStyle": "light",

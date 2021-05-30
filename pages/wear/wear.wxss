@@ -61,6 +61,12 @@
   writing-mode: vertical-rl;
 }
 
+.wear-default {
+  margin: 150rpx 30rpx;
+  text-align: center;
+  text-overflow: ellipsis;
+  word-wrap: break-all; font-size: 28rpx;
+}
 /*上下衣*/
 .upper-wear1 { position: absolute; margin: 10vh 5rpx 1vh; display: flex; width: 305rpx; height: 280rpx;}
 .down-wear1 { position:absolute; display: flex; right:0rpx; top: 30vh; margin: 0 20rpx 1vh; width: 310rpx; height: 320rpx; }
