@@ -15,6 +15,10 @@ Page({
       { 
         'title': '测测你是什么身形 >>>',
         'toUrl': '/pages/bodyShape/bodyShape'
+      },
+      { 
+        'title': '测测你是什么肤色 >>>',
+        'toUrl': '/pages/bodyColor/bodyColor'
       }
     ]
   },

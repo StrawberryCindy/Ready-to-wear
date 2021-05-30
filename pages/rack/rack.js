@@ -106,7 +106,7 @@ Page({
     })
     console.log(that.data.toDelete)
     wx.request({
-      url: 'http://192.168.137.1:8081/delete',
+      url: 'http://222.16.61.214:8081/delete',
       method: 'POST',
       data: {
         cloid: that.data.toDelete
@@ -179,87 +179,6 @@ Page({
       })
     }.bind(this), 200)
   },
-
-  initDataTest () {
-    var that = this;
-    console.log('虚拟初始化数据')
-    let data = [{
-      "cloid": 1,	// 衣物id
-      "tgR": 131,		// 目标RGB值
-      "tgG": 8,
-      "tgB": 131,
-      "code": 5,	//色彩码，1-26
-      "inR": 123,		//原始RGB值
-      "inG": 41,
-      "inB": 22,
-      "type": 2,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
-      "clothlength": 3,		//衣物属性：长度 1短 2中 3长
-      "tightness": 2,		//衣物属性：松紧 1紧 2宽
-      "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
-      "picurl": "../../images/coat.png"		//图片地址
-    },
-    {  
-      "cloid": 1,	// 衣物id
-      "tgR": 199,		// 目标RGB值
-      "tgG": 30,
-      "tgB": 199,
-      "code": 8,	//色彩码，1-26
-      "inR": 123,		//原始RGB值
-      "inG": 51,
-      "inB": 199,
-      "type": 2,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
-      "clothlength": 3,		//衣物属性：长度 1短 2中 3长
-      "tightness": 2,		//衣物属性：松紧 1紧 2宽
-      "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
-      "picurl": "../../images/coat.png"		//图片地址
-    },
-    {  
-      "cloid": 1,	// 衣物id
-      "tgR": 12,		// 目标RGB值
-      "tgG": 213,
-      "tgB": 89,
-      "code": 13,	//色彩码，1-26
-      "inR": 123,		//原始RGB值
-      "inG": 41,
-      "inB": 22,
-      "type": 1,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
-      "clothlength": 3,		//衣物属性：长度 1短 2中 3长
-      "tightness": 2,		//衣物属性：松紧 1紧 2宽
-      "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
-      "picurl": "../../images/test1.png"		//图片地址
-    },
-    {  
-      "cloid": 1,	// 衣物id
-      "tgR": 12,		// 目标RGB值
-      "tgG": 213,
-      "tgB": 89,
-      "code": 1,	//色彩码，1-26
-      "inR": 123,		//原始RGB值
-      "inG": 41,
-      "inB": 22,
-      "type": 3,			//衣物属性：种类 1短袖 2长袖 3毛衣 4棉服 5夹克 6西装外套 7连衣裙 8半身裙 9裤子
-      "clothlength": 3,		//衣物属性：长度 1短 2中 3长
-      "tightness": 2,		//衣物属性：松紧 1紧 2宽
-      "thi": 3,				//衣物属性：薄厚 1薄 2中 3厚
-      "picurl": "../../images/test.png"		//图片地址
-    }];
-    var cloth = new Array(8);
-    for( var i =0; i < cloth.length; i++) {
-      cloth[i] = new Array;
-    }
-    data.forEach(function(item, index) {
-      item.HSB = that.dealColor(item);
-      cloth[item.type - 1].push(item); // 根据item.type值存入相应的数组
-    });
-    var clothConStr = new Array(8);
-    for( var i =0; i < cloth.length; i++) {
-      clothConStr[i] = 'cloth.['+i+'].contents'
-      this.setData({
-        [clothConStr[i]]: cloth[i]
-      })
-    }
-    console.log(that.data.cloth)
-  },
   initData () {
     console.log('初始化数据')
     var that = this;
@@ -267,7 +186,7 @@ Page({
       title: '加载中...',
     })
     wx.request({
-      url: 'http://192.168.137.1:8081/closet', 
+      url: 'http://222.16.61.214:8081/closet', 
       data: {
       },
       method: 'GET',
@@ -277,7 +196,7 @@ Page({
       success (res) {
         console.log(res.data)
         // cloth[[],[],[]...] 二维数组，每个内部元素对应 cloth.contents
-        var cloth = new Array(8);
+        var cloth = new Array(9);
         for( var i =0; i < cloth.length; i++) {
           cloth[i] = new Array;
         }
@@ -376,9 +295,9 @@ Page({
         })
       }
     });
-    this.initDataTest();
+    this.initData();
   },
   onShow () {
-    this.initDataTest();
+    this.initData();
   }
 })

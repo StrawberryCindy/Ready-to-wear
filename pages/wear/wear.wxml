@@ -10,7 +10,8 @@
             next-margin="60rpx" 
             bindchange="bannerSwiper"  
             class="cloth-card" 
-            style="height: {{windowHeight-250}}rpx;">
+            style="height: {{windowHeight-250}}rpx;"
+            indicator-dots="true">
       <swiper-item class="item" wx:for="{{ bannerData }}" wx:key="id">
           <view class="swiper-item" style="height: {{windowHeight-320}}rpx;">
             <view class='boxItem column'>
@@ -95,11 +96,9 @@
                   </view>
                 </view>
               </view>
-
             </view>
           </view>
         </swiper-item>
-
     </swiper>
   </view>
 </view>

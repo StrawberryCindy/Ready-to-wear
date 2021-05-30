@@ -83,7 +83,7 @@ Page({
   getData() {
     var that = this;
     wx.request({
-      url: 'http://127.0.0.1/fashion',
+      url: 'http://222.16.61.214:8081/fashion',
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -252,7 +252,7 @@ Page({
         })
       }
     });  
-    this.getDataTest();
+    this.getData();
     for ( var index = 0; index < this.data.bannerData.length; index++ ) {
       var card = new Object();
       card = this.data.bannerData[index];

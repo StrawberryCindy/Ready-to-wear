@@ -1,2 +1,45 @@
 <!--pages/bodyColor/bodyColor.wxml-->
-<text>pages/bodyColor/bodyColor.wxml</text>
+<view>
+  <view class="title">
+    <text>填写问卷获取你的 \n 肤色报告吧~</text>
+  </view>
+  <view class="requires">
+    <view class="require" wx:for="{{requireList}}" wx:key="index">
+      <view class="rq-title">
+        <text>{{item.title}}</text>
+      </view>
+      <view class="ans">
+        <view class="{{colorData[index] == 0 ? 'btn-active' : 'btn-default'}}" bindtap="getAns" data-ans="A" data-index="{{index}}">{{item.A}}</view>
+        <view class="{{colorData[index] == 1 ? 'btn-active' : 'btn-default'}}" bindtap="getAns" data-ans="B" data-index="{{index}}">{{item.B}}</view>
+      </view>
+    </view>
+  </view>
+  <button class="submit-btn" bindtap="checkReport"> 生成我的肤色报告 </button>
+
+  <!--屏幕背景变暗的背景 -->
+  <view class="commodity_screen" 
+      bindtap="hideModal" 
+      wx:if="{{showModalStatus}}"></view>
+  <!--弹出框 -->
+  <view animation="{{animationData}}" 
+        class="commodity_attr_box" 
+        wx:if="{{showModalStatus}}">
+    <view class='modal'>
+      <view class="close" bindtap="hideModal">×</view>
+      <view class="report-top">
+        <view class="report-pic">
+          <image src="/images/color.jpg" mode="widthFix" style="width:100%;"></image>
+        </view>
+        <view class="report-title">
+          <text>{{report.title}}</text>
+        </view>
+      </view>
+      <view class="report-cloth-tip">
+        <text>【穿衣推荐】 \n {{report.clothTip}}</text>
+      </view>
+      <view class="report-lip-tip">
+        <text>【口号色号推荐】 \n {{report.lipstick}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -370,7 +370,7 @@ Page({
       title: '加载中...',
     })
     wx.request({
-      url: 'http://192.168.137.1:8080/preview',
+      url: 'http://222.16.61.214:8080/preview',
       data: {
         type: that.data.clothContent.selected.id,
         clothlength: that.data.lengthContent.selected.id,
@@ -425,7 +425,7 @@ Page({
       title: '加载中...',
     })
     wx.request({
-      url: 'http://192.168.137.1:8080/add',
+      url: 'http://222.16.61.214:8080/add',
       data: {
         tgR: that.data.colorPicked.rgb.R,
         tgG: that.data.colorPicked.rgb.G,
