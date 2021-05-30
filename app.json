@@ -2,11 +2,11 @@
   "pages": [
     "pages/index/index",
     "pages/wear/wear",
-    "pages/add/add",
+    "pages/rack/rack",
     "pages/weather/weather",
-    "pages/register/register",
     "components/select/select",
-    "pages/info/info"
+    "pages/info/info",
+    "pages/bodyShape/bodyShape"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,6 +27,12 @@
         "pagePath": "pages/wear/wear",
         "iconPath": "icons/tab-cloth.png",
         "selectedIconPath": "icons/tab-cloth-select.png"
+      },
+      {
+        "text": "衣橱",
+        "pagePath": "pages/rack/rack",
+        "iconPath": "icons/tab-rack.png",
+        "selectedIconPath": "icons/tab-rack-select.png"
       },
       {
         "text": "我",

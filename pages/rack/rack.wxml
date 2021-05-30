@@ -1,17 +1,16 @@
-<!--pages/register/register.wxml-->
+<!--pages/rack/rack.wxml-->
 <view>
   <view class="title">
-    <text>欢迎你进入了本穿搭推荐小程序~ \n请先录入你的衣橱吧❤</text>
+   <image src="/icons/page-rack-top-bg.png" style="height:400rpx;"></image>
   </view>
   <scroll-view class='scroll-y' 
                 scroll-y="true"
                 scroll-into-view="{{toView}}" 
                 scroll-top="{{scrollTop}}"
-                style="height:100%;">
+                style="height: {{windowHeight-400}}rpx;">
     <view class="cloth" 
-          style='border-bottom:solid red 3rpx' 
           wx:for="{{cloth}}" wx:key="id">
-      <text>{{item.kind}}</text>
+      <view class="kind-title">{{item.kind}}</view>
       <scroll-view class='cloth-design' 
                     scroll-x="true"
                     style="width:100%">
@@ -33,6 +32,23 @@
             <image src='../../icons/add.png' style="height:80rpx; width:80rpx; margin:35rpx;"></image>
         </view>
       </scroll-view>
+      <view><image style="height:15rpx; width:100%;" src="/icons/line.png"></image></view>
     </view>
   </scroll-view>
+  <!--屏幕背景变暗的背景 -->
+  <view class="commodity_screen" 
+        bindtap="hideModal" 
+        wx:if="{{showModalStatus}}"></view>
+  <!--弹出框 -->
+  <view animation="{{animationData}}" 
+        class="commodity_attr_box" 
+        wx:if="{{showModalStatus}}">
+        <view bindtap="modalDelete" 
+              class='modal' 
+              style='color:red;'>删除
+        </view>
+        <view bindtap="modalCancel" 
+              class='modal'>取消
+        </view>
+  </view>
 </view>

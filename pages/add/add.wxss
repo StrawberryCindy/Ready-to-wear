@@ -1,7 +1,9 @@
 /* pages/add/add.wxss */
-page {
-  height: 100%;
-  background: #f0daf1;
+.page {
+  border: white 1rpx solid;
+  height: 100vh;
+  background-size: 100% 100vh;
+  background-repeat: repeat-y;
 }
 .block {
   margin: 30rpx 100rpx;

@@ -3,7 +3,7 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: #f0daf1;
+  background-color: #f5eaf8;
 }
 .info {
   position: absolute; top: 10rpx; right: 20rpx; width: 45rpx; height: 45rpx;

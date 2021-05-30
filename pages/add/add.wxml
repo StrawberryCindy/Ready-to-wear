@@ -1,5 +1,5 @@
 <!--pages/add/add.wxml-->
-<view bindtap="close">
+<view bindtap="close" class="page" style="background-image:url('/icons/page-add-image.png')">
   <view class="block">
     <view class="select-name">种类：</view>
     <view class="select-wrap">

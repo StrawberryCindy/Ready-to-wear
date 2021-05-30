@@ -1,63 +1,20 @@
 <!--index.wxml-->
 <view>
   <view class="userinfo">
-    <view wx:if="{{!hasUserInfo}}" style="padding:40rpx 0 40rpx;">
+    <view wx:if="{{!hasUserInfo}}" style="padding:80rpx 0;">
       <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
       <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     </view>
-    <view wx:else style="padding: 40rpx 100rpx 40rpx;">
+    <view wx:else style="padding:70rpx 100rpx;">
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
       <view class="userinfo-nickname">
             <text>{{userInfo.nickName}}</text>
       </view>
     </view>
   </view>
-  <scroll-view class='scroll-y' 
-                scroll-y="true"
-                scroll-into-view="{{toView}}" 
-                scroll-top="{{scrollTop}}"
-                style="height: {{windowHeight-208}}rpx;">
-    <view class="cloth" 
-          wx:for="{{cloth}}" wx:key="id">
-      <text>{{item.kind}}</text>
-      <scroll-view class='cloth-design' 
-                    scroll-x="true"
-                    style="width:100%">
-        <view wx:for="{{item.contents}}" 
-              wx:key="j"
-              class="cloth-icon"
-              wx:for-item="content"
-              bindlongpress="handleLongPress"
-              bindtap="toDetail"
-              style="filter:hue-rotate({{content.HSB.H-10}}deg) saturate({{content.HSB.S}}) brightness({{content.HSB.B}});"
-              data-content="{{content}}">
-              <image src="{{content.picurl}}" style='width:120rpx; height:120rpx; margin:15rpx;'>
-              </image>
-        </view>
-        <view class='cloth-icon'
-              bindtap="addNew"
-              data-id="{{item.id}}"
-              data-name="{{item.kind}}">
-            <image src='../../icons/add.png' style="height:80rpx; width:80rpx; margin:35rpx;"></image>
-        </view>
-      </scroll-view>
-      <view><image style="height:15rpx; width:100%;" src="/icons/line.png"></image></view>
+  <view class="nav-block">
+    <view class="navigation" wx:for="{{nav}}"  bindtap="goto" data-url="{{item.toUrl}}" wx:key="index">
+      <text>{{item.title}}</text>
     </view>
-  </scroll-view>
-  <!--屏幕背景变暗的背景 -->
-  <view class="commodity_screen" 
-        bindtap="hideModal" 
-        wx:if="{{showModalStatus}}"></view>
-  <!--弹出框 -->
-  <view animation="{{animationData}}" 
-        class="commodity_attr_box" 
-        wx:if="{{showModalStatus}}">
-        <view bindtap="modalDelete" 
-              class='modal' 
-              style='color:red;'>删除
-        </view>
-        <view bindtap="modalCancel" 
-              class='modal'>取消
-        </view>
   </view>
 </view>
