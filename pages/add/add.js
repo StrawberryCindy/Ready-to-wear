@@ -1,4 +1,6 @@
 // pages/add/add.js
+const app = getApp()
+
 Page({
 
   /**
@@ -370,7 +372,7 @@ Page({
       title: '加载中...',
     })
     wx.request({
-      url: 'http://222.16.61.214:8080/preview',
+      url: 'http://222.16.61.214:8081/preview',
       data: {
         type: that.data.clothContent.selected.id,
         clothlength: that.data.lengthContent.selected.id,
@@ -408,7 +410,8 @@ Page({
       }
     })
   },
-  // 确认添加衣服
+
+  // 确认添加衣物及登录判断
   confirm() {
     var that = this;
     var id = that.data.colorPicked.id;
@@ -420,10 +423,32 @@ Page({
         break;
       }
     }
+    var openid = null;
+    wx.getStorage({
+      key: 'openid',
+      success: function(res) {
+        openid = res.data
+        that.canAdd()
+      },
+      fail () {
+        wx.showModal({
+          title: '提示',
+          content: '要先登录才可使用个性化功能哦~',
+          success (res) {
+            if (res.confirm) {
+              app.getUserProfile()
+            }
+          }
+        })
+      }
+    })
+  },
+  // 通过登录，请求添加接口
+  canAdd () {
     if (this.data.picurl) {
       wx.showLoading({
         title: '加载中...',
-      })
+      }) 
       wx.request({
         url: 'http://222.16.61.214:8081/add',
         data: {
@@ -431,7 +456,8 @@ Page({
           tgG: that.data.colorPicked.rgb.G,
           tgB: that.data.colorPicked.rgb.B,
           colortype: colortype,
-          code: id
+          code: id,
+          openid: openid
         },
         method: 'POST',
         header: {
@@ -461,7 +487,6 @@ Page({
         },
         fail (e) {
           console.log(e)
-          wx.hideLoading()
         },
         complete() {
           wx.hideLoading()
@@ -529,9 +554,8 @@ Page({
           'clothContent.selected' : clothSelected
         })
       }
-    } 
+    }
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

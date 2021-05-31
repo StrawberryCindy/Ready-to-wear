@@ -82,12 +82,6 @@ Page({
       url: "../add/add?clothSelected=" + clothSelected,
     })
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  }, 
   // 长按-->模态框
   handleLongPress: function (e) {
     var cloid = e.currentTarget.dataset.content.cloid;
@@ -96,20 +90,43 @@ Page({
     })
     this.showModal();
   },
-  // 删除功能
+  
+  // 删除功能前的登录判断
   modalDelete: function (e) {
-    var that = this;
     this.hideModal();
+    var openid = null;
+    var that = this
+    wx.getStorage({
+      key: 'openid',
+      success: function(res) {
+        openid = res.data
+        that.canDelete(openid)
+      },
+      fail: function() {
+        wx.showModal({
+          title: '提示',
+          content: '要先登录才可使用个性化功能哦~',
+          success (res) {
+            if (res.confirm) {
+              app.getUserProfile()
+            }
+          }
+        })
+      }
+    })
+  },
+  canDelete(openid) {
     // 请求删除接口 
+    var that = this;
     wx.showLoading({
       title: '请求删除中...',
     })
-    console.log(that.data.toDelete)
     wx.request({
       url: 'http://222.16.61.214:8081/delete',
       method: 'POST',
       data: {
-        cloid: that.data.toDelete
+        cloid: that.data.toDelete,
+        openid: openid
       },
       header: {
         'content-type':'application/x-www-form-urlencoded'
@@ -179,7 +196,7 @@ Page({
       })
     }.bind(this), 200)
   },
-  initData () {
+  initData (openid) {
     console.log('初始化数据')
     var that = this;
     wx.showLoading({
@@ -188,6 +205,7 @@ Page({
     wx.request({
       url: 'http://222.16.61.214:8081/closet', 
       data: {
+        openid: openid
       },
       method: 'GET',
       header: {
@@ -295,9 +313,22 @@ Page({
         })
       }
     });
-    this.initData();
   },
   onShow () {
-    this.initData();
+    var that = this
+    var openid = null;
+    wx.getStorage({
+      key: 'openid',
+      success: function(res) {
+        openid = res.data
+        that.initData(openid);
+      },
+      fail () {
+        wx.showModal({
+          title: '提示',
+          content: '要先登录才可使用个性化功能哦~'
+        })
+      }
+    })
   }
 })

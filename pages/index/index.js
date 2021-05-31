@@ -5,8 +5,8 @@ const app = getApp()
 Page({
   data: {
     motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
+    userInfo: app.globalData.userInfo,
+    hasUserInfo: app.globalData.hasUserInfo,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     canIUseGetUserProfile: false,
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'), // 如需尝试获取用户信息可改为false
@@ -29,12 +29,13 @@ Page({
     wx.navigateTo({
       url: url
     })
-  },
+  }, 
   
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () { 
+    let that = this;
     if ( wx.getUserProfile ) {
       this.setData({
         canIUseGetUserProfile: true
@@ -52,54 +53,31 @@ Page({
         })
       }
     });
+    getApp().watch(that.watchBack)
   },
-  onShow () {
+  watchBack: function (value){
+    if (value) {
+      this.setData({
+        userInfo: value,
+        hasUserInfo: true
+      })
+    }
   },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (user) => {
-        console.log(user)
-        this.setData({
-          userInfo: user.userInfo,
+  onShow() {
+    var that = this
+    // 判断用户是否登录
+    wx.getStorage({
+      key: 'userInfo',
+      success: function(res) {
+        that.setData({
+          userInfo: res.data,
           hasUserInfo: true
-        })
-        // 登录
-        wx.login({
-          success: res => {
-            // 发送 res.code 到后台换取 openId, sessionKey, unionId
-            if (res.code) {
-              //发起网络请求
-              console.log(res)
-              wx.request({
-                url: 'http://222.16.61.214:8081/login',
-                data: {
-                  code: res.code,
-                  encryptedData: user.encryptedData,
-                  iv: user.iv
-                },
-                method: 'GET',
-                header: {
-                  'content-type': 'application/json'
-                },
-                success(res) {
-                  console.log(res)
-                },
-                complete(){
-
-                },
-                fail (err) {
-                  console.log(err);
-                } 
-              })
-            } else {
-              console.log('登录失败！' + res.errMsg)
-            }
-          }
         })
       }
     })
+  },
+  getUserProfile(e) {
+    app.getUserProfile()
   },
   getUserInfo(e) {
     // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息

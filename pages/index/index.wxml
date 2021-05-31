@@ -2,8 +2,8 @@
 <view>
   <view class="userinfo">
     <view wx:if="{{!hasUserInfo}}" style="padding:80rpx 0;">
-      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-      <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile">登录</button>
+      <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>
     </view>
     <view wx:else style="padding:70rpx 100rpx;">
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>

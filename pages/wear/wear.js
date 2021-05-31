@@ -2,6 +2,8 @@
 import { formatTime } from '../../utils/util.js';
 import config from '../../config/config.js';
 const DEFAULT_PAGE = 0;
+const app = getApp()
+
 Page({
 
   /**
@@ -13,7 +15,13 @@ Page({
     windowHeight: 0,
     weatherInfo: {},
     bannerCurrent: 0, // 当前显示的banner
-    bannerData: [],
+    bannerData: [
+      {
+        wholeType: 5,
+        label: '出游场景',
+        tips: '天气有点凉，推荐穿暖色\n调的衣服哦，办公场合推荐采用\n不太会出错的相近色搭配\n原则呢！\n ❤'
+      }
+    ],
   },
   
   localCity: null,    // 本地城市
@@ -80,10 +88,32 @@ Page({
       bannerData: bannerData
     })
   },
-  // 初始化数据
+  // 初始化数据及判断登录态
   getData(weather) {
     var that = this;
     weather = parseInt(weather);
+    var openid = null;
+    wx.getStorage({
+      key: 'openid',
+      success: function(res) {
+        openid = res.data
+        that.canGetData(weather, openid)
+      },
+      fail () {
+        wx.showModal({
+          title: '提示',
+          content: '要先登录才可使用个性化功能哦~',
+          success (res) {
+            if (res.confirm) {
+              that.getUserProfile()
+            }
+          }
+        })
+      }
+    })
+  },
+  canGetData(weather, openid) {
+    var that = this
     wx.showLoading({
       title: '正在生成穿搭...',
     })
@@ -91,7 +121,8 @@ Page({
       url: 'http://222.16.61.214:8081/fashion',
       method: 'GET',
       data: {
-        weather: weather
+        weather: weather,
+        openid: openid
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -222,7 +253,6 @@ Page({
       [data_str] : hsbdelta
     })
   },
-  
   dealColor (cloth) {
     var R1 = cloth.inR;
     var G1 = cloth.inG;
@@ -358,7 +388,71 @@ Page({
     weatherArray.push(weatherInfo)
     return weatherArray;
   },
-
+  getUserProfile() {
+    var that = this
+    wx.getUserProfile({
+      desc: '展示用户信息',
+      success: (user) => {
+        console.log(user)
+        wx.setStorage ({
+          key: 'userInfo',
+          data: user.userInfo
+        }) 
+        // 登录
+        wx.login({
+          success: res => {
+            // 发送 res.code 到后台换取 openId, sessionKey, unionId
+            if (res.code) {
+              //发起网络请求
+              console.log(res)
+              wx.request({
+                url: 'http://222.16.61.214:8081/login',
+                data: {
+                  code: res.code,
+                  encryptedData: user.encryptedData,
+                  iv: user.iv
+                },
+                method: 'GET',
+                header: {
+                  'content-type': 'application/json'
+                },
+                success(res) {
+                  wx.showToast({
+                    title: '登录成功',
+                    icon: 'success',
+                    duration: 1500
+                  })
+                  wx.setStorage({
+                    key: 'openid',
+                    data: res.data
+                  })
+                  that.canGetData()
+                },
+                complete(){
+                  console.log(that.globalData.userInfo)
+                },
+                fail (err) {
+                  console.log(err);
+                  wx.showToast({
+                    title: '登录失败',
+                    icon: 'fail',
+                    duration: 1500
+                  })
+                } 
+              })
+            } else {
+              console.log('登录失败！' + res.errMsg) 
+              wx.showToast({
+                title: '登录失败',
+                icon: 'fail',
+                duration: 1500
+              })
+            }
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

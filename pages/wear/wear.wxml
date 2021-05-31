@@ -3,7 +3,7 @@
   <view class="info" bindtap="showInfo">
     <image src='../../icons/info.png' style="width:45rpx; height:45rpx;" bindtap="goInf"></image>
   </view>
-  <view class="weather" bindtap='gotoWeather'>{{weatherInfo.date}} {{weatherInfo.today.night_air_temperature}} ℃ ~ {{weatherInfo.today.day_air_temperature}} ℃</view>
+  <view class="weather" bindtap='gotoWeather'>今日天气 {{weatherInfo.today.night_air_temperature}} ℃ ~ {{weatherInfo.today.day_air_temperature}} ℃</view>
   <image class="top-image-tl" src="/icons/page-wear-todaylook1.png" mode="widthFix"></image>
   <image class="top-image-rbt" src="/icons/page-wear-rbt.png" mode="widthFix"></image>
   <view class="cloth" style="height: {{windowHeight-175}}rpx;">
@@ -28,12 +28,15 @@
                   <view class='frontGroup bg-image'>
                       <view class="label">{{item.label}}</view>
                       
-                      <!--wholeType 0无  1上下衣  2裙子  3外套+上下衣  4裙子+外套-->
+                      <!--wholeType 0无  1上下衣  2裙子  3外套+上下衣  4裙子+外套  5未登录-->
                       <view wx:if="{{item.wholeType == 0}}" class="wear-default">
                         <image src="/icons/sorry.png" mode="widthFix" style="width:70%;"></image>
                         <text>\n未找到适合该出行场合的穿搭呢\n 小明会继续优化算法的\n(＞人＜；)</text>
                       </view>
-
+                      <view wx:if="{{item.wholeType == 5}}" class="wear-default">
+                        <image src="/icons/sorry.png" mode="widthFix" style="width:70%;"></image>
+                        <text>\n您还没有登录哦\n 小明找不到您的衣橱\n(＞人＜；)</text>
+                      </view>
                       <view wx:elif="{{item.wholeType == 1}}">
                         <image src="{{item.upperCloth.picurl}}" 
                                 class="upper-wear1" 
