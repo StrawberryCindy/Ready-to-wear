@@ -13,7 +13,7 @@
     </view>
   </view>
   <view class="nav-block">
-    <view class="navigation" wx:for="{{nav}}"  bindtap="goto" data-url="{{item.toUrl}}" wx:key="index">
+    <view class="navigation" wx:for="{{nav}}"  bindtap="goto" data-url="{{item.toUrl}}" wx:key="index" style="background-color:{{item.color}};">
       <text>{{item.title}}</text>
     </view>
   </view>

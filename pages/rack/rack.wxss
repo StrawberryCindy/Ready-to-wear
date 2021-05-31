@@ -2,9 +2,11 @@
 page{
   height: 100vh;
   overflow: hidden;
+  width: 100%;
 }
 .title{
   font-size: 32rpx;
+  width: 100%;
   line-height: 50rpx;
   letter-spacing: 2rpx;
   text-align: center;

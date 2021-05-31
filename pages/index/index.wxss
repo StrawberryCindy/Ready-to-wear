@@ -33,7 +33,6 @@
   line-height: 180rpx;
   margin: 50rpx 10%;
   border-radius: 30rpx;
-  background-color: #f5eaf8;
   font-size: 37rpx;
   color: #b8a1e2;
 }

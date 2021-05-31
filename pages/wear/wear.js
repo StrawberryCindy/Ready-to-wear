@@ -1,4 +1,6 @@
 // pages/wear/wear.js
+import { formatTime } from '../../utils/util.js';
+import config from '../../config/config.js';
 const DEFAULT_PAGE = 0;
 Page({
 
@@ -9,14 +11,13 @@ Page({
   currentView: DEFAULT_PAGE,
   data: {
     windowHeight: 0,
-    weatherInfoB: {
-      date: ' 2021.04.15',
-      temperature: '19~28℃',
-      weather: '多云'
-    },
+    weatherInfo: {},
     bannerCurrent: 0, // 当前显示的banner
     bannerData: [],
   },
+  
+  localCity: null,    // 本地城市
+  currentCity: null,  // 查看城市
   getDataTest() {
     var that = this
     let data = [{
@@ -80,11 +81,18 @@ Page({
     })
   },
   // 初始化数据
-  getData() {
+  getData(weather) {
     var that = this;
+    weather = parseInt(weather);
+    wx.showLoading({
+      title: '正在生成穿搭...',
+    })
     wx.request({
       url: 'http://222.16.61.214:8081/fashion',
       method: 'GET',
+      data: {
+        weather: weather
+      },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
@@ -103,6 +111,16 @@ Page({
         that.setData({
           bannerData: bannerData
         })
+      },
+      fail() {
+        wx.showToast({
+          title: '网络错误',
+          duration: 1500,
+          icon:'error'
+        })
+      },
+      complete (){
+        wx.hideLoading()
       }
     })
   },
@@ -235,11 +253,116 @@ Page({
     return hsbdelta;
   },
 
+  //获取天气接口
+  //通过城市名查询天气
+  searchByCity(city) {
+    // 更新时间
+    this.updateTime();
+    // loading
+    wx.showLoading({ title: '正在查询天气...'});
+    // 通过城市名获取天气数据
+    wx.request({
+      url: config.request.host + '/area-to-weather?area=' + city + '&needIndex=1&needMoreDay=1',
+      header: config.request.header,
+      success: (res) => {
+        if (res.data.showapi_res_body.ret_code == 0) {
+          // 设置全局变量
+          this.currentCity = res.data.showapi_res_body.cityInfo.c3
+          var weatherArray = this.processData(res.data.showapi_res_body);
+          this.getData(weatherArray[0].today.day_air_temperature)
+          this.setData({ 
+            weatherInfo: weatherArray[0]
+          });
+        } else {
+          wx.showModal({ title: '查询失败', showCancel: false });
+        }
+      },
+      fail: () => {
+        wx.showModal({ title: '网络超时', content: '当前网络不可用,请检查网络设置！', showCancel: false });
+      },
+      complete() {
+        wx.hideLoading()
+      }
+    });
+  },
+  //通过经纬度查询天气
+  searchByLocation(latitude, longitude) {
+    // 更新时间
+    this.updateTime();
+    wx.showLoading({ title: '正在查询天气...'});
+    // 通过经纬度获取天气数据
+    wx.request({
+      url: `${config.request.host}/gps-to-weather?from=1&lat=${latitude}&lng=${longitude}&needIndex=1&needMoreDay=1`,
+      data: {},
+      header: config.request.header,
+      success: (res) => {
+        // 保存天气数据
+        var weatherArray = this.processData(res.data.showapi_res_body);
+        console.log(weatherArray[0])
+        this.getData(weatherArray[0].today.day_air_temperature)
+        this.setData({ 
+          weatherInfo: weatherArray[0]
+        });
+        this.localCity = res.data.showapi_res_body.cityInfo.c3;
+        this.currentCity = res.data.showapi_res_body.cityInfo.c3;
+      },
+      fail: () => {
+        wx.hideToast();
+        wx.showModal({ title: '网络超时', content: '连接服务器失败,请检查网络设置！', showCancel: false });
+      },
+      complete() {
+        wx.hideLoading()
+      }
+    });
+    },  
+  //获取当前城市天气数据
+  getLocalCityWeacher() {
+    wx.showLoading({ title: '正在定位...'});
+    // 获取当前经纬度
+    wx.getLocation({
+      success: (res) => {
+        this.searchByLocation(res.latitude, res.longitude);
+      },
+      fail: () => {
+        wx.showModal({ title: '定位失败', content: '获取不到本地天气了呢！', showCancel: false, });
+      },
+      complete() {
+        wx.hideLoading()
+      }
+    });
+  },
+  //更新时间
+  updateTime() {
+    const time = new Date(); // 获取当前时间对象
+    const date = formatTime(time).split(' ')[0] + ' ' + this.formatWeekday(time.getDay()); // 获取日期和星期数
+    this.setData({ date: date }); // 保存
+  },
+  //格式化星期数
+  formatWeekday(index) {
+    const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+    return weekdays[index];
+  }, 
+    //处理天气数据
+  processData(data) {
+    const weatherInfo = {};
+    // 城市信息
+    weatherInfo.city = {};
+    weatherInfo.city.id = data.cityInfo.c1;
+    weatherInfo.city.name_en = data.cityInfo.c2;
+    weatherInfo.city.name = data.cityInfo.c3;
+    // 天气信息
+    weatherInfo.now = data.now;
+    weatherInfo.today = data.f1;
+    weatherInfo.date = data.f1.day.slice(0,4) + '.' + data.f1.day.slice(4,6)+'.'+ data.f1.day.slice(6,8);
+    var weatherArray = new Array();
+    weatherArray.push(weatherInfo)
+    return weatherArray;
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     // 取出页面高度 windowHeight
     wx.getSystemInfo({
       success: res => {
@@ -251,8 +374,13 @@ Page({
           windowHeight: calc,
         })
       }
-    });  
-    this.getData();
+    });
+    this.updateTime()
+    if (options.city) {
+      this.searchByCity(options.city);
+    } else {
+      this.getLocalCityWeacher();
+    }
     for ( var index = 0; index < this.data.bannerData.length; index++ ) {
       var card = new Object();
       card = this.data.bannerData[index];
@@ -269,8 +397,8 @@ Page({
         this.dealOuterColor(index);
       }
     }
-    console.log(this.data.bannerData)
   },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

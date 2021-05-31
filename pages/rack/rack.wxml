@@ -1,7 +1,7 @@
 <!--pages/rack/rack.wxml-->
 <view>
   <view class="title">
-   <image src="/icons/page-rack-top-bg.png" style="height:400rpx;"></image>
+   <image src="/icons/page-rack-top-bg.png" style=" width:100%;" mode="widthFix" ></image>
   </view>
   <scroll-view class='scroll-y' 
                 scroll-y="true"

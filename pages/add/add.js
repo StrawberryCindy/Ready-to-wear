@@ -382,7 +382,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success (res) {
-        console.log(res.data[0])
+        console.log(res.data)
         wx.hideLoading()
         let data = res.data[0];
         let inRGB = {R:data.inR, G:data.inG, B:data.inB};
@@ -420,50 +420,60 @@ Page({
         break;
       }
     }
-    console.log(colortype)
-    wx.showLoading({
-      title: '加载中...',
-    })
-    wx.request({
-      url: 'http://222.16.61.214:8080/add',
-      data: {
-        tgR: that.data.colorPicked.rgb.R,
-        tgG: that.data.colorPicked.rgb.G,
-        tgB: that.data.colorPicked.rgb.B,
-        colortype: colortype,
-        code: id
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success (res) {
-        console.log(res)
-        let inRGB = {R:res.inR, G:res.inG, B:res.inB};
-        let HSB = that.dealColor(inRGB);
-        that.setData({
-          canPreview: 1,
-          inRGB: inRGB,
-          HSB: HSB
-        })
-        wx.showToast({
-          title: '添加成功！', // 标题
-          icon: 'success',    // 图标类型，默认success
-          duration: 1500      // 提示窗停留时间，默认1500ms
-        })
-        wx.navigateBack({
-          delta: 0,
-        })
-      },
-      fail (e) {
-        console.log(e)
-        wx.hideLoading()
-      },
-      complete(e) {
-        console.log(e)
-        wx.hideLoading()
-      }
-    })
+    if (this.data.picurl) {
+      wx.showLoading({
+        title: '加载中...',
+      })
+      wx.request({
+        url: 'http://222.16.61.214:8081/add',
+        data: {
+          tgR: that.data.colorPicked.rgb.R,
+          tgG: that.data.colorPicked.rgb.G,
+          tgB: that.data.colorPicked.rgb.B,
+          colortype: colortype,
+          code: id
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        success (res) {
+          console.log(res)
+          let inRGB = {R:res.inR, G:res.inG, B:res.inB};
+          let HSB = that.dealColor(inRGB);
+          that.setData({
+            canPreview: 1,
+            inRGB: inRGB,
+            HSB: HSB
+          })
+          wx.showToast({
+            title: '添加成功！', // 标题
+            icon: 'success',    // 图标类型，默认success
+            duration: 1500,      // 提示窗停留时间，默认1500ms
+            success: function(){ 
+              setTimeout(function () { 
+                  wx.navigateBack({ 
+                    delta: 0,
+                  }) 
+              }, 1500) 
+            }
+          })
+        },
+        fail (e) {
+          console.log(e)
+          wx.hideLoading()
+        },
+        complete() {
+          wx.hideLoading()
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '您的数据还没选完哦 ┐(´∇｀)┌',
+        icon: 'none',
+        duration: 1500
+      })
+    }
   },
 
   // 解析除颜色外的所有数据
@@ -499,7 +509,6 @@ Page({
     if (JSON.stringify(options) !== '{}') {
       if (options.allSelected) {
         var allSelectedId = JSON.parse(options.allSelected);
-        console.log(allSelectedId)
         var allSeleted = new Array;
         allSeleted[0] = this.selectedInit('clothContent', allSelectedId[0]);
         allSeleted[1] = this.selectedInit('lengthContent', allSelectedId[1]);
@@ -512,11 +521,10 @@ Page({
           'tightContent.selected': allSeleted[2],
           'thiContent.selected': allSeleted[3],
         })
-        console.log('修改传入数据', allSeleted)
+        console.log('修改---传入数据', allSeleted)
       } else {
         var clothSelected = JSON.parse(options.clothSelected);
         clothSelected = this.selectedInit('clothContent', clothSelected.id);
-        console.log('添加', clothSelected)
         this.setData({
           'clothContent.selected' : clothSelected
         })

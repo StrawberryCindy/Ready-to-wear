@@ -3,9 +3,10 @@
   <view class="info" bindtap="showInfo">
     <image src='../../icons/info.png' style="width:45rpx; height:45rpx;" bindtap="goInf"></image>
   </view>
-  <view class="weather" bindtap='gotoWeather'>{{weatherInfoB.date}} {{weatherInfoB.temperature}} {{weatherInfoB.weather}}</view>
+  <view class="weather" bindtap='gotoWeather'>{{weatherInfo.date}} {{weatherInfo.today.night_air_temperature}} ℃ ~ {{weatherInfo.today.day_air_temperature}} ℃</view>
+  <image class="top-image-tl" src="/icons/page-wear-todaylook1.png" mode="widthFix"></image>
+  <image class="top-image-rbt" src="/icons/page-wear-rbt.png" mode="widthFix"></image>
   <view class="cloth" style="height: {{windowHeight-175}}rpx;">
-    <text>推荐穿搭</text>
     <swiper previous-margin="0rpx" 
             next-margin="60rpx" 
             bindchange="bannerSwiper"  
@@ -24,12 +25,13 @@
                   <!-- 正面内容 -->
                   <view class="sideWrap front">
                     <!-- 卡片 -->
-                    <view class='frontGroup' style="background-image: url('/icons/wear-bg.png');">
+                  <view class='frontGroup bg-image'>
                       <view class="label">{{item.label}}</view>
                       
                       <!--wholeType 0无  1上下衣  2裙子  3外套+上下衣  4裙子+外套-->
                       <view wx:if="{{item.wholeType == 0}}" class="wear-default">
-                        <text>在您的衣橱没找到\n 适合该出行场合的穿搭呢\n 小明会继续优化算法的\n(＞人＜；)</text>
+                        <image src="/icons/sorry.png" mode="widthFix" style="width:70%;"></image>
+                        <text>\n未找到适合该出行场合的穿搭呢\n 小明会继续优化算法的\n(＞人＜；)</text>
                       </view>
 
                       <view wx:elif="{{item.wholeType == 1}}">
@@ -88,7 +90,7 @@
                   <!-- 背面内容 -->
                   <view class="sideWrap back">
                     <!-- detail -->
-                    <view class='backGroup' style="background-image: url('/icons/wear-bg.png');">
+                    <view class='backGroup bg-image'>
                       <view class="tips">
                         <text>\nTIPS \n  {{item.tips}}</text>
                       </view>

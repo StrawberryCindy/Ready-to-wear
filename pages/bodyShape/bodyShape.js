@@ -59,30 +59,44 @@ Page({
   checkReport () {
     var bodyData = new Array;
     bodyData = this.data.bodyData
-    bodyData.forEach(function(item, index) {
-      if (item == 0) {
-        wx.showToast({
-          title: '您的数据还没填完哦 ┐(´∇｀)┌',
-          icon: 'none',
-          duration: 1500
-        })    
-        return;
+    if (bodyData.length !== 0) {
+      bodyData.forEach(function(item, index) {
+        if (item == 0) {
+          this.noReport()
+          return;
+        }
+      });
+      console.log(bodyData)
+      // 本地存储
+      wx.setStorage({
+        key: 'bodyData',
+        data: bodyData
+      })
+      // 页面渲染
+      let style = this.report(bodyData[0], bodyData[1], bodyData[2], bodyData[3])
+      console.log('style', style)
+      if (style) {
+        this.setData({
+          styleShow: this.data.styles[style - 1]
+        })
+      } else {
+        //未查询到身体参数结果的情况
+        this.setData({
+          styleShow: null
+        })
       }
-    });
-    console.log(bodyData)
-    // 本地存储
-    wx.setStorage({
-      key: 'bodyData',
-      data: bodyData
-    })
-    // 页面渲染
-    let style = this.report(bodyData[0], bodyData[1], bodyData[2], bodyData[3])
-    this.setData({
-      styleShow: this.data.styles[style - 1]
-    })
-    this.showModal()
+      this.showModal()
+    } else {
+      this.noReport()
+    }
   },
-   
+  noReport() {
+    wx.showToast({
+      title: '您的数据还没填完哦 ┐(´∇｀)┌',
+      icon: 'none',
+      duration: 1500
+    })    
+  },
   // 判断身材类型>> 
   // 0：无   1:倒三角身材(T)   2：矩形身材(H)  3:梨型身材(A)  4:沙漏型身材(X)
   report(shoulder, chest, waist, hip){ 
@@ -162,7 +176,6 @@ Page({
     wx.getStorage({
       key: 'bodyData',
       success: function(res) {
-        console.log(res)
         that.setData({
           bodyData: res.data
         })

@@ -4,8 +4,8 @@ const config = {
   versionDate: '2021.04.17',
   versionInfo: '',
   request: {
-    host: 'https://ali-weather.showapi.com',
-    header: { 'Authorization': 'APPCODE ' + 'eaaa3ec322274e1e9ad12ce9542c941e' },
+    host: 'http://saweather.market.alicloudapi.com',
+    header: { 'Authorization': 'APPCODE ' + '828f5e273a3d432598b819e81a7a80d9' },
   },
 }
 

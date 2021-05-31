@@ -1,6 +1,6 @@
 /* pages/bodyShape/bodyShape.wxss */
 .title{
-  margin: 60rpx 10% 20rpx;
+  margin: 60rpx 10% 80rpx;
   padding: 20rpx 0 40rpx;
   width: 80%;
   text-align: center;
@@ -12,7 +12,6 @@
 
 .detail-btn {
   margin-right: 5%;
-  width: 20%;
   padding: 10rpx 20rpx;
   float: right;
   background: #f5eaf8;
@@ -40,6 +39,7 @@
   text-align: left;
 }
 .table{
+  margin-top: 160rpx;
   line-height: 90rpx;
   font-size: 35rpx;
 }
@@ -134,7 +134,7 @@
   .report-content{
     margin-top: 100rpx;
     margin-left: 8%;
-    width: 52%;
+    width: 51%;
   }
   .report-title {
     border-left: #d4237a 4px solid;
@@ -153,6 +153,18 @@
     font-size: 27rpx;
     color: #766e86;
     line-height: 47rpx;
+  }
+  .report-default{
+    font-size: 30rpx;
+    color: gray;
+    padding-top: 100rpx;
+    line-height: 60rpx;
+    text-align: center;
+    height: 100%;
+    overflow-y: scroll;   
+    background: #fff;
+    border-radius: 20rpx;
+    margin-bottom: 5rpx;
   }
   .close{
     position: absolute;

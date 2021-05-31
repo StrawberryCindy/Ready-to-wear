@@ -37,8 +37,8 @@
    <view animation="{{animationData}}" 
         class="commodity_attr_box" 
         wx:if="{{showModalStatus}}">
-    <view class='modal'>
-      <view class="close" bindtap="hideModal">×</view>
+    <view class='modal' wx:if="{{styleShow}}">
+    <view class="close" bindtap="hideModal">×</view>
       <view class="report-pic">
         <image src="{{styleShow.url}}" mode="widthFix" style="width:100%;"></image>
       </view>
@@ -53,6 +53,11 @@
           <text>Tips: \n {{styleShow.tip}}</text>
         </view>
       </view>
+    </view>
+    <view wx:else class="report-default">
+      <view class="close" bindtap="hideModal">×</view>
+      <image src="/icons/sorry.png" mode="widthFix" style="width:40%;"></image>
+      <text> \n未找到符合您身形参数的体型标准\n 呜呜 小明会不断\n优化算法的(つД`)</text>
     </view>
   </view>
 </view>

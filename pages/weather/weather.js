@@ -5,51 +5,7 @@ import config from '../../config/config.js';
 Page({
   data: {
     date: '',         // 日期
-    weatherInfo: {
-      "city": {
-        id: 1,
-        name_en: '广州',
-        name: '天河'
-      },
-      today: {
-        day_wind_power: '3级',
-        air_press: '10Pa',
-        day_air_temperature: 23,
-        night_air_temperature: 18,
-        index: {
-          uv: {title:'较强'},
-          clothes: {title: '较热'},
-          sports: {title: '不适宜'},
-          wash_car: {title: '适宜'},
-          cold: {title:'不易发'}
-        }
-      },
-      "now": {
-        "aqiDetail": {
-          "co": 0.38,
-          "so2": 8,
-          "area": "丽江",
-          "o3": 42,
-          "no2": 9,
-          "area_code": "lijiang",
-          "quality": "优",
-          "aqi": 19,
-          "pm10": 18,
-          "pm2_5": 12,
-          "o3_8h": 37,
-          "primary_pollutant": ""
-        },
-        "weather_code": "03",
-        "wind_direction": "西北风",
-        "temperature_time": "16:01",
-        "wind_power": "1级",
-        "aqi": 19,
-        "sd": "70%",
-        "weather_pic": "http://appimg.showapi.com/images/weather/icon/day/03.png",
-        "weather": "阵雨",
-        "temperature": "21"
-      },
-    },  // 天气数据
+    weatherInfo: {},  // 天气数据
     inputContent: '', // 输入框内容
     weatherTheme: '#9999CC' // 根据天气修改的背景色
   },
@@ -58,14 +14,12 @@ Page({
   currentCity: null,  // 查看城市
 
   onLoad(options) {
-    this.checkVersion();  // 版本检查
     this.updateTime();    // 设置时间
     // 获取天气
-    // 获取天气
     if (options.city) {
-      //this.searchByCity(options.city);
+      this.searchByCity(options.city);
     } else {
-      //this.getLocalCityWeacher();
+      this.getLocalCityWeacher();
     }
   },
 
@@ -78,29 +32,6 @@ Page({
     this.setData({ date: date }); // 保存
   },
 
-  /**
-   * 版本检查
-   */
-  checkVersion() {
-    const localVersion = wx.getStorageSync('version');
-    if (localVersion !== config.version) {
-      wx.showModal({
-        title: `${config.name} ${config.version}`,
-        content: `${config.versionDate}${config.versionInfo}`,
-        showCancel: false,
-        confirmText: '我知道了',
-        success: (res) => {
-          if (res.confirm) {
-            // 设置版本号
-            wx.setStorage({
-              key: 'version',
-              data: config.version
-            });
-          }
-        }
-      });
-    }
-  },
 
   /**
    * 获取当前城市天气数据
@@ -189,7 +120,7 @@ Page({
    * 刷新
    */
   refresh() {
-    //this.searchByCity(this.currentCity);
+    this.searchByCity(this.currentCity);
   },
 
   /**
@@ -232,92 +163,9 @@ Page({
   },
 
   /**
-   * 清除输入框内容
-   */
-  clearInputContent() {
-    this.setData({ inputContent: '' });
-  },
-
-  /**
-   * 输入触发函数
-   * @param {object} event 事件
-   */
-  onInputFieldChange(event) {
-    // 设置全局变量
-    this.setData({ inputContent: event.detail.value });
-  },
-
-  /**
-   * 点击搜索按钮
-   */
-  onSearchBtnClick() {
-    // 输入是否为空
-    if (this.data.inputContent.length > 0) {
-      // 调用搜索函数
-      this.searchByCity(this.data.inputContent);
-      // 清空输入
-      this.clearInputContent();
-    } else {
-      wx.showToast({ title: '请输入要查询的城市！', icon: 'none', duration: 1000 });
-    }
-  },
-
-  /**
-   * 点击清除按钮
-   */
-  onClearBtnClick() {
-    this.clearInputContent();
-  },
-
-  /**
    * 点击刷新按钮
    */
   onRefreshBtnClick() {
     this.refresh();
   },
-
-  /**
-   * 点击定位按钮
-   */
-  onLocalBtnClick() {
-    this.clearInputContent();
-    if (this.localCity) {
-      this.searchByCity(this.localCity);
-    } else {
-      this.getLocalCityWeacher();
-    }
-  },
-
-  /**
-   * 下拉刷新
-   */
-  onPullDownRefresh() {
-    this.searchByCity(this.currentCity);
-    wx.stopPullDownRefresh();
-  },
-
-  /**
-   * 分享给朋友
-   */
-  onShareAppMessage() {
-    const city = this.data.weatherInfo.city.name;
-    const now = this.data.weatherInfo.now;
-    return {
-      title: `${city}当前天气：${now.weather} | ${now.temperature}℃`,
-      path: `/pages/index/index?city=${city}`,
-    };
-  },
-
-  /**
-   * 分享至朋友圈
-   */
-  onShareTimeline() {
-    const city = this.data.weatherInfo.city.name;
-    const now = this.data.weatherInfo.now;
-    return {
-      title: `${city}当前天气：${now.weather} | ${now.temperature}℃`,
-      path: `city=${city}`,
-    };
-  }
-
 });
