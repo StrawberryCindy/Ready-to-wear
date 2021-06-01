@@ -39,6 +39,7 @@
               bind:change="change"></select>
     </view>
   </view>
+  <view class="note"><text>夏天的衣服为薄，冬天则为厚，春秋为适中</text></view>
 
   <view class="block">
     <view class="select-name">色彩：</view>

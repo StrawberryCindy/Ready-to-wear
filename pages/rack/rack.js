@@ -132,7 +132,7 @@ Page({
         'content-type':'application/x-www-form-urlencoded'
       },
       success () {
-        that.initData();
+        that.initData(openid);
         wx.showToast({
           title: '删除成功！',
           icon: 'success',
@@ -202,6 +202,7 @@ Page({
     wx.showLoading({
       title: '加载中...',
     })
+    console.log(openid)
     wx.request({
       url: 'http://222.16.61.214:8081/closet', 
       data: {
@@ -323,12 +324,7 @@ Page({
         openid = res.data
         that.initData(openid);
       },
-      fail () {
-        wx.showModal({
-          title: '提示',
-          content: '要先登录才可使用个性化功能哦~'
-        })
-      }
+      fail () {}
     })
   }
 })

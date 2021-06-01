@@ -26,84 +26,92 @@
                   <view class="sideWrap front">
                     <!-- 卡片 -->
                   <view class='frontGroup bg-image'>
-                      <view class="label">{{item.label}}</view>
-                      
-                      <!--wholeType 0无  1上下衣  2裙子  3外套+上下衣  4裙子+外套  5未登录-->
-                      <view wx:if="{{item.wholeType == 0}}" class="wear-default">
-                        <image src="/icons/sorry.png" mode="widthFix" style="width:70%;"></image>
-                        <text>\n未找到适合该出行场合的穿搭呢\n 小明会继续优化算法的\n(＞人＜；)</text>
-                      </view>
-                      <view wx:if="{{item.wholeType == 5}}" class="wear-default">
-                        <image src="/icons/sorry.png" mode="widthFix" style="width:70%;"></image>
-                        <text>\n您还没有登录哦\n 小明找不到您的衣橱\n(＞人＜；)</text>
-                      </view>
-                      <view wx:elif="{{item.wholeType == 1}}">
-                        <image src="{{item.upperCloth.picurl}}" 
-                                class="upper-wear1" 
-                                wx:if="{{item.upperCloth}}" 
-                                style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg) saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});">
-                        </image>
-                        <image src="{{item.downCloth.picurl}}" 
-                                class="down-wear1" 
-                                wx:if="{{item.downCloth}}" 
-                                style="filter:hue-rotate({{item.downCloth.HSB.H-10}}deg) saturate({{item.downCloth.HSB.S}}) brightness({{item.downCloth.HSB.B}});">
-                        </image>
-                      </view>
-
-                      <view wx:elif="{{item.wholeType == 2}}">
-                        <image src="{{item.dress.picurl}}" 
-                                class="dress" 
-                                wx:if="{{item.dress}}" 
-                                style="filter:hue-rotate({{item.dress.HSB.H-10}}deg) saturate({{item.dress.HSB.S}}) brightness({{item.dress.HSB.B}});">
-                        </image>
-                      </view>
-                      
-                      <view wx:elif="{{item.wholeType == 3}}">
-                        <image src="{{item.upperCloth.picurl}}" 
-                                class="upper-wear2" 
-                                wx:if="{{item.upperCloth}}" 
-                                style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg) saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});">
-                        </image>
-                        <image src="{{item.downCloth.picurl}}" 
-                                class="down-wear2" 
-                                wx:if="{{item.downCloth}}" 
-                                style="filter:hue-rotate({{item.downCloth.HSB.H-10}}deg) saturate({{item.downCloth.HSB.S}}) brightness({{item.downCloth.HSB.B}});">
-                        </image>
-                        <image src="{{item.outerCloth.picurl}}"
-                                class="outer-wear"
-                                wx:if="{{item.outerCloth}}" 
-                                style="filter:hue-rotate({{item.outerCloth.HSB.H-10}}deg) saturate({{item.outerCloth.HSB.S}}) brightness({{item.outerCloth.HSB.B}});">
-                        </image>
-                      </view>
-                      <view wx:if="{{item.wholeType == 4}}">
-                        <image src="{{item.dress.picurl}}" 
-                                class="dress" 
-                                wx:if="{{item.dress}}" 
-                                style="filter:hue-rotate({{item.dress.HSB.H-10}}deg) saturate({{item.dress.HSB.S}}) brightness({{item.dress.HSB.B}});">
-                        </image>
-                        <image src="{{item.outerCloth.picurl}}"
-                                class="outer-wear"
-                                wx:if="{{item.outerCloth}}" 
-                                style="filter:hue-rotate({{item.outerCloth.HSB.H-10}}deg) saturate({{item.outerCloth.HSB.S}}) brightness({{item.outerCloth.HSB.B}});">
-                        </image>
-                      </view>
+                    <view class="label">{{item.label}}</view>
+                    
+                    <!--wholeType 0无  1上下衣  2裙子  3外套+上下衣  4裙子+外套  5未登录-->
+                    <view wx:if="{{item.wholeType == 0}}" class="wear-default">
+                      <image src="/icons/sorry.png" mode="widthFix" style="width:70%;"></image>
+                      <text>\n未找到适合该出行场合的穿搭呢\n 小明会继续优化算法的\n(＞人＜；)</text>
                     </view>
-                    <!-- / 卡片 -->
+                    <view wx:if="{{item.wholeType == 5}}" class="wear-default">
+                      <image src="/icons/sorry.png" mode="widthFix" style="width:70%;"></image>
+                      <text>\n您还没有登录哦\n 小明找不到您的衣橱\n(＞人＜；)</text>
+                    </view>
+                    <view wx:elif="{{item.wholeType == 1}}">
+                      <image src="{{item.upperCloth.picurl}}" 
+                              class="upper-wear1"  
+                              mode="widthFix"
+                              wx:if="{{item.upperCloth}}" 
+                              style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg) saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});">
+                      </image>
+                      <image src="{{item.downCloth.picurl}}" 
+                              mode="widthFix"
+                              class="down-wear1" 
+                              wx:if="{{item.downCloth}}" 
+                              style="filter:hue-rotate({{item.downCloth.HSB.H-10}}deg) saturate({{item.downCloth.HSB.S}}) brightness({{item.downCloth.HSB.B}});">
+                      </image>
+                    </view>
+
+                    <view wx:elif="{{item.wholeType == 2}}">
+                      <image src="{{item.dress.picurl}}" 
+                              class="dress"  
+                              mode="widthFix"
+                              wx:if="{{item.dress}}" 
+                              style="filter:hue-rotate({{item.dress.HSB.H-10}}deg) saturate({{item.dress.HSB.S}}) brightness({{item.dress.HSB.B}});">
+                      </image>
+                    </view>
+                    
+                    <view wx:elif="{{item.wholeType == 3}}">
+                      <image src="{{item.upperCloth.picurl}}" 
+                              class="upper-wear2"  
+                              mode="widthFix"
+                              wx:if="{{item.upperCloth}}" 
+                              style="filter:hue-rotate({{item.upperCloth.HSB.H-10}}deg) saturate({{item.upperCloth.HSB.S}}) brightness({{item.upperCloth.HSB.B}});">
+                      </image>
+                      <image src="{{item.downCloth.picurl}}" 
+                              class="down-wear2" 
+                              mode="widthFix"
+                              wx:if="{{item.downCloth}}" 
+                              style="filter:hue-rotate({{item.downCloth.HSB.H-10}}deg) saturate({{item.downCloth.HSB.S}}) brightness({{item.downCloth.HSB.B}});">
+                      </image>
+                      <image src="{{item.outerCloth.picurl}}"
+                              class="outer-wear"
+                              mode="widthFix"
+                              wx:if="{{item.outerCloth}}" 
+                              style="filter:hue-rotate({{item.outerCloth.HSB.H-10}}deg) saturate({{item.outerCloth.HSB.S}}) brightness({{item.outerCloth.HSB.B}});">
+                      </image>
+                    </view>
+                    <view wx:if="{{item.wholeType == 4}}">
+                      <image src="{{item.dress.picurl}}" 
+                              class="dress" 
+                              mode="widthFix"
+                              wx:if="{{item.dress}}" 
+                              style="filter:hue-rotate({{item.dress.HSB.H-10}}deg) saturate({{item.dress.HSB.S}}) brightness({{item.dress.HSB.B}});">
+                      </image>
+                      <image src="{{item.outerCloth.picurl}}"
+                              class="outer-wear"
+                              mode="widthFix"
+                              wx:if="{{item.outerCloth}}" 
+                              style="filter:hue-rotate({{item.outerCloth.HSB.H-10}}deg) saturate({{item.outerCloth.HSB.S}}) brightness({{item.outerCloth.HSB.B}});">
+                      </image>
+                    </view>
                   </view>
-                  <!-- 背面内容 -->
-                  <view class="sideWrap back">
-                    <!-- detail -->
-                    <view class='backGroup bg-image'>
-                      <view class="tips">
-                        <text>\nTIPS \n  {{item.tips}}</text>
-                      </view>
-                    </view>   
-                  </view>
+                  <!-- / 卡片 -->
+                </view>
+                <!-- 背面内容 -->
+                <view class="sideWrap back">
+                  <!-- detail -->
+                  <view class='backGroup bg-image'>
+                    <view class="tips">
+                      <text>\nTIPS \n  {{item.tips}}</text>
+                    </view>
+                  </view>   
                 </view>
               </view>
             </view>
           </view>
-        </swiper-item>
+        </view>
+      </swiper-item>
     </swiper>
   </view>
 </view>
