@@ -206,7 +206,8 @@ Page({
     picurl: '',
     canPreview: 0,  // 0-default 1-ok
     HSB: { H:0, S:0, B:0 },
-    lastSelect: []
+    lastSelect: [],
+    showThiInfo: false
   },
 
   // 用户选择颜色时的交互
@@ -386,15 +387,23 @@ Page({
       success (res) {
         console.log(res.data)
         wx.hideLoading()
-        let data = res.data[0];
-        let inRGB = {R:data.inR, G:data.inG, B:data.inB};
-        let HSB = that.dealColor(inRGB);
-        that.setData({
-          picurl: data.picurl,
-          canPreview: 1,
-          inRGB: inRGB,
-          HSB: HSB
-        })
+        if (res.data.length) {
+          let data = res.data[0];
+          let inRGB = {R:data.inR, G:data.inG, B:data.inB};
+          let HSB = that.dealColor(inRGB);
+          that.setData({
+            picurl: data.picurl,
+            canPreview: 1,
+            inRGB: inRGB,
+            HSB: HSB
+          })
+        } else {
+          wx.showToast({
+            title: '未找到该属性衣物 是小明的问题 QAQ',
+            icon: 'none',
+            duration: 1500
+          })
+        }
       },
       fail (e) {
         console.log(e)
@@ -428,7 +437,7 @@ Page({
       key: 'openid',
       success: function(res) {
         openid = res.data
-        that.canAdd()
+        that.canAdd(openid, id, colortype)
       },
       fail () {
         wx.showModal({
@@ -444,7 +453,8 @@ Page({
     })
   },
   // 通过登录，请求添加接口
-  canAdd () {
+  canAdd (openid, id, colortype) {
+    var that = this;
     if (this.data.picurl) {
       wx.showLoading({
         title: '加载中...',
@@ -526,6 +536,18 @@ Page({
     console.log('Pick', this.data.colorPicked)
     this.showColor(id);
   },
+  // 厚度的info
+  touchStart() {
+    this.setData({
+      showThiInfo: true
+    })
+  },
+  touchEnd() {
+    this.setData({
+      showThiInfo: false
+  })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

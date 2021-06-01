@@ -38,6 +38,13 @@
               selected="{{thiContent.selected}}"
               bind:change="change"></select>
     </view>
+    <view wx:if="{{showThiInfo}}" class="note-block">
+      <view class="note">
+        <text>夏天的衣服选薄，冬天则为厚，春秋为适中</text>
+      </view>
+      <view class="tri"></view>
+    </view>
+    <view class="thi-info" bindtouchstart="touchStart" bindtouchend="touchEnd"><image src="/icons/info.png" style="width:100%;" mode="widthFix"></image></view>
   </view>
 
   <view class="block">
@@ -54,10 +61,11 @@
     <view class="select-name">预览：</view>
     <view wx:if="{{canPreview}}">
       <image src="{{picurl}}" 
-           class="show-image"
-            style="filter:hue-rotate({{HSB.H-10}}deg) saturate({{HSB.S}}) brightness({{HSB.B}});"></image>
+          class="show-image"
+          mode="widthFix"
+          style="filter:hue-rotate({{HSB.H-10}}deg) saturate({{HSB.S}}) brightness({{HSB.B}});"></image>
     </view>
-    <view wx:elif="{{!canPreview}}" class="image-default bg-image" >
+    <view wx:elif="{{!canPreview}}" class="image-default bg-image">
       <text>自动生成 \n 预览图片</text>
     </view>
   </view>
