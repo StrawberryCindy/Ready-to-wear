@@ -28,14 +28,18 @@
       <view class="close" bindtap="hideModal">×</view>
       <view class="report-top">
         <view class="report-pic">
-          <image src="/images/color.jpg" mode="widthFix" style="width:100%;"></image>
+          <view wx:for="{{reportPic}}" wx:key="index" class="report-pic-block">
+            <image src="{{item.src}}" style="width:100%;height: 24vh;" class="{{ colorType==item.id ? 'pic-active' : 'pic-default'}}"></image>
+            <text style="color:{{ colorType==item.id ? 'rgb(43, 122, 226)' : '#fdfce5'}};">{{item.title}}</text>
+          </view>
         </view>
         <view class="report-title">
           <text>{{report.title}}</text>
         </view>
       </view>
       <view class="report-cloth-tip">
-        <text>【穿衣推荐】 \n {{report.clothTip}}</text>
+        <view class="report-tip-title">【穿衣推荐】</view>
+        <text>{{report.clothTip}}</text>
       </view>
       <view class="report-lip-tip">
         <text>【口号色号推荐】 \n {{report.lipstick}}</text>

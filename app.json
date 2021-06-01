@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/bodyColor/bodyColor",
     "pages/index/index",
     "pages/wear/wear",
     "pages/rack/rack",
@@ -7,8 +8,6 @@
     "pages/weather/weather",
     "components/select/select",
     "pages/bodyShape/bodyShape",
-    "pages/info/info",
-    "pages/bodyColor/bodyColor",
     "pages/login/login"
   ],
   "window": {

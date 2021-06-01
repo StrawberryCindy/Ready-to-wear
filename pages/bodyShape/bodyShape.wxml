@@ -1,9 +1,10 @@
 <!--pages/bodyShape/bodyShape.wxml-->
 <view>
   <view class="title">
-    <text style="line-height:80rpx;">花几分钟时间测量您的身材参数\n</text>
-    <text>我们将根据您的身形给出属于\n您独一无二的\n穿搭建议~٩(๑❛ᴗ❛๑)۶</text>
+    <image src="/images/bodyShape/top.png" style="width:100%;" mode="widthFix"></image>
+    <image src="/images/bodyShape/title.png" style="width:80%;" mode="widthFix"></image>
   </view>
+  <view class="line"><image src="/images/bodyShape/line.png" style="margin-left: 20%; width:60%;" mode="widthFix"></image></view>
   <view class="{{showMesMtd ? 'detail-btn-active' : 'detail-btn' }}" bindtap="showMesMtd">测量方法 {{showMesMtd ? '▲': '▼'}}
     <view wx:if="{{showMesMtd}}" class="mes-mtd">
       <text>
