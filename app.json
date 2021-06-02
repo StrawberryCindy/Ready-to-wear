@@ -1,12 +1,12 @@
 {
   "pages": [
-    "pages/bodyColor/bodyColor",
     "pages/index/index",
     "pages/wear/wear",
     "pages/rack/rack",
     "pages/add/add",
     "pages/weather/weather",
     "components/select/select",
+    "pages/bodyColor/bodyColor",
     "pages/bodyShape/bodyShape",
     "pages/login/login"
   ],
