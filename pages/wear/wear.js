@@ -312,7 +312,7 @@ Page({
         this.searchByLocation(res.latitude, res.longitude);
       },
       fail: () => {
-        wx.showModal({ title: '定位失败', content: '获取不到本地天气了呢！', showCancel: false, });
+        wx.showModal({ title: '定位失败', content: '请开启定位信息', showCancel: false });
       },
       complete() {
         wx.hideLoading()
@@ -443,11 +443,7 @@ Page({
       }
     });
     this.updateTime()
-    if (options.city) {
-      this.searchByCity(options.city);
-    } else {
-      this.getLocalCityWeather();
-    }
+    this.getLocalCityWeather();
   },
 
 
@@ -462,12 +458,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.updateTime()
-    if (this.currentCity) {
-      this.searchByCity(this.currentCity);
-      } else {
-      this.getLocalCityWeather();
-      }
   },
 
   /**

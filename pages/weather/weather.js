@@ -13,16 +13,64 @@ Page({
   localCity: null,    // 本地城市
   currentCity: null,  // 查看城市
 
-  onLoad(options) {
+  onLoad() {
+    this.getAuthority()
+  },
+  onshow() {
     this.updateTime();    // 设置时间
     // 获取天气
-    if (options.city) {
-      this.searchByCity(options.city);
-    } else {
-      this.getLocalCityWeacher();
+    if (this.currentCity) {
+      this.searchByCity(this.currentCity);
+      } else {
+      this.getAuthority();
     }
   },
 
+  /* 获取定位授权 */
+  getAuthority(){
+    wx.getSetting({
+      success: (res) => {
+        // res.authSetting['scope.userLocation']  undefined-表示初始化进入该页面 false-表示非初始化进入该页面,且未授权
+        if (res.authSetting['scope.userLocation'] != true) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success() {
+              this.updateTime();    // 设置时间
+              // 获取天气
+              this.getLocalCityWeacher();
+            },
+            fail: function(error) {
+              wx.showModal({
+                title: '提示',
+                content: '您未开启定位权限，请点击确定去开启权限！',
+                success(res) {
+                  if (res.confirm) {
+                    wx.openSetting()
+                  }
+                },
+                fail: function() {
+                  wx.showToast({
+                    title: '未获取定位权限，请重新打开设置',
+                    icon: 'none',
+                    duration: 2000 
+                  })
+                }
+              })
+            }
+          })
+        } else {
+          this.updateTime();    // 设置时间
+          // 获取天气
+          this.getLocalCityWeacher();
+        }
+      }
+    })
+  },
+  /* 跳转气象信息详情页 */
+  toDetail(e) {
+    console.log('进入气象信息详情页', e.data)
+
+  },
   /**
    * 更新时间
    */
@@ -123,7 +171,7 @@ Page({
     if (this.currentCity) {
       this.searchByCity(this.currentCity);
       } else {
-      this.getLocalCityWeacher();
+      this.getAuthority();
     }
   },
 

@@ -53,7 +53,7 @@
 		</view>
 
 		<!-- 出行建议 -->
-		<view class="suggestion-block" bindtap="toDetail">
+		<view class="suggestion-block" bindtap="toDetail" data-suggestion="">
 			<view class="suggestion-title">出行建议</view>
 			<view class="suggestion"> 
 				<view class="item">
