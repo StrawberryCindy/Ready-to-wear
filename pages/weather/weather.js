@@ -68,8 +68,11 @@ Page({
   },
   /* 跳转气象信息详情页 */
   toDetail(e) {
-    console.log('进入气象信息详情页', e.data)
-
+    console.log('进入气象信息详情页', e.currentTarget.dataset.info)
+    var info = encodeURIComponent(JSON.stringify(e.currentTarget.dataset.info))
+    wx.navigateTo({
+      url: "info/info?info=" + info,
+    })
   },
   /**
    * 更新时间

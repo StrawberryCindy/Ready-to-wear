@@ -53,8 +53,8 @@
 		</view>
 
 		<!-- 出行建议 -->
-		<view class="suggestion-block" bindtap="toDetail" data-suggestion="">
-			<view class="suggestion-title">出行建议</view>
+		<view class="suggestion-block" bindtap="toDetail" data-info="{{weatherInfo.today.index}}">
+			<view class="suggestion-title">出行建议 >>></view>
 			<view class="suggestion"> 
 				<view class="item">
 					<image class="icon" src="../../icons/weather/uv.png" mode="widthFix"></image>

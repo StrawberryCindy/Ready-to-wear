@@ -54,9 +54,23 @@
       })
     ```
 
-4. 判断某对象为空的方法：
-    将其转成json字符串，再进行判断
-    ```javascript
-      var object = {};
-      console.log(JSON.stringify(object) == '{}'); //输出true
-    ```
+    4. 判断某对象为空的方法：
+      将其转成json字符串，再进行判断
+      ```javascript
+        var object = {};
+        console.log(JSON.stringify(object) == '{}'); //输出true
+      ```
+
+    5. 页面传值对象参数过长的处理方法
+        小程序url传参如果是对象的话需要先用JSON.stringify()转换一下，接受页面在用JSON.parse()再转换回来。
+    但这样传参有一个问题，当对象数据长度过大时会报错，因为url传参时程序把过长的那段数据给截取掉了，导致数据转换回来时格式不对而报错。
+      这时可以再添加另一个API：
+      encodeURIComponent(obj) 和 decodeURIComponent(options.obj)，在encodeURIComponent之前要用JSON.stringify()先转换数据decodeURIComponent之后再用JSON.parse()转换回来。
+
+      ```javascript  
+      encodeURIComponent(JSON.stringify(obj)) // 跳转url时的转换方法
+      ```
+      
+      ```javascript  
+      JSON.parse(decodeURIComponent(options.obj)) // 接收参数页面的转换方法
+      ```
