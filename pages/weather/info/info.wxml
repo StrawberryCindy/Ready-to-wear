@@ -1,3 +1,13 @@
 <!--pages/weather/info/info.wxml-->
-<view>
+<view class="info">
+  <view class="block" wx:for="{{info}}" wx:key="index"> 
+    <view class="icon-block">
+      <image class="icon" src="{{item.src}}"></image>
+      <view class="name">{{item.name}}</view>
+    </view>
+    <view class="content">
+      <text style="line-height: 50rpx; font-weight: bolder;">{{item.title}} \n</text>
+      <text>{{item.desc}}</text>
+    </view>
+  </view>
 </view>

@@ -1,1 +1,32 @@
 /* pages/weather/info/info.wxss */
+.info {
+  border: cornsilk 2rpx solid;
+  background-color: cornsilk;
+}
+.block {
+  margin: 2vh 50rpx;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(250, 245, 255);
+  border-radius: 30rpx;
+  box-shadow: 2px 2px 2px #aaa;
+}
+.icon-block {
+  color: #d19696;
+  margin: 30rpx;
+  font-size: 28rpx;
+}
+.icon {
+  margin: 8rpx;
+  width: 100rpx; height: 100rpx;
+}
+.name {
+  width: max-content;
+}
+.content {
+  font-size: 25rpx;
+  color: gray;
+  margin: 40rpx 0;
+  padding: 0 35rpx;
+  border-left: grey solid 2rpx;
+}

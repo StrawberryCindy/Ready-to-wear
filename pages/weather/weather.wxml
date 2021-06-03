@@ -57,14 +57,14 @@
 			<view class="suggestion-title">出行建议 >>></view>
 			<view class="suggestion"> 
 				<view class="item">
-					<image class="icon" src="../../icons/weather/uv.png" mode="widthFix"></image>
-					<view class="type">紫外线</view>
-					<view class="content">{{ weatherInfo.today.index.uv.title}}</view>
-				</view>
-				<view class="item">
 					<image class="icon" src="../../icons/weather/dressing.png" mode="widthFix"></image>
 					<view class="type">穿衣</view>
 					<view class="content">{{ weatherInfo.today.index.clothes.title}}</view>
+				</view>
+				<view class="item">
+					<image class="icon" src="../../icons/weather/uv.png" mode="widthFix"></image>
+					<view class="type">紫外线</view>
+					<view class="content">{{ weatherInfo.today.index.uv.title}}</view>
 				</view>
 				<view class="item">
 					<image class="icon" src="../../icons/weather/sport.png" mode="widthFix"></image>
@@ -72,9 +72,9 @@
 					<view class="content">{{ weatherInfo.today.index.sports.title}}</view>
 				</view>
 				<view class="item">
-					<image class="icon" src="../../icons/weather/car_washing.png" mode="widthFix"></image>
-					<view class="type">洗车</view>
-					<view class="content">{{ weatherInfo.today.index.wash_car.title}}</view>
+					<image class="icon" src="../../icons/weather/makeup.png" mode="widthFix"></image>
+					<view class="type">化妆</view>
+					<view class="content">{{ weatherInfo.today.index.beauty.title}}</view>
 				</view>
 				<view class="item">
 					<image class="icon" src="../../icons/weather/flu.png" mode="widthFix"></image>
