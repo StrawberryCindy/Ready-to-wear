@@ -62,7 +62,6 @@
     <view wx:if="{{canPreview}}">
       <image src="{{picurl}}" 
           class="show-image"
-          mode="widthFix"
           style="filter:hue-rotate({{HSB.H-10}}deg) saturate({{HSB.S}}) brightness({{HSB.B}});"></image>
     </view>
     <view wx:elif="{{!canPreview}}" class="image-default bg-image">

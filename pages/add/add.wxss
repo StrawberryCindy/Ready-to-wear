@@ -86,7 +86,7 @@
 }
 /*预览框*/
 .show-block { margin: 30rpx 100rpx;  height: 350rpx; display: flex; flex-direction: row;}
-.show-image { margin: 10rpx 50rpx; width: 305rpx; }
+.show-image { margin: 10rpx 50rpx; height: 330rpx; width: 220rpx; }
 .image-default {
   text-align: center;
   border: solid grey 1rpx; box-shadow:1px 1px 3px #aaaaaa;

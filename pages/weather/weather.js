@@ -120,7 +120,11 @@ Page({
    * 刷新
    */
   refresh() {
-    this.searchByCity(this.currentCity);
+    if (this.currentCity) {
+      this.searchByCity(this.currentCity);
+      } else {
+      this.getLocalCityWeacher();
+    }
   },
 
   /**

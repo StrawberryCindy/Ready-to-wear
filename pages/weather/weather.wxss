@@ -6,7 +6,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
+  color: gray;
+  background: -webkit-linear-gradient(top, #f5d8fc, #fff5ce);
 }
 
 /* 头部 */
@@ -56,8 +57,8 @@
 
 /* 更新图片 */
 .weather .header .update .refreshImg {
-  height: 22rpx;
-  width: 22rpx;
+  height: 26rpx;
+  width: 26rpx;
   margin-left: 1vw;
 }
 
@@ -165,7 +166,7 @@
 }
 
 /* 出行建议 */
-.weather .suggestion-block { width: 100%;  background-color: rgba(0, 0, 0, 0.08) ; margin-top: 2vh; 
+.weather .suggestion-block { width: 100%;  background-color: rgba(0, 0, 0, 0.05); margin-top: 2vh; 
   border-radius: 20rpx; padding-bottom:2vh; padding-top: 1vh;}
 .weather .suggestion-title { margin-left: 20rpx; margin-top: 0vh; font-size: 35rpx; line-height: 6vh; letter-spacing: 8rpx;}
 .weather .suggestion {
@@ -187,14 +188,13 @@
 }
 
 .weather .suggestion .icon {
-  height: 80rpx;
   width: 80rpx;
 }
 
 .weather .suggestion .type {
   font-size: 8pt;
   line-height: 50rpx;
-  color: rgb(180, 180, 180);
+  color: #e2a1a1;
 }
 
 .weather .suggestion .content {

@@ -84,7 +84,6 @@ Page({
   },
   getAns(e) {
     var data = e.currentTarget.dataset
-    console.log(data)
     // str 对象外的selected，用于生成报告
     var str = 'colorData['+ data.index+']'
     var ansIndex = 2;
@@ -101,7 +100,6 @@ Page({
     var colorData = new Array;
     var anum = 0, bnum = 0; 
     colorData = this.data.colorData
-    console.log(colorData)
     if (colorData.length !== 6) {
       wx.showToast({
         title: '您的数据还没填完哦 ┐(´∇｀)┌',
@@ -110,7 +108,6 @@ Page({
       })    
       return;
     } else {
-      console.log(colorData)
       colorData.forEach(function(item, index) {
         if (item == 1) {
           bnum = bnum+1;
@@ -138,7 +135,7 @@ Page({
     } else {
       colorType = 2
     }
-    console.log(colorType)
+    console.log('肤色类型：', colorType)
     this.setData({
       colorType: colorType,
       report: this.data.colors[colorType]
@@ -201,7 +198,6 @@ Page({
     wx.getStorage({
       key: 'colorData',
       success: function(res) {
-        console.log(res)
         that.setData({
           colorData: res.data
         })

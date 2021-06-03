@@ -43,7 +43,7 @@ App({
               //发起网络请求
               console.log(res)
               wx.request({
-                url: 'http://222.16.61.214:8081/login',
+                url: 'http://1.117.161.67:8081/login',
                 data: {
                   code: res.code,
                   encryptedData: user.encryptedData,

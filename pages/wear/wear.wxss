@@ -90,8 +90,10 @@
 .down-wear1 { position:absolute; display: flex; right:0rpx; top: 30vh; margin: 0 20rpx 1vh; width: 310rpx; height: 320rpx; }
 
 /*裙子*/
-.dress {
-  position:absolute; display: flex; margin: 0 20rpx 1vh; width: 310rpx; height: 780rpx; }
+.dress1 {
+  position:absolute; display: flex; margin: 25% 20% 1vh; width: 260rpx; height: 390rpx; }
+.dress2 {
+  position:absolute; display: flex; margin: 10% 40rpx 1vh; width: 260rpx; height: 390rpx; }
 
 /*外套+上下衣*/
 .outer-wear { position: absolute; top: 40vh; width:305rpx; margin: 0vh 0rpx 0vh; display: flex; width: 305rpx; height: 280rpx; }
@@ -112,3 +114,15 @@
     word-wrap: break-all;
   }
 
+  /*工具栏*/
+  .tools {
+    position: absolute;
+    top: 43%;
+    right: 20rpx;
+    width: 54rpx;
+    height: 20vh;
+    padding: 25rpx 0 0 8rpx;
+    border-radius: 30rpx;
+    background: #8865c9;
+    opacity: 0.5;
+  }

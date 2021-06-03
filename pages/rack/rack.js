@@ -23,7 +23,7 @@ Page({
       },
       {
         id: 4,
-        kind: '棉服',
+        kind: '羽绒服',
         contents: []
       },
       {
@@ -122,7 +122,7 @@ Page({
       title: '请求删除中...',
     })
     wx.request({
-      url: 'http://222.16.61.214:8081/delete',
+      url: 'http://1.117.161.67:8081/delete',
       method: 'POST',
       data: {
         cloid: that.data.toDelete,
@@ -197,14 +197,13 @@ Page({
     }.bind(this), 200)
   },
   initData (openid) {
-    console.log('初始化数据')
+    console.log('衣橱页初始化数据')
     var that = this;
     wx.showLoading({
       title: '加载中...',
     })
-    console.log(openid)
     wx.request({
-      url: 'http://222.16.61.214:8081/closet', 
+      url: 'http://1.117.161.67:8081/closet', 
       data: {
         openid: openid
       },
@@ -213,7 +212,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success (res) {
-        console.log(res.data)
+        console.log('衣橱页返回信息：', res.data)
         // cloth[[],[],[]...] 二维数组，每个内部元素对应 cloth.contents
         var cloth = new Array(9);
         for( var i =0; i < cloth.length; i++) {

@@ -1,8 +1,8 @@
 <!--pages/wear/wear.wxml-->
 <view class="wear">
   <view class="weather" bindtap='gotoWeather'>今日天气 {{weatherInfo.today.night_air_temperature}} ℃ ~ {{weatherInfo.today.day_air_temperature}} ℃</view>
-  <image class="top-image-tl" src="/icons/page-wear-todaylook1.png" mode="widthFix"></image>
-  <image class="top-image-rbt" src="/icons/page-wear-rbt.png" mode="widthFix"></image>
+  <image class="top-image-tl" src="/icons/wear/todaylook.png" mode="widthFix"></image>
+  <image class="top-image-rbt" src="/icons/wear/rbt.png" mode="widthFix"></image>
   <view class="cloth" style="height: {{windowHeight-175}}rpx;">
     <swiper previous-margin="0rpx" 
             next-margin="60rpx" 
@@ -51,7 +51,7 @@
 
                     <view wx:elif="{{item.wholeType == 2}}">
                       <image src="{{item.dress.picurl}}" 
-                              class="dress"  
+                              class="dress1"
                               mode="widthFix"
                               wx:if="{{item.dress}}" 
                               style="filter:hue-rotate({{item.dress.HSB.H-10}}deg) saturate({{item.dress.HSB.S}}) brightness({{item.dress.HSB.B}});">
@@ -78,9 +78,10 @@
                               style="filter:hue-rotate({{item.outerCloth.HSB.H-10}}deg) saturate({{item.outerCloth.HSB.S}}) brightness({{item.outerCloth.HSB.B}});">
                       </image>
                     </view>
+
                     <view wx:if="{{item.wholeType == 4}}">
                       <image src="{{item.dress.picurl}}" 
-                              class="dress" 
+                              class="dress2" 
                               mode="widthFix"
                               wx:if="{{item.dress}}" 
                               style="filter:hue-rotate({{item.dress.HSB.H-10}}deg) saturate({{item.dress.HSB.S}}) brightness({{item.dress.HSB.B}});">
@@ -110,5 +111,10 @@
         </view>
       </swiper-item>
     </swiper>
+    <view class="tools" >
+      <image src="/icons/wear/info.png" style="width: 45rpx; height: 45rpx;" bindtap="showInfo"></image>
+      <image src="/icons/wear/switch.png" style="width: 45rpx; height: 45rpx;"></image>
+      <image src="/icons/wear/refresh.png" style="width: 45rpx; height: 45rpx;" bindtap="refresh"></image>
+    </view>
   </view>
 </view>

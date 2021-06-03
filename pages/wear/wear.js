@@ -26,68 +26,7 @@ Page({
   
   localCity: null,    // 本地城市
   currentCity: null,  // 查看城市
-  getDataTest() {
-    var that = this
-    let data = [{
-    "wholeType": 1,	//1:上下衣 2:裙子 3:外套+上下衣
-    "label": '可爱风',
-    "tips": '天气有点凉，推荐穿暖色\n调的衣服哦，办公场合推荐采用\n不太会出错的相近色搭配\n原则呢！\n ❤',	
-    "upperCloth": { 
-      "inR": 174,					//原始RGB值
-      "inG": 192,
-      "inB": 232,
-      "tgR": 238,					//目标RGB值
-      "tgG": 130,
-      "tgB": 238,
-      "picurl": "/images/coat.png"			//图片地址
-    },
-    "downCloth": {  
-      "inR": 223,					//原始RGB值
-      "inG": 67,
-      "inB": 72,
-      "tgR": 240,					//目标RGB值
-      "tgG": 90,
-      "tgB": 147,
-      "picurl": "/images/test2.png"
-    }, 
-    "outerCloth": null,
-    "dress": null, 
-  },{
-    "wholeType": 0,	//1:上下衣 2:裙子 3:外套+上下衣
-    "label": '通勤风',
-    "tips": '今天紫外线很强，推荐擦防晒\n并且搭配外套防晒衣。 \n ❤',	
-    "upperCloth": { 
-      "inR": 174,					//原始RGB值
-      "inG": 192,
-      "inB": 232,
-      "tgR": 238,					//目标RGB值
-      "tgG": 130,
-      "tgB": 238,
-      "picurl": "/images/coat.png"			//图片地址
-    },
-    "downCloth": {  
-      "inR": 223,					//原始RGB值
-      "inG": 67,
-      "inB": 72,
-      "tgR": 240,					//目标RGB值
-      "tgG": 90,
-      "tgB": 147,
-      "picurl": "/images/test2.png"
-    }, 
-    "outerCloth": null,
-    "dress": null, 
-  }];
-    var bannerData = new Array;
-    data.forEach(function(item, index) {
-      bannerData[index] = new Object;
-      bannerData[index] = item;
-      bannerData[index].id = index + 1;
-      bannerData[index].isOpenFilp = false;
-    });
-    that.setData({
-      bannerData: bannerData
-    })
-  },
+
   // 初始化数据及判断登录态
   getData(weather) {
     var that = this;
@@ -118,7 +57,7 @@ Page({
       title: '正在生成穿搭...',
     })
     wx.request({
-      url: 'http://222.16.61.214:8081/fashion',
+      url: 'http://1.117.161.67:8081/fashion',
       method: 'GET',
       data: {
         weather: weather,
@@ -138,10 +77,10 @@ Page({
           bannerData[index].id = index + 1;
           bannerData[index].isOpenFilp = false;
         });
-        console.log(bannerData)
         that.setData({
           bannerData: bannerData
         })
+        that.showData();
       },
       fail() {
         wx.showToast({
@@ -154,6 +93,25 @@ Page({
         wx.hideLoading()
       }
     })
+  },
+  // 数据渲染处理
+  showData () {
+    for ( var index = 0; index < this.data.bannerData.length; index++ ) {
+      var card = new Object();
+      card = this.data.bannerData[index];
+      if (card.upperCloth) {
+        this.dealUpperColor(index);
+      }
+      if (card.downCloth) {
+        this.dealDownColor(index)
+      }
+      if (card.dress) {
+        this.dealDressColor(index);
+      }
+      if (card.outerCloth) {
+        this.dealOuterColor(index);
+      }
+    }
   },
   // bannerSwiper
   bannerSwiper(e) {
@@ -346,7 +304,7 @@ Page({
     });
     },  
   //获取当前城市天气数据
-  getLocalCityWeacher() {
+  getLocalCityWeather() {
     wx.showLoading({ title: '正在定位...'});
     // 获取当前经纬度
     wx.getLocation({
@@ -372,7 +330,7 @@ Page({
     const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六', '周日'];
     return weekdays[index];
   }, 
-    //处理天气数据
+  //处理天气数据
   processData(data) {
     const weatherInfo = {};
     // 城市信息
@@ -388,6 +346,7 @@ Page({
     weatherArray.push(weatherInfo)
     return weatherArray;
   },
+  // 获取用户信息
   getUserProfile() {
     var that = this
     wx.getUserProfile({
@@ -406,7 +365,7 @@ Page({
               //发起网络请求
               console.log(res)
               wx.request({
-                url: 'http://222.16.61.214:8081/login',
+                url: 'http://1.117.161.67:8081/login',
                 data: {
                   code: res.code,
                   encryptedData: user.encryptedData,
@@ -453,6 +412,20 @@ Page({
       }
     })
   },
+
+  // 刷新
+  refresh() {
+    var weather = this.data.weatherInfo.today.day_air_temperature
+    if ( weather ) {
+      this.getData(weather) 
+    } else {
+      if (this.currentCity) {
+        this.searchByCity(this.currentCity);
+      } else {
+        this.getLocalCityWeather();
+      }
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -473,23 +446,7 @@ Page({
     if (options.city) {
       this.searchByCity(options.city);
     } else {
-      this.getLocalCityWeacher();
-    }
-    for ( var index = 0; index < this.data.bannerData.length; index++ ) {
-      var card = new Object();
-      card = this.data.bannerData[index];
-      if (card.upperCloth) {
-        this.dealUpperColor(index);
-      }
-      if (card.downCloth) {
-        this.dealDownColor(index)
-      }
-      if (card.dress) {
-        this.dealDressColor(index);
-      }
-      if (card.outerCloth) {
-        this.dealOuterColor(index);
-      }
+      this.getLocalCityWeather();
     }
   },
 
@@ -505,7 +462,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.updateTime()
+    if (this.currentCity) {
+      this.searchByCity(this.currentCity);
+      } else {
+      this.getLocalCityWeather();
+      }
   },
 
   /**

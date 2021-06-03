@@ -106,7 +106,6 @@
   height: 80%;
   width: 98%;
   margin-left: 1%;
-  overflow: hidden;
   position: fixed;
   bottom: 3rpx;
   left: 0;
@@ -118,24 +117,32 @@
     text-align: left;
     display: flex;
     flex-direction: row;
-    height: 100%;
     overflow-y: scroll;   
     background: #fff;
     border-radius: 20rpx;
     margin-bottom: 5rpx;
+    height: 100%;
+  }
+  .report-frame{
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    height: 104%;
+    opacity: 0.8;
+    margin-top: -60rpx;
   }
   .report-pic{
-    margin-top: 100rpx;
+    margin-top: 20%;
     margin-left: 10%;
     width: 20%;
   }
   .report-content{
-    margin-top: 100rpx;
+    margin-top: 13%;
     margin-left: 8%;
     width: 51%;
   }
   .report-title {
-    border-left: #d4237a 4px solid;
+    border-left: #d47323 4px solid;
     font-size: 35rpx;
     margin-bottom: 20rpx;
     padding-left: 20rpx;
@@ -145,7 +152,7 @@
     margin-bottom: 20rpx;
     line-height: 50rpx;
     padding-bottom: 20rpx;
-    border-bottom: #d4237a 2px solid;
+    border-bottom: #d47323 2px solid;
   }
   .report-tip{
     font-size: 27rpx;
@@ -169,4 +176,5 @@
     font-size: x-large;
     top: 0;
     right: 20rpx;
+    z-index:3;
   }

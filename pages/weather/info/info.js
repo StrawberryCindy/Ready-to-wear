@@ -1,4 +1,4 @@
-// pages/login/login.js
+// pages/weather/info/info.js
 Page({
 
   /**

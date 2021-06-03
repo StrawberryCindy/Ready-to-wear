@@ -13,14 +13,16 @@ Page({
     windowHeight: 400,
     nav: [
       { 
-        'title': '测测你是什么身形 >>>',
+        'title': '测测你是什么『身形』 >>>',
         'toUrl': '/pages/bodyShape/bodyShape',
-        'color': '#f5eaf8'
+        'color': '#FFF8DC',
+        logo: '/images/index/body.png'
       },
       { 
-        'title': '测测你是什么肤色 >>>',
+        'title': '测测你是什么『肤色』 >>>',
         'toUrl': '/pages/bodyColor/bodyColor',
-        'color': '#FFF8DC'
+        'color': '#f5eaf8',
+        logo: '/images/index/color.png'
       }
     ]
   },

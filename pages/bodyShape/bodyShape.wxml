@@ -39,7 +39,7 @@
         class="commodity_attr_box" 
         wx:if="{{showModalStatus}}">
     <view class='modal' wx:if="{{styleShow}}">
-    <view class="close" bindtap="hideModal">×</view>
+      <image src="/images/bodyShape/report-frame.png" class="report-frame"></image>
       <view class="report-pic">
         <image src="{{styleShow.url}}" mode="widthFix" style="width:100%;"></image>
       </view>

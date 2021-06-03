@@ -8,7 +8,7 @@
     "components/select/select",
     "pages/bodyColor/bodyColor",
     "pages/bodyShape/bodyShape",
-    "pages/login/login"
+    "pages/weather/info/info"
   ],
   "window": {
     "backgroundTextStyle": "light",

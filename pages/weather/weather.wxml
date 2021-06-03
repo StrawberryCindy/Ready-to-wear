@@ -1,10 +1,10 @@
 <!--pages/weather/weather.wxml-->
-<view class="weather" style="background: -webkit-linear-gradient(top, {{weatherTheme}}, white);">
+<view class="weather">
 	<!-- 地址、时间、更新时间 -->
 	<view class="header">
 		<!-- 地址、时间 -->
-		<view class="info" bindtap="onLocalBtnClick">
-			<image class="localImg" src="../../icons/location.png"></image>
+		<view class="info" bindtap="onLocalBtnClick" >
+			<image class="localImg" src="../../icons/weather/location.png"></image>
 			<view class="city">{{weatherInfo.city.name}}</view>
 			<view class="date">（{{date}}）</view>
 		</view>
@@ -53,36 +53,35 @@
 		</view>
 
 		<!-- 出行建议 -->
-		<view class="suggestion-block">
+		<view class="suggestion-block" bindtap="toDetail">
 			<view class="suggestion-title">出行建议</view>
 			<view class="suggestion"> 
 				<view class="item">
-					<image class="icon" src="../../icons/weather/uv.png"></image>
+					<image class="icon" src="../../icons/weather/uv.png" mode="widthFix"></image>
 					<view class="type">紫外线</view>
 					<view class="content">{{ weatherInfo.today.index.uv.title}}</view>
 				</view>
 				<view class="item">
-					<image class="icon" src="../../icons/weather/dressing.png"></image>
+					<image class="icon" src="../../icons/weather/dressing.png" mode="widthFix"></image>
 					<view class="type">穿衣</view>
 					<view class="content">{{ weatherInfo.today.index.clothes.title}}</view>
 				</view>
 				<view class="item">
-					<image class="icon" src="../../icons/weather/sport.png"></image>
+					<image class="icon" src="../../icons/weather/sport.png" mode="widthFix"></image>
 					<view class="type">运动</view>
 					<view class="content">{{ weatherInfo.today.index.sports.title}}</view>
 				</view>
 				<view class="item">
-					<image class="icon" src="../../icons/weather/car_washing.png"></image>
+					<image class="icon" src="../../icons/weather/car_washing.png" mode="widthFix"></image>
 					<view class="type">洗车</view>
 					<view class="content">{{ weatherInfo.today.index.wash_car.title}}</view>
 				</view>
 				<view class="item">
-					<image class="icon" src="../../icons/weather/flu.png"></image>
+					<image class="icon" src="../../icons/weather/flu.png" mode="widthFix"></image>
 					<view class="type">感冒</view>
 					<view class="content">{{ weatherInfo.today.index.cold.title}}</view>
 				</view>
 			</view>
 		</view>
-
 	</view>
 </view>

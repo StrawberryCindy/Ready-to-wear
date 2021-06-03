@@ -12,8 +12,10 @@
       </view>
     </view>
   </view>
+  <image src="/images/index/background.png" class="bottom-bg" mode="widthFix"></image>
   <view class="nav-block">
     <view class="navigation" wx:for="{{nav}}"  bindtap="goto" data-url="{{item.toUrl}}" wx:key="index" style="background-color:{{item.color}};">
+      <image src="{{item.logo}}" style="width:18%; margin:40rpx 10rpx; height:54%;" mode="widthFix"></image>
       <text>{{item.title}}</text>
     </view>
   </view>

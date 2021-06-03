@@ -48,14 +48,14 @@ Page({
       {
         'id': 1,
         'colortype': 1, //颜色属性 1none 2warm 3cold   
-        'rgb': {'R':248, 'G':248, 'B':255 },
-        'isPick': true
+        'rgb': {'R':240, 'G':240, 'B':240 },
+        'isPick': false
       }, 
       {
         'id': 2,
         'colortype': 1,
-        'rgb': {'R':0, 'G':0, 'B':0 },
-        'isPick': false
+        'rgb': {'R':80, 'G':80, 'B':80 },
+        'isPick': true
       },
       {
         'id': 3,
@@ -201,7 +201,7 @@ Page({
         'isPick': false
       },
     ],
-    colorPicked: { 'id': 1, 'rgb': {'R':248, 'G':248, 'B':255 }}, // targetRGB
+    colorPicked: { 'id': 2, 'rgb': {'R':80, 'G':80, 'B':80 }}, // targetRGB
     inRGB: {}, // 图片原始颜色
     picurl: '',
     canPreview: 0,  // 0-default 1-ok
@@ -342,27 +342,9 @@ Page({
     })
   },
 
-  previewImgTest () {
-    var that = this;
-    var res = {
-      picurl: '/images/coat.png',
-      inR: 172,
-      inG: 194,
-      inB: 232
-    }
-    let inRGB = {R:res.inR, G:res.inG, B:res.inB};
-    let HSB = that.dealColor(inRGB);
-    that.setData({
-      picurl: res.picurl,
-      canPreview: 1,
-      inRGB: inRGB,
-      HSB: HSB
-    })
-  },
-
   // 预览衣物接口
   previewImg () {
-    console.log(this.data.lastSelect, '发送预览图片请求')
+    console.log( '发送预览图片请求参数：', this.data.lastSelect)
     var that = this;
     // 发送请求之前先清空掉原有的（用于网络不好的情况）
     that.setData({
@@ -373,19 +355,19 @@ Page({
       title: '加载中...',
     })
     wx.request({
-      url: 'http://222.16.61.214:8081/preview',
+      url: 'http://1.117.161.67:8081/preview',
       data: {
-        type: that.data.clothContent.selected.id,
-        clothlength: that.data.lengthContent.selected.id,
-        tightness: that.data.tightContent.selected.id,
-        thi: that.data.thiContent.selected.id
+        type: that.data.lastSelect[0],
+        clothlength: that.data.lastSelect[1],
+        tightness: that.data.lastSelect[2],
+        thi: that.data.lastSelect[3]
       },
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success (res) {
-        console.log(res.data)
+        console.log('预览图片返回数据：', res.data)
         wx.hideLoading()
         if (res.data.length) {
           let data = res.data[0];
@@ -459,8 +441,9 @@ Page({
       wx.showLoading({
         title: '加载中...',
       }) 
+      console.log(id)
       wx.request({
-        url: 'http://222.16.61.214:8081/add',
+        url: 'http://1.117.161.67:8081/add',
         data: {
           tgR: that.data.colorPicked.rgb.R,
           tgG: that.data.colorPicked.rgb.G,
@@ -552,7 +535,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 对 从个人页面传参 route进来的 对象进行 解json操作
+    // 对 从衣橱传参 route进来的 对象进行 解json操作
     if (JSON.stringify(options) !== '{}') {
       if (options.allSelected) {
         var allSelectedId = JSON.parse(options.allSelected);
@@ -567,8 +550,10 @@ Page({
           'lengthContent.selected': allSeleted[1],
           'tightContent.selected': allSeleted[2],
           'thiContent.selected': allSeleted[3],
+          'lastSelect': allSelectedId
         })
-        console.log('修改---传入数据', allSeleted)
+        console.log('修改---传入数据', allSelectedId)
+        this.previewImg()
       } else {
         var clothSelected = JSON.parse(options.clothSelected);
         clothSelected = this.selectedInit('clothContent', clothSelected.id);
