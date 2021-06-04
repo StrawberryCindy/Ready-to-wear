@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "rate-star": "/components/rate-star/rate-star"
+  }
 }

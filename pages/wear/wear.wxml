@@ -72,7 +72,7 @@
                               style="filter:hue-rotate({{item.downCloth.HSB.H-10}}deg) saturate({{item.downCloth.HSB.S}}) brightness({{item.downCloth.HSB.B}});">
                       </image>
                       <image src="{{item.outerCloth.picurl}}"
-                              class="outer-wear"
+                              class="outer-wear2"
                               mode="widthFix"
                               wx:if="{{item.outerCloth}}" 
                               style="filter:hue-rotate({{item.outerCloth.HSB.H-10}}deg) saturate({{item.outerCloth.HSB.S}}) brightness({{item.outerCloth.HSB.B}});">
@@ -87,7 +87,7 @@
                               style="filter:hue-rotate({{item.dress.HSB.H-10}}deg) saturate({{item.dress.HSB.S}}) brightness({{item.dress.HSB.B}});">
                       </image>
                       <image src="{{item.outerCloth.picurl}}"
-                              class="outer-wear"
+                              class="outer-wear1"
                               mode="widthFix"
                               wx:if="{{item.outerCloth}}" 
                               style="filter:hue-rotate({{item.outerCloth.HSB.H-10}}deg) saturate({{item.outerCloth.HSB.S}}) brightness({{item.outerCloth.HSB.B}});">
@@ -102,6 +102,12 @@
                   <view class='backGroup bg-image'>
                     <view class="tips">
                       <text>\nTIPS \n  {{item.tips}}</text>
+                    </view>
+                    <view class="comment" 
+                      wx:if="{{item.wholeType!==0 && item.wholeType!== 5}}" >
+                      评价：
+                      <rate-star class="stars" rateObject="{{item.label}}" bind:change="getScore" >
+                      </rate-star>
                     </view>
                   </view>   
                 </view>

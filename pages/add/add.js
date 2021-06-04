@@ -12,7 +12,7 @@ Page({
         {  id: 1,  name: '短袖'  },
         {  id: 2,  name: '长袖'  }, 
         {  id: 3,  name: '毛衣'  }, 
-        {  id: 4,  name: '羽绒服'  }, 
+        {  id: 4,  name: '棉服'  }, 
         {  id: 5,  name: '夹克'  },
         {  id: 6,  name: '西装外套'  }, 
         {  id: 7,  name: '连衣裙'  }, 
@@ -48,7 +48,7 @@ Page({
       {
         'id': 1,
         'colortype': 1, //颜色属性 1none 2warm 3cold   
-        'rgb': {'R':240, 'G':240, 'B':240 },
+        'rgb': {'R':255, 'G':255, 'B':250 },
         'isPick': false
       }, 
       {
@@ -207,7 +207,8 @@ Page({
     canPreview: 0,  // 0-default 1-ok
     HSB: { H:0, S:0, B:0 },
     lastSelect: [],
-    showThiInfo: false
+    showThiInfo: false,
+    cloid: null
   },
 
   // 用户选择颜色时的交互
@@ -441,57 +442,98 @@ Page({
       wx.showLoading({
         title: '加载中...',
       }) 
-      console.log(id)
-      wx.request({
-        url: 'http://1.117.161.67:8081/add',
-        data: {
-          tgR: that.data.colorPicked.rgb.R,
-          tgG: that.data.colorPicked.rgb.G,
-          tgB: that.data.colorPicked.rgb.B,
-          colortype: colortype,
-          code: id,
-          openid: openid
-        },
-        method: 'POST',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        success (res) {
-          console.log(res)
-          let inRGB = {R:res.inR, G:res.inG, B:res.inB};
-          let HSB = that.dealColor(inRGB);
-          that.setData({
-            canPreview: 1,
-            inRGB: inRGB,
-            HSB: HSB
-          })
-          wx.showToast({
-            title: '添加成功！', // 标题
-            icon: 'success',    // 图标类型，默认success
-            duration: 1500,      // 提示窗停留时间，默认1500ms
-            success: function(){ 
-              setTimeout(function () { 
-                  wx.navigateBack({ 
-                    delta: 0,
-                  }) 
-              }, 1500) 
-            }
-          })
-        },
-        fail (e) {
-          console.log(e)
-        },
-        complete() {
-          wx.hideLoading()
-        }
-      })
+      // 请求修改
+      console.log('添加请求信息：', that.data.lastSelect)
+      if ( that.data.cloid ) {
+        wx.request({
+          url: 'http://1.117.161.67:8081/add',
+          data: {
+            tgR: that.data.colorPicked.rgb.R,
+            tgG: that.data.colorPicked.rgb.G,
+            tgB: that.data.colorPicked.rgb.B,
+            colortype: colortype,
+            code: id,
+            openid: openid,
+            cloid: that.data.cloid,
+            type: that.data.lastSelect[0],
+            clothlength: that.data.lastSelect[1],
+            tightness: that.data.lastSelect[2],
+            thi: that.data.lastSelect[3]
+          },
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success (res) {
+            that.successAdd(res)
+          },
+          fail (e) {
+            console.log(e)
+          },
+          complete() {
+            wx.hideLoading()
+          }
+        })
+      } else {
+        // 请求添加
+        wx.request({
+          url: 'http://1.117.161.67:8081/add',
+          data: {
+            tgR: that.data.colorPicked.rgb.R,
+            tgG: that.data.colorPicked.rgb.G,
+            tgB: that.data.colorPicked.rgb.B,
+            colortype: colortype,
+            code: id,
+            openid: openid,
+            type: that.data.lastSelect[0],
+            clothlength: that.data.lastSelect[1],
+            tightness: that.data.lastSelect[2],
+            thi: that.data.lastSelect[3]
+          },
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success (res) {
+            that.successAdd(res)
+          },
+          fail (e) {
+            console.log(e)
+          },
+          complete() {
+            wx.hideLoading()
+          }
+        })
+      }
     } else {
       wx.showToast({
         title: '您的数据还没选完哦 ┐(´∇｀)┌',
         icon: 'none',
         duration: 1500
       })
+    
     }
+  },
+  // 添加成功的后续处理
+  successAdd(res){
+    var that = this
+    let inRGB = {R:res.inR, G:res.inG, B:res.inB};
+    let HSB = that.dealColor(inRGB);
+    that.setData({
+      canPreview: 1,
+      inRGB: inRGB,
+      HSB: HSB
+    })
+    wx.showToast({
+      title: '添加成功！', 
+      icon: 'success',    
+      duration: 500,
+      success: function(){ 
+        wx.navigateBack({ 
+          delta: 0,
+        }) 
+      }
+    })
   },
 
   // 解析除颜色外的所有数据
@@ -520,22 +562,17 @@ Page({
     this.showColor(id);
   },
   // 厚度的info
-  touchStart() {
+  touch() {
     this.setData({
-      showThiInfo: true
+      showThiInfo: !this.data.showThiInfo
     })
-  },
-  touchEnd() {
-    this.setData({
-      showThiInfo: false
-  })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 对 从衣橱传参 route进来的 对象进行 解json操作
+    // 对 从衣橱传参 route进来的 对象进行 解json操作；进行修改操作
     if (JSON.stringify(options) !== '{}') {
       if (options.allSelected) {
         var allSelectedId = JSON.parse(options.allSelected);
@@ -550,11 +587,13 @@ Page({
           'lengthContent.selected': allSeleted[1],
           'tightContent.selected': allSeleted[2],
           'thiContent.selected': allSeleted[3],
-          'lastSelect': allSelectedId
+          'lastSelect': allSelectedId,
+          cloid: parseInt(options.cloid)
         })
-        console.log('修改---传入数据', allSelectedId)
+        console.log('修改---传入数据', allSelectedId, 'cloid:',this.data.cloid)
         this.previewImg()
       } else {
+        // 判断通过加号进入 进行添加操作
         var clothSelected = JSON.parse(options.clothSelected);
         clothSelected = this.selectedInit('clothContent', clothSelected.id);
         this.setData({

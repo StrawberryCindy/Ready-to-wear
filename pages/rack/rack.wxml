@@ -8,8 +8,12 @@
                 scroll-into-view="{{toView}}" 
                 scroll-top="{{scrollTop}}"
                 style="height: {{windowHeight-400}}rpx;">
+    <view class="choose-type">
+      <view class="{{type ? 'type-default' : 'type-active'}}" bindtap="chooseType" data-type="0">按类型</view>
+      <view class="{{type ? 'type-active' : 'type-default'}}" bindtap="chooseType" data-type="1">按季节</view>
+    </view>
     <view class="cloth" 
-          wx:for="{{cloth}}" wx:key="id">
+          wx:for="{{type ? clothSeason : cloth}}" wx:key="id">
       <view class="kind-title">{{item.kind}}</view>
       <scroll-view class='cloth-design' 
                     scroll-x="true"

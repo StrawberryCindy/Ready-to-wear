@@ -1,0 +1,25 @@
+<!--components/rate-star/rate-star.wxml-->
+<view class="wrapper" style="pointer-events:{{disabled ? 'none' : 'auto'}}">
+	<block 
+		wx:for="{{redScore}}" 
+		wx:for-item="item" 
+		wx:for-index="index" 
+		wx:key="index">
+		<image 
+			class="star-icon" 
+			src="/icons/wear/star-shine.png" 
+			data-redIndex="{{index}}" 
+			catchtap="giveScore"></image>
+	</block>
+	<block 
+		wx:for="{{grayScore}}" 
+		wx:for-item="item" 
+		wx:for-index="index" 
+		wx:key="index">
+		<image 
+			class="star-icon" 
+			src="/icons/wear/star.png" 
+			data-greyIndex="{{index}}" 
+			catchtap="giveScore"></image>
+	</block>
+</view>

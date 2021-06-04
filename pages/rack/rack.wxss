@@ -5,27 +5,29 @@ page{
   width: 100%;
 }
 .title{
-  font-size: 32rpx;
   width: 100%;
-  line-height: 50rpx;
-  letter-spacing: 2rpx;
-  text-align: center;
-  color: rgb(65, 65, 65);
+  background-color: #f5eaf8;
+  font-size: 30rpx;
 }
 .scroll-y{
   position: absolute;
   margin-top: 0;
 }
 
+/* 选择不同分类标准 */
+.choose-type { display: flex; flex-direction: row; line-height: 54rpx; font-size: 27rpx; background:#f5eaf8; text-align: center; padding: 4rpx 10% 0 10%;}
+.type-active { background: white; border-top-left-radius: 20rpx; border-top-right-radius: 20rpx; width: 50%;}
+.type-default {  width: 50%; }
+
 .kind-title {
-  border-left: #d4237a 4px solid;
+  border-left: #ff91a2 4px solid;
   padding-left: 20rpx;
 }
 
 .cloth{
-  margin: 1rpx 20rpx;
+  margin: 20rpx 20rpx;
   width: auto;
-  padding: 50rpx;
+  padding: 30rpx 50rpx;
   display: block;
   overflow: hidden;
   font-size: 32rpx;

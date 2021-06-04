@@ -5,6 +5,7 @@ const app = getApp()
 Page({
   data: {
     windowHeight: 400,
+    type: 0, //0 默认按衣物类型展示  1 按衣物适合季节进行展示
     cloth: [
       {
         id: 1,
@@ -23,7 +24,7 @@ Page({
       },
       {
         id: 4,
-        kind: '羽绒服',
+        kind: '棉服',
         contents: []
       },
       {
@@ -52,18 +53,40 @@ Page({
         contents: []
       }
     ],
+    clothSeason: [
+      {
+        id: 1,
+        kind: '夏季',
+        contents: []
+      },
+      {
+        id: 2,
+        kind: '春秋',
+        contents: []
+      },
+      {
+        id: 3,
+        kind: '冬季',
+        contents: []
+      },
+    ],
     toDelete: 0
   },
+
+  /*
+  * 用户交互用到的函数
+  */
   scrollToTop() {
     this.setAction({
       scrollTop: 0
     })
   },
-  // 进入衣物详情页（修改衣物信息）
+  // 跳转衣物详情页———— 修改衣物信息
   toDetail (e) {
     console.log(e.currentTarget.dataset.content)
     var content = e.currentTarget.dataset.content;
     var allSelected = new Array;
+    var cloid = e.currentTarget.dataset.content.cloid;
     allSelected[0] = content.type;
     allSelected[1] = content.clothlength;
     allSelected[2] = content.tightness;
@@ -71,10 +94,10 @@ Page({
     allSelected[4] = content.code; // color ID
     allSelected = JSON.stringify(allSelected)
     wx.navigateTo({
-      url: "../add/add?allSelected=" + allSelected
+      url: "../add/add?allSelected=" + allSelected + "&cloid=" + cloid
     })
   },
-  // 添加衣物
+  // 跳转衣物详情页———— 添加衣物
   addNew: function(e) {
     // 传递对象参数要转成json格式
     var clothSelected = JSON.stringify( e.currentTarget.dataset)
@@ -90,9 +113,69 @@ Page({
     })
     this.showModal();
   },
-  
+
+
+  /**
+   * 模态框的动态交互
+   */
+  modalCancel: function () {
+    this.hideModal();
+  },
+  //显示对话框
+  showModal: function () {
+    // 显示遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+  //隐藏对话框
+  hideModal: function () {
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus: false
+      })
+    }.bind(this), 200)
+  },
+  // 切换衣物分类
+  chooseType(e) {
+    var type = parseInt(e.currentTarget.dataset.type);
+    this.setData({
+      type: type
+    })
+  },
+
+  /**
+   * 请求删除接口，登录判断等
+   */
   // 删除功能前的登录判断
-  modalDelete: function (e) {
+  modalDelete: function () {
     this.hideModal();
     var openid = null;
     var that = this
@@ -151,51 +234,11 @@ Page({
       }
     })
   },
-  modalCancel: function (e) {
-    this.hideModal();
-  },
-  //显示对话框
-  showModal: function () {
-    // 显示遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "linear",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-      showModalStatus: true
-    })
-    setTimeout(function () {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export()
-      })
-    }.bind(this), 200)
-  },
-  //隐藏对话框
-  hideModal: function () {
-    // 隐藏遮罩层
-    var animation = wx.createAnimation({
-      duration: 200,
-      timingFunction: "linear",
-      delay: 0
-    })
-    this.animation = animation
-    animation.translateY(300).step()
-    this.setData({
-      animationData: animation.export(),
-    })
-    setTimeout(function () {
-      animation.translateY(0).step()
-      this.setData({
-        animationData: animation.export(),
-        showModalStatus: false
-      })
-    }.bind(this), 200)
-  },
+
+  /**
+   * 数据渲染
+   * @param {*} openid 
+   */
   initData (openid) {
     console.log('衣橱页初始化数据')
     var that = this;
@@ -219,17 +262,18 @@ Page({
           cloth[i] = new Array;
         }
         let data = res.data;
-        data.forEach(function(item, index) {
+        data.forEach(function(item) {
           item.HSB = that.dealColor(item);
           cloth[item.type - 1].push(item); // 根据item.type值存入相应的数组
         });
-        var clothConStr = new Array(8);
+        var clothConStr = new Array(9);
         for( var i =0; i < cloth.length; i++) {
           clothConStr[i] = 'cloth.['+i+'].contents'
           that.setData({
             [clothConStr[i]]: cloth[i]
           })
         }
+        that.initTypeSeason(res.data)
       },
       fail (e) {
         console.log(e)
@@ -239,6 +283,45 @@ Page({
       }
     })
   },
+  initTypeSeason (data) {
+    var that = this;
+    var cloth = new Array(3);
+    for( var i =0; i < cloth.length; i++) {
+      cloth[i] = new Array;
+    }
+    data.forEach(function(item) {
+      item.HSB = that.dealColor(item);
+      if (item.type == 1) {
+        // 短袖全部加入夏季
+        cloth[0].push(item);
+      } else if (item.type == 2 || item.type == 3 || item.type == 4 || item.type == 5 || item.type == 6) {
+        // 其他上衣的薄款全部加入春秋季节
+        switch(item.thi){
+          case 1:
+          case 2:
+            cloth[1].push(item);
+            break;
+          case 3:
+            cloth[2].push(item);
+            break;
+        }
+      } else {
+        cloth[item.thi -1].push(item);
+      }
+    });
+    var clothConStr = new Array(3);
+    for( var i =0; i < cloth.length; i++) {
+      clothConStr[i] = 'clothSeason.['+i+'].contents'
+      that.setData({
+        [clothConStr[i]]: cloth[i]
+      })
+    }
+  },
+
+  /**
+   * 衣物的变色处理
+   * @param {*} cloth 
+   */
   // 衣物颜色处理，将RGB转化为HSB差值
   dealColor (cloth) {
     var R1 = cloth.inR;
@@ -269,7 +352,6 @@ Page({
     };
     return hsbdelta;
   },
-  
   changeRGBtoHSB (R, G, B) {
     // 由小到大排序RGB, RGB[0]为min， RGB[2]为max
     var RGB = [R, G, B];

@@ -86,19 +86,20 @@
   color: gray;
 }
 /*上下衣*/
-.upper-wear1 { position: absolute; margin: 15% 8% 1vh; display: flex; width: 50%;}
-.down-wear1 { position: absolute; display: flex; right:20rpx; top: 30vh; margin: 0 20rpx 1vh; width: 50%; }
+.upper-wear1 { position: absolute; margin: 15% 8% 1vh; display: flex; width: 45%;}
+.down-wear1 { position: absolute; display: flex; right:20rpx; top: 30vh; margin: 0 20rpx 1vh; width: 45%; }
 
 /*裙子*/
 .dress1 {
   position:absolute; display: flex; margin: 25% 20% 1vh; width: 50%;}
-.dress2 {
-  position:absolute; display: flex; margin: 10% 40rpx 1vh; width: 50%;}
+/* 裙子+外套 */
+.dress2 { position:absolute; display: flex; margin: 10% 40rpx 1vh; width: 50%;}
+.outer-wear1 {  position: absolute; margin: 55% 48% 1vh; display: flex; width: 44%;}
 
 /*外套+上下衣*/
-.outer-wear { position: absolute; top: 40vh; width:305rpx; margin: 0vh 0rpx 0vh; display: flex; width: 305rpx; height: 280rpx; }
-.upper-wear2 { position: absolute; margin: 3vh 5rpx 1vh; display: flex; width: 305rpx; height: 280rpx; }
-.down-wear2 { position:absolute; top: 20vh; right: 0; display: flex;width: 310rpx; height: 280rpx; }
+.outer-wear2 {  position: absolute; margin: 50% 48% 1vh; display: flex; width: 44%; }
+.upper-wear2 { position: absolute; margin: 10% 5% 1vh; display: flex; width: 44%; }
+.down-wear2 { position:absolute; top: 50%; left: 5%; display: flex; width: 44%; }
   
 /* backGroup */
 .backGroup{ width: 98%; height: 98%; text-align:left; border-radius: 15rpx; overflow:hidden; 
@@ -106,22 +107,15 @@
   background-color:rgb(255, 217, 224);
   box-shadow:2px 2px 2px #aaaaaa;text-align: left; font-size: 28rpx; }
 
-  .tips {
-    position: sticky;
-    margin: 30rpx;
-    text-align: center;
-    text-overflow: ellipsis;
-    word-wrap: break-all;
-  }
+.tips {  position: sticky;  margin: 30rpx;  text-align: center;  text-overflow: ellipsis;  word-wrap: break-all; }
+.comment { bottom: 30rpx; right: 60rpx; width: 50%; position: absolute; display: flex; flex-direction: row; line-height: 50rpx;}
 
   /*工具栏*/
   .tools {
     position: absolute;
-    top: 43%;
-    right: 20rpx;
-    width: 54rpx;
-    height: 18vh;
-    padding: 25rpx 0 0 8rpx;
+    top: 43%;  right: 20rpx;
+    width: 54rpx;  height: max-content;
+    padding: 25rpx 0 25rpx 8rpx;
     border-radius: 30rpx;
     background: #8865c9;
     opacity: 0.5;

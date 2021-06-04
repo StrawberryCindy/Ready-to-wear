@@ -27,12 +27,12 @@
   z-index: 2;
   display: flex;
   flex-direction: row;
-  right: 95rpx;
+  right: 105rpx;
   margin-top: 25rpx;
   line-height: 60rpx;
 }
 .tri{
-  border-width: 28rpx;
+  border-width: 30rpx;
   border-style: solid;
   border-color: transparent transparent transparent rgb(90, 90, 90, 0.76);
 }

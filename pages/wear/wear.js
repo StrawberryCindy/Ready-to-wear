@@ -21,7 +21,7 @@ Page({
         label: '出游场景',
         tips: '天气有点凉，推荐穿暖色\n调的衣服哦，办公场合推荐采用\n不太会出错的相近色搭配\n原则呢！\n ❤'
       }
-    ],
+    ]
   },
   
   localCity: null,    // 本地城市
@@ -52,6 +52,7 @@ Page({
     })
   },
   canGetData(weather, openid) {
+    weather = 5
     var that = this
     wx.showLoading({
       title: '正在生成穿搭...',
@@ -262,11 +263,11 @@ Page({
             weatherInfo: weatherArray[0]
           });
         } else {
-          wx.showModal({ title: '查询失败', showCancel: false });
+          wx.showToast({  title: '查询天气失败',  icon: 'error' })
         }
       },
       fail: () => {
-        wx.showModal({ title: '网络超时', content: '当前网络不可用,请检查网络设置！', showCancel: false });
+        wx.showToast({  title: '网络连接超时',  icon: 'error' })
       },
       complete() {
         wx.hideLoading()
@@ -296,7 +297,7 @@ Page({
       },
       fail: () => {
         wx.hideToast();
-        wx.showModal({ title: '网络超时', content: '连接服务器失败,请检查网络设置！', showCancel: false });
+        wx.showToast({  title: '网络连接超时',  icon: 'error' })
       },
       complete() {
         wx.hideLoading()
@@ -346,6 +347,7 @@ Page({
     weatherArray.push(weatherInfo)
     return weatherArray;
   },
+
   // 获取用户信息
   getUserProfile() {
     var that = this
@@ -394,7 +396,7 @@ Page({
                   console.log(err);
                   wx.showToast({
                     title: '登录失败',
-                    icon: 'fail',
+                    icon: 'error',
                     duration: 1500
                   })
                 } 
@@ -403,7 +405,7 @@ Page({
               console.log('登录失败！' + res.errMsg) 
               wx.showToast({
                 title: '登录失败',
-                icon: 'fail',
+                icon: 'error',
                 duration: 1500
               })
             }
@@ -425,6 +427,30 @@ Page({
         this.getLocalCityWeather();
       }
     }
+  },
+
+  // 打分评价
+  getScore (e) { 
+    console.log("被评价的object：", e.detail.rateObj, "评分：", e.detail.value);
+    wx.request({
+      url: 'http://1.117.161.67:8081/comment',
+      method: 'POST',
+      data: {
+        weather: this.data.weatherInfo.today.day_air_temperature,
+        label: e.detail.rateObj,
+        score: e.detail.value
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success () {
+        wx.showToast({
+          title: '打分成功',
+          icon: 'none',
+          duration: 1000
+        })
+      },
+    })
   },
   /**
    * 生命周期函数--监听页面加载

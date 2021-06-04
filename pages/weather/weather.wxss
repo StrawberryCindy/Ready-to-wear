@@ -194,7 +194,7 @@
 .weather .suggestion .type {
   font-size: 8pt;
   line-height: 50rpx;
-  color: #e2a1a1;
+  color: #cc9090;
 }
 
 .weather .suggestion .content {
