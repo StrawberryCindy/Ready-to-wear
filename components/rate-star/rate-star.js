@@ -7,6 +7,14 @@ Component({
 		rateObject: {
 			type: [Number, String],
 			default: 0
+		}, 
+		grayScore: {
+			type: Number,
+			default: 5
+		},
+		redScore: {
+			type: Number,
+			default: 0
 		}
 	},
 
@@ -14,9 +22,6 @@ Component({
 	 * 组件的初始数据
 	 */
 	data: {
-		grayScore: 5,
-		redScore: 0,
-		disabled: false
 	},
 
 	/**
@@ -41,8 +46,7 @@ Component({
 			
 			this.setData({
 				redScore: m_redScore,
-				grayScore: m_grayScore,
-				disabled: true
+				grayScore: m_grayScore
 			})
 			
 			// 选中的项目
@@ -58,6 +62,6 @@ Component({
 				value: this.data.redScore,
 				rateObj: this.properties.rateObject
 			})
-		},
+		}
 	}
 })

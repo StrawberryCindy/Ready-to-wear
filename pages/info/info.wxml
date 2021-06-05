@@ -1,0 +1,7 @@
+<!--pages/info/info.wxml-->
+<view style="width:100%">
+  <image src="/images/direct.jpg" style="width:100%;" mode="widthFix"></image>
+  <view class="bottom" wx:if="{{!in}}">
+    <button style="width:70%;" bindtap="goto">开启你的搭配之旅吧~</button>
+  </view>
+</view>

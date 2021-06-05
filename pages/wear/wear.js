@@ -21,7 +21,9 @@ Page({
         label: '出游场景',
         tips: '天气有点凉，推荐穿暖色\n调的衣服哦，办公场合推荐采用\n不太会出错的相近色搭配\n原则呢！\n ❤'
       }
-    ]
+    ],
+    disabled: [0, 0, 0],
+    score:[0,0,0]
   },
   
   localCity: null,    // 本地城市
@@ -44,7 +46,7 @@ Page({
           content: '要先登录才可使用个性化功能哦~',
           success (res) {
             if (res.confirm) {
-              that.getUserProfile()
+              that.getUserProfile(weather)
             }
           }
         })
@@ -52,7 +54,6 @@ Page({
     })
   },
   canGetData(weather, openid) {
-    weather = 5
     var that = this
     wx.showLoading({
       title: '正在生成穿搭...',
@@ -349,16 +350,11 @@ Page({
   },
 
   // 获取用户信息
-  getUserProfile() {
+  getUserProfile(weather) {
     var that = this
     wx.getUserProfile({
       desc: '展示用户信息',
       success: (user) => {
-        console.log(user)
-        wx.setStorage ({
-          key: 'userInfo',
-          data: user.userInfo
-        }) 
         // 登录
         wx.login({
           success: res => {
@@ -383,15 +379,19 @@ Page({
                     icon: 'success',
                     duration: 1500
                   })
+                  // 保存用户信息
+                  console.log(user)
+                  wx.setStorage ({
+                    key: 'userInfo',
+                    data: user.userInfo
+                  }) 
                   wx.setStorage({
                     key: 'openid',
                     data: res.data
                   })
-                  that.canGetData()
+                  that.canGetData(weather, res.data)
                 },
-                complete(){
-                  console.log(that.globalData.userInfo)
-                },
+                complete(){},
                 fail (err) {
                   console.log(err);
                   wx.showToast({
@@ -417,8 +417,12 @@ Page({
 
   // 刷新
   refresh() {
-    var weather = this.data.weatherInfo.today.day_air_temperature
-    if ( weather ) {
+    this.setData({
+      disabled: [0,0,0],
+      score: [0,0,0]
+    })
+    if (this.data.weatherInfo.today) {
+      var weather = this.data.weatherInfo.today.day_air_temperature
       this.getData(weather) 
     } else {
       if (this.currentCity) {
@@ -430,8 +434,13 @@ Page({
   },
 
   // 打分评价
-  getScore (e) { 
+  getScore (e) {
+    var that = this;
     console.log("被评价的object：", e.detail.rateObj, "评分：", e.detail.value);
+    var score_str = 'score[' + (e.currentTarget.dataset.id - 1) + ']';
+    this.setData({
+      [score_str]: e.detail.value
+    })
     wx.request({
       url: 'http://1.117.161.67:8081/comment',
       method: 'POST',
@@ -447,9 +456,20 @@ Page({
         wx.showToast({
           title: '打分成功',
           icon: 'none',
-          duration: 1000
+          duration: 1500
+        })
+        var str = 'disabled['+ (e.currentTarget.dataset.id - 1) + ']';
+        that.setData({
+          [str]: 1
         })
       },
+    })
+  },
+
+  // 进入新手指导
+  showInfo () {
+    wx.navigateTo({
+      url: '/pages/info/info?in='+ 1
     })
   },
   /**

@@ -44,7 +44,7 @@
       </view>
       <view class="tri"></view>
     </view>
-    <view class="thi-info" bindtap="touch"><image src="/icons/info.png" style="width:100%;" mode="widthFix"></image></view>
+    <view class="thi-info" bindtap="touch"><image src="/icons/info.png" style="width:50rpx;height:50rpx;" mode="widthFix"></image></view>
   </view>
 
   <view class="block">

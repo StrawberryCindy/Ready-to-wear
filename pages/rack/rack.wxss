@@ -15,7 +15,7 @@ page{
 }
 
 /* 选择不同分类标准 */
-.choose-type { display: flex; flex-direction: row; line-height: 54rpx; font-size: 27rpx; background:#f5eaf8; text-align: center; padding: 4rpx 10% 0 10%;}
+.choose-type { display: flex; flex-direction: row; line-height: 54rpx; font-size: 27rpx; background:#f5eaf8; text-align: center; padding: 4rpx 10% 0 10%; color: rgb(163, 94, 180);}
 .type-active { background: white; border-top-left-radius: 20rpx; border-top-right-radius: 20rpx; width: 50%;}
 .type-default {  width: 50%; }
 

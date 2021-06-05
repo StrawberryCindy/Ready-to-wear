@@ -1,5 +1,6 @@
 {
   "usingComponents": {
     "rate-star": "/components/rate-star/rate-star"
-  }
+  },
+  "navigationBarTitleText": "穿搭页"
 }

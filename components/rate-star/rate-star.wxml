@@ -1,5 +1,5 @@
 <!--components/rate-star/rate-star.wxml-->
-<view class="wrapper" style="pointer-events:{{disabled ? 'none' : 'auto'}}">
+<view class="wrapper">
 	<block 
 		wx:for="{{redScore}}" 
 		wx:for-item="item" 

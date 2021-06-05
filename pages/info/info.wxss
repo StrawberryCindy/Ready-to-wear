@@ -1,0 +1,4 @@
+/* pages/info/info.wxss */
+.bottom {
+  padding: 40rpx;
+}

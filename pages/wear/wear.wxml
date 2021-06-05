@@ -104,9 +104,10 @@
                       <text>\nTIPS \n  {{item.tips}}</text>
                     </view>
                     <view class="comment" 
+                      style="pointer-events: {{disabled[item.id-1] ? 'none' : 'auto'}}"
                       wx:if="{{item.wholeType!==0 && item.wholeType!== 5}}" >
                       评价：
-                      <rate-star class="stars" rateObject="{{item.label}}" bind:change="getScore" >
+                      <rate-star class="stars" rateObject="{{item.label}}" data-id="{{item.id}}" bind:change="getScore" grayScore="{{ 5-score[item.id-1]}}" redScore="{{score[item.id-1]}}">
                       </rate-star>
                     </view>
                   </view>   

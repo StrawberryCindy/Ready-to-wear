@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/info/info",
+    "pages/index/index",
     "pages/wear/wear",
     "pages/rack/rack",
-    "pages/index/index",
     "pages/add/add",
     "pages/weather/weather",
     "pages/bodyColor/bodyColor",
